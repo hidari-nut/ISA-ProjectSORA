@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SORA_Project", "SORA_Project\SORA_Project.csproj", "{34DA5F20-CCF0-4034-BCAC-AA5A45FA081A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SORA_Project", "SORA_Project\SORA_Project.csproj", "{34DA5F20-CCF0-4034-BCAC-AA5A45FA081A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SORA_Class", "SORA_Class\SORA_Class.csproj", "{502D7674-C542-471B-A3A7-E23881CBE79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{34DA5F20-CCF0-4034-BCAC-AA5A45FA081A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34DA5F20-CCF0-4034-BCAC-AA5A45FA081A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34DA5F20-CCF0-4034-BCAC-AA5A45FA081A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502D7674-C542-471B-A3A7-E23881CBE79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502D7674-C542-471B-A3A7-E23881CBE79A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502D7674-C542-471B-A3A7-E23881CBE79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502D7674-C542-471B-A3A7-E23881CBE79A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
