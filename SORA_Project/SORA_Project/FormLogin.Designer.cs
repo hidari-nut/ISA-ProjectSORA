@@ -63,7 +63,7 @@
             // 
             this.textBoxUsername.Location = new System.Drawing.Point(24, 133);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.PlaceholderText = "Username or E-mail";
+            this.textBoxUsername.PlaceholderText = "E-mail";
             this.textBoxUsername.Size = new System.Drawing.Size(273, 23);
             this.textBoxUsername.TabIndex = 2;
             // 
@@ -78,7 +78,7 @@
             // 
             // buttonLogIn
             // 
-            this.buttonLogIn.BackColor = System.Drawing.Color.Transparent;
+            this.buttonLogIn.BackColor = System.Drawing.Color.White;
             this.buttonLogIn.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonE;
             this.buttonLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonLogIn.FlatAppearance.BorderSize = 0;
@@ -104,12 +104,13 @@
             // 
             // buttonSignUp
             // 
-            this.buttonSignUp.BackColor = System.Drawing.Color.Transparent;
+            this.buttonSignUp.BackColor = System.Drawing.Color.White;
             this.buttonSignUp.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonF;
             this.buttonSignUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonSignUp.FlatAppearance.BorderSize = 0;
             this.buttonSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSignUp.Font = new System.Drawing.Font("Bauhaus Md BT", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonSignUp.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSignUp.Location = new System.Drawing.Point(120, 277);
             this.buttonSignUp.Name = "buttonSignUp";
             this.buttonSignUp.Size = new System.Drawing.Size(75, 23);
