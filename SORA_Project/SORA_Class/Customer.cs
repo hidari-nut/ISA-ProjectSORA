@@ -64,7 +64,7 @@ namespace SORA_Class
 
      
 
-        public static bool TambahCustomer(Customer customer)
+        public static bool AddCustomer(Customer customer)
         {
             string sql = "INSERT INTO 'customer' ('id', 'first_name', 'last_name', 'email', 'phone_number', 'dob', 'pin', 'password', 'saldo') VALUES ('" +
                 customer.Id + "','" + customer.FirstName + "','" + customer.LastName + "','" + customer.Email + "','" + customer.PhoneNumber + "','" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + customer.Pin + "','" + customer.Password + "'," + customer.Balance + ");";
@@ -80,8 +80,8 @@ namespace SORA_Class
 
         public static bool UpdateCustomer(Customer customer)
         {
-            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email +"', 'phone_number' = '" + customer.PhoneNumber + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'customer' = '" + customer.Pin
-                + "', 'password' = '" +customer.Password + "', 'saldo' = "+ customer.Balance; 
+            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email +"', 'phone_number' = '" + customer.PhoneNumber + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
+                + "', 'password' = '" +customer.Password + "', 'saldo' = "+ customer.Balance +";"; 
                 
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -93,7 +93,7 @@ namespace SORA_Class
             }
         }
 
-        public static bool HapusData(string id)
+        public static bool DeleteCustomer(string id)
         {
             string sql = "DELETE FROM customer WHERE id = '" + id + "';";
 
