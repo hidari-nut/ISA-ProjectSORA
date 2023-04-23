@@ -21,8 +21,8 @@ namespace SORA_Class
 
         private string pin;
         private string password;
-        private string pin_salt;
-        private string password_salt;
+        //private string pin_salt;
+        //private string password_salt;
 
         public string Id { get => id; set => id = value; }
         public string FirstName { get => firstName; set => firstName = value; }
