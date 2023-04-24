@@ -18,7 +18,8 @@ namespace SORA_Class
         private string phoneNumber;
         private DateTime dateOfBirth;
         private decimal balance;
-        private bool banned;
+        private int banned;
+
 
         private string pin;
         private string password;
@@ -32,14 +33,14 @@ namespace SORA_Class
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public decimal Balance { get => balance; set => balance = value; }
-        public bool Banned { get => banned; set => banned = value; }
+        public int Banned { get => banned; set => banned = value; }
         public string Pin { get => pin; set => pin = value; }
         public string Password { get => password; set => password = value; }
         public string Pin_salt { get => pin_salt; set => pin_salt = value; }
         public string Password_salt { get => password_salt; set => password_salt = value; }
 
         public Customer(string id, string firstName, string lastName, string email, string phoneNumber, 
-            DateTime dateOfBirth, decimal balance, bool banned, string pin, string password, 
+            DateTime dateOfBirth, decimal balance, int banned, string pin, string password, 
             string pin_salt = "", string password_salt = "")
         {
             Id = id;
@@ -65,7 +66,7 @@ namespace SORA_Class
             PhoneNumber = "";
             DateOfBirth = DateTime.Now;
             Balance = 0;
-            Banned = false;
+            Banned = 0;
         }
 
         public static (string, string) SaltAndHashPassword(string plainPassword)
@@ -116,7 +117,7 @@ namespace SORA_Class
 
         public static bool Update(Customer customer)
         {
-            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName 
+            string sql = "UPDATE 'tCustomers' SET'first_name' = '" + customer.FirstName 
                 + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email 
                 +"', 'phone_number' = '" + customer.PhoneNumber 
                 + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
@@ -134,7 +135,7 @@ namespace SORA_Class
 
         public static bool Delete(string id)
         {
-            string sql = "DELETE FROM customer WHERE id = '" + id + "';";
+            string sql = "DELETE FROM tCustomers WHERE id = '" + id + "';";
 
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -154,7 +155,7 @@ namespace SORA_Class
             }
             else
             {
-                string sql = "SELECT * FROM customer " + "WHERE email = '" + email + "';";
+                string sql = "SELECT * FROM tCustomers " + "WHERE email = '" + email + "';";
 
                 MySqlDataReader result = Connection.RunQueryCommand(sql);
 
@@ -169,9 +170,13 @@ namespace SORA_Class
                     login.PhoneNumber = result.GetValue(4).ToString();
                     login.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
                     login.Balance = int.Parse(result.GetValue(10).ToString());
+                    login.Banned = int.Parse(result.GetValue(11).ToString());
                 }
 
-                return login;
+                if(login.Banned == 1)
+                    return null;
+                else
+                    return login;
             }
         }
 
@@ -254,8 +259,19 @@ namespace SORA_Class
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Password = result.GetValue(8).ToString();
                 customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
+
             }
             return listCustomer;
+        }
+
+        public static void UpdateLastLogin(string customerId)
+        {
+            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = '" + customerId + "';";
+        }
+
+        public static void BanUpdate(string customerId)
+        {
+            string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
     }
 }
