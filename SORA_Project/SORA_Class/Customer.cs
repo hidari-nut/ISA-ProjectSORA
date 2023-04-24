@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
+using System.Web.Helpers;
 
 namespace SORA_Class
 {
-    internal class Customer
+    public class Customer
     {
         private string id;
         private string firstName;
@@ -21,8 +22,8 @@ namespace SORA_Class
 
         private string pin;
         private string password;
-        //private string pin_salt;
-        //private string password_salt;
+        private string pin_salt;
+        private string password_salt;
 
         public string Id { get => id; set => id = value; }
         public string FirstName { get => firstName; set => firstName = value; }
@@ -34,9 +35,12 @@ namespace SORA_Class
         public bool Banned { get => banned; set => banned = value; }
         public string Pin { get => pin; set => pin = value; }
         public string Password { get => password; set => password = value; }
+        public string Pin_salt { get => pin_salt; set => pin_salt = value; }
+        public string Password_salt { get => password_salt; set => password_salt = value; }
 
         public Customer(string id, string firstName, string lastName, string email, string phoneNumber, 
-            DateTime dateOfBirth, decimal balance, bool banned, string pin, string password)
+            DateTime dateOfBirth, decimal balance, bool banned, string pin, string password, 
+            string pin_salt = "", string password_salt = "")
         {
             Id = id;
             FirstName = firstName;
@@ -48,6 +52,8 @@ namespace SORA_Class
             Banned = banned;
             Pin = pin;
             Password = password;
+            Pin_salt = pin_salt;
+            Password_salt = password_salt;
         }
 
         public Customer()
@@ -62,12 +68,41 @@ namespace SORA_Class
             Banned = false;
         }
 
-     
-
-        public static bool AddCustomer(Customer customer)
+        public static (string, string) SaltAndHashPassword(string plainPassword)
         {
-            string sql = "INSERT INTO 'customer' ('id', 'first_name', 'last_name', 'email', 'phone_number', 'dob', 'pin', 'password', 'saldo') VALUES ('" +
-                customer.Id + "','" + customer.FirstName + "','" + customer.LastName + "','" + customer.Email + "','" + customer.PhoneNumber + "','" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + customer.Pin + "','" + customer.Password + "'," + customer.Balance + ");";
+            string salt = Crypto.GenerateSalt(16);
+            string saltedPassword = salt + plainPassword;
+
+            string hashedPassword = Crypto.HashPassword(saltedPassword);
+            return (hashedPassword, salt);
+        }
+
+        public static string HashPassword(string plainPassword, string salt) 
+        {
+            string saltedPassword = salt + plainPassword;
+            string hashedPassword = Crypto.HashPassword(saltedPassword);
+            return hashedPassword;
+        }
+
+        public static bool Add(Customer customer)
+        {
+            //Salt and Hash Password
+            (string, string) hashedAndSaltPassword = Customer.SaltAndHashPassword(customer.Password);
+            customer.Password = hashedAndSaltPassword.Item1;
+            customer.Password_salt = hashedAndSaltPassword.Item2;
+
+            //Salt and Hash PIN
+            (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
+            customer.Pin = hashedAndSaltPIN.Item1;
+            customer.Pin_salt = hashedAndSaltPIN.Item2;
+
+
+            string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
+                "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
+                customer.Id + "','" + customer.FirstName + "','" + customer.LastName + "','" + customer.Email + 
+                "','" + customer.PhoneNumber + "','" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + 
+                customer.Pin + "','" + customer.Password + "'," + customer.Balance + ", '"+ customer.Pin_salt
+                + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
             if (Connection.RunDMLCommand(sql) > 0)
             {
                 return true;
@@ -78,9 +113,12 @@ namespace SORA_Class
             }
         }
 
-        public static bool UpdateCustomer(Customer customer)
+        public static bool Update(Customer customer)
         {
-            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email +"', 'phone_number' = '" + customer.PhoneNumber + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
+            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName 
+                + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email 
+                +"', 'phone_number' = '" + customer.PhoneNumber 
+                + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
                 + "', 'password' = '" +customer.Password + "', 'saldo' = "+ customer.Balance +";"; 
                 
             if (Connection.RunDMLCommand(sql) > 0)
@@ -93,7 +131,7 @@ namespace SORA_Class
             }
         }
 
-        public static bool DeleteCustomer(string id)
+        public static bool Delete(string id)
         {
             string sql = "DELETE FROM customer WHERE id = '" + id + "';";
 
@@ -131,17 +169,23 @@ namespace SORA_Class
 
         public static bool CheckPassword(string email, string password) 
         {
-            string sql = "SELECT email FROM customer " + "WHERE customer.password = '" + password + "' AND customer.email = '" + email + "';";
+            string sql = "SELECT password, password_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
+            string userPassword = "";
+            string userPasswordSalt = "";
 
-            if (result.Read() == true)
+            while (result.Read() == true)
             {
-                userEmail = result.GetString("email");
+                userPassword = result.GetString("password");
+                userPasswordSalt = result.GetString("password_salt");
             }
 
-            if(userEmail != null && userEmail != "")
+            string saltedInputPassword = userPasswordSalt + password;
+
+
+            if(Crypto.VerifyHashedPassword(userPassword, saltedInputPassword) == true)
             {
                 return true;
             }
@@ -151,19 +195,24 @@ namespace SORA_Class
             }
         }
 
-        public static bool CheckPin(string email, string password) 
+        public static bool CheckPin(string email, string pin) 
         {
-            string sql = "SELECT email FROM customer " + "WHERE customer.password = '" + password + "' AND customer.email = '" + email + "';";
+            string sql = "SELECT pin, pin_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
+            string userPIN = "";
+            string userPINsalt = "";
 
-            if (result.Read() == true)
+            while (result.Read() == true)
             {
-                userEmail = result.GetString("email");
+                userPIN = result.GetString("pin");
+                userPINsalt = result.GetString("pin_salt");
             }
 
-            if (userEmail != null && userEmail != "")
+            string saltedInputPIN = userPINsalt + pin;
+
+            if (Crypto.VerifyHashedPassword(userPIN, saltedInputPIN) == true)
             {
                 return true;
             }

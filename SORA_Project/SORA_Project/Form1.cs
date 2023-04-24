@@ -1,3 +1,5 @@
+using SORA_Class;
+
 namespace SORA_Project
 {
     public partial class Form1 : Form
@@ -9,7 +11,7 @@ namespace SORA_Project
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SORA_Class
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             ConfigurationSectionGroup userSettings = config.SectionGroups["userSettings"];
-            var settingSection = userSettings.Sections["Program_UAS.Database"] as ClientSettingsSection;
+            var settingSection = userSettings.Sections["SORA_Project.DBSettings"] as ClientSettingsSection;
 
             string dbServer = settingSection.Settings.Get("DbServer").Value.ValueXml.InnerText;
             string dbName = settingSection.Settings.Get("DbName").Value.ValueXml.InnerText;
