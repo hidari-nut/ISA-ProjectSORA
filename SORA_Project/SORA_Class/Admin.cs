@@ -93,22 +93,30 @@ namespace SORA_Class
 
         public static Admin CheckLogin(string email, string password)
         {
-            string sql = "SELECT * FROM tAdmins " + "WHERE password = '" + password + "' AND email = '" + email + "';";
-
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
-
-            Admin login = new Admin();
-
-            if (result.Read() == true)
+            if (CheckPassword(email, password) == false)
             {
-                login.Id = result.GetValue(0).ToString();
-                login.FirstName = result.GetValue(1).ToString();
-                login.LastName = result.GetValue(2).ToString();
-                login.Email = result.GetValue(3).ToString();
-                login.DateOfBirth = DateTime.Parse(result.GetValue(7).ToString());
+                return null;
             }
+            else
+            {
+                string sql = "SELECT * FROM tAdmins " + "WHERE password = '" + password + "' AND email = '" + email + "';";
 
-            return login;
+                MySqlDataReader result = Connection.RunQueryCommand(sql);
+
+                Admin login = new Admin();
+
+                if (result.Read() == true)
+                {
+                    login.Id = result.GetValue(0).ToString();
+                    login.FirstName = result.GetValue(1).ToString();
+                    login.LastName = result.GetValue(2).ToString();
+                    login.Email = result.GetValue(3).ToString();
+                    login.DateOfBirth = DateTime.Parse(result.GetValue(7).ToString());
+                }
+
+                return login;
+            }
+            
         }
 
         public static bool CheckPassword(string email, string password)
@@ -133,26 +141,35 @@ namespace SORA_Class
             }
         }
 
-        public static bool CheckPin(string email, string password)
+        public static List<Admin> ReadData(string email)
         {
-            string sql = "SELECT email FROM tAdmins " + "WHERE tAdmins.password = '" + password + "' AND tAdmins.email = '" + email + "';";
+            string sql = "SELECT * from tAdmins";
+
+            if (email != "")
+            {
+                sql += " WHERE email = " + email + ";";
+            }
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
-            string userEmail = "";
+            List<Admin> listAdmin = new List<Admin>();
 
-            if (result.Read() == true)
+            while (result.Read() == true)
             {
-                userEmail = result.GetString("email");
-            }
+                Customer customerLogin = new Customer();
+                customerLogin.Id = result.GetValue(0).ToString();
+                customerLogin.FirstName = result.GetValue(1).ToString();
+                customerLogin.LastName = result.GetValue(2).ToString();
+                customerLogin.Email = result.GetValue(3).ToString();
+                customerLogin.PhoneNumber = result.GetValue(6).ToString();
+                customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(7).ToString());
 
-            if (userEmail != null && userEmail != "")
-            {
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return listAdmin;
+        }
+
+        public static void UpdateLastLogin(string customerId)
+        {
+            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = '" + customerId + "';";
         }
 
     }
