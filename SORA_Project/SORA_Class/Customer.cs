@@ -113,6 +113,7 @@ namespace SORA_Class
             }
         }
 
+
         public static bool Update(Customer customer)
         {
             string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName 
@@ -145,26 +146,33 @@ namespace SORA_Class
             }
         }
 
-        public static Customer CheckLogin(string email, string password)
+        public static Customer CheckLogin(string email,string password)
         {
-            string sql = "SELECT * FROM customer " + "WHERE password = '" + password + "' AND email = '" + email + "';";
-
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
-
-            Customer login = new Customer();
-
-            if (result.Read() == true) 
+            if (CheckPassword(email, password) == false)
             {
-                login.Id = result.GetValue(0).ToString();
-                login.FirstName = result.GetValue(1).ToString();
-                login.LastName = result.GetValue(2).ToString();
-                login.Email = result.GetValue(3).ToString();
-                login.PhoneNumber = result.GetValue(4).ToString();
-                login.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
-                login.Balance = int.Parse(result.GetValue(10).ToString());
+                return null;
             }
+            else
+            {
+                string sql = "SELECT * FROM customer " + "WHERE email = '" + email + "';";
 
-            return login;
+                MySqlDataReader result = Connection.RunQueryCommand(sql);
+
+                Customer login = new Customer();
+
+                if (result.Read() == true)
+                {
+                    login.Id = result.GetValue(0).ToString();
+                    login.FirstName = result.GetValue(1).ToString();
+                    login.LastName = result.GetValue(2).ToString();
+                    login.Email = result.GetValue(3).ToString();
+                    login.PhoneNumber = result.GetValue(4).ToString();
+                    login.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+                    login.Balance = int.Parse(result.GetValue(10).ToString());
+                }
+
+                return login;
+            }
         }
 
         public static bool CheckPassword(string email, string password) 
@@ -220,6 +228,34 @@ namespace SORA_Class
             {
                 return false;
             }
+        }
+
+        public static List<Customer> ReadData(string email) 
+        {
+            string sql = "SELECT * from tCustomers";
+
+            if(email != "")
+            {
+                sql += " WHERE email = " + email + ";"; 
+            }
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            List<Customer> listCustomer = new List<Customer>();
+
+            while (result.Read() == true)
+            {
+                Customer customerLogin = new Customer();
+                customerLogin.Id = result.GetValue(0).ToString();
+                customerLogin.FirstName = result.GetValue(1).ToString();
+                customerLogin.LastName = result.GetValue(2).ToString();
+                customerLogin.Email = result.GetValue(3).ToString();
+                customerLogin.PhoneNumber = result.GetValue(4).ToString();
+                customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+                customerLogin.Pin = result.GetValue(6).ToString();
+                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
+            }
+            return listCustomer;
         }
     }
 }
