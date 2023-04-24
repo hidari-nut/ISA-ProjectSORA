@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SORA_Class\SORA_Class.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DBSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DBSettings.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -21,6 +30,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DBSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DBSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
