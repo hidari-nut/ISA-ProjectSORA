@@ -50,7 +50,7 @@ namespace SORA_Class
 
         public static bool AddAdmin(Admin admin)
         {
-            string sql = "INSERT INTO 'admin' ('id', 'first_name', 'last_name', 'email', 'dob', 'password') VALUES ('" +
+            string sql = "INSERT INTO 'tAdmins' ('id', 'first_name', 'last_name', 'email', 'dob', 'password') VALUES ('" +
                 admin.Id + "','" + admin.FirstName + "','" + admin.LastName + "','" + admin.Email + "','" + admin.PhoneNumber + "','" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + admin.Password + "');";
 
             if (Connection.RunDMLCommand(sql) > 0)
@@ -65,7 +65,7 @@ namespace SORA_Class
 
         public static bool UpdateAdmin(Admin admin)
         {
-            string sql = "UPDATE 'admin' SET'first_name' = '" + admin.FirstName + "', 'last_name' = '" + admin.LastName + "', 'email' = '" + admin.Email + "', 'phone_number' = '" + admin.PhoneNumber + "', 'dob' = '" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "',"
+            string sql = "UPDATE 'tAdmins' SET'first_name' = '" + admin.FirstName + "', 'last_name' = '" + admin.LastName + "', 'email' = '" + admin.Email + "', 'phone_number' = '" + admin.PhoneNumber + "', 'dob' = '" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "',"
                 + "', 'password' = '" + admin.Password + "';" ;
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -79,7 +79,7 @@ namespace SORA_Class
 
         public static bool DeleteAdmin(string id)
         {
-            string sql = "DELETE FROM admin WHERE id = '" + id + "';";
+            string sql = "DELETE FROM tAdmins WHERE id = '" + id + "';";
 
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -93,7 +93,7 @@ namespace SORA_Class
 
         public static Admin CheckLogin(string email, string password)
         {
-            string sql = "SELECT * FROM admin " + "WHERE password = '" + password + "' AND email = '" + email + "';";
+            string sql = "SELECT * FROM tAdmins " + "WHERE password = '" + password + "' AND email = '" + email + "';";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
 
@@ -113,7 +113,7 @@ namespace SORA_Class
 
         public static bool CheckPassword(string email, string password)
         {
-            string sql = "SELECT email FROM admin " + "WHERE admin.password = '" + password + "' AND admin.email = '" + email + "';";
+            string sql = "SELECT email FROM tAdmins " + "WHERE tAdmins.password = '" + password + "' AND tAdmins.email = '" + email + "';";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
@@ -135,7 +135,7 @@ namespace SORA_Class
 
         public static bool CheckPin(string email, string password)
         {
-            string sql = "SELECT email FROM admin " + "WHERE admin.password = '" + password + "' AND admin.email = '" + email + "';";
+            string sql = "SELECT email FROM tAdmins " + "WHERE tAdmins.password = '" + password + "' AND tAdmins.email = '" + email + "';";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
