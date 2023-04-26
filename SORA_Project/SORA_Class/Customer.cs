@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using System.Web.Helpers;
+using System.Security.Cryptography;
 
 namespace SORA_Class
 {
@@ -18,7 +19,8 @@ namespace SORA_Class
         private string phoneNumber;
         private DateTime dateOfBirth;
         private decimal balance;
-        private bool banned;
+        private int banned;
+
 
         private string pin;
         private string password;
@@ -32,14 +34,14 @@ namespace SORA_Class
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public decimal Balance { get => balance; set => balance = value; }
-        public bool Banned { get => banned; set => banned = value; }
+        public int Banned { get => banned; set => banned = value; }
         public string Pin { get => pin; set => pin = value; }
         public string Password { get => password; set => password = value; }
         public string Pin_salt { get => pin_salt; set => pin_salt = value; }
         public string Password_salt { get => password_salt; set => password_salt = value; }
 
         public Customer(string id, string firstName, string lastName, string email, string phoneNumber, 
-            DateTime dateOfBirth, decimal balance, bool banned, string pin, string password, 
+            DateTime dateOfBirth, decimal balance, int banned, string pin, string password, 
             string pin_salt = "", string password_salt = "")
         {
             Id = id;
@@ -65,9 +67,14 @@ namespace SORA_Class
             PhoneNumber = "";
             DateOfBirth = DateTime.Now;
             Balance = 0;
-            Banned = false;
+            Banned = 0;
         }
 
+        /// <summary>
+        /// Generates a salt, salts the password, and hashes the salted password
+        /// </summary>
+        /// <param name="plainPassword">Plaintext password</param>
+        /// <returns>A tuple (hashedSaltedPassword, salt)</returns>
         public static (string, string) SaltAndHashPassword(string plainPassword)
         {
             string salt = Crypto.GenerateSalt(16);
@@ -77,7 +84,13 @@ namespace SORA_Class
             return (hashedPassword, salt);
         }
 
-        public static string HashPassword(string plainPassword, string salt) 
+        /// <summary>
+        /// Hashes a password based on the salt inputted. Leaving salt empty means hashing the password with no salt.
+        /// </summary>
+        /// <param name="plainPassword">Plaintext password</param>
+        /// <param name="salt">Password salt [Optional]</param>
+        /// <returns>A hashed password (Hashed salted password, if salt is inputted)</returns>
+        public static string HashPassword(string plainPassword, string salt = "") 
         {
             string saltedPassword = salt + plainPassword;
             string hashedPassword = Crypto.HashPassword(saltedPassword);
@@ -91,31 +104,61 @@ namespace SORA_Class
             customer.Password = hashedAndSaltPassword.Item1;
             customer.Password_salt = hashedAndSaltPassword.Item2;
 
-            //Salt and Hash PIN
-            (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
-            customer.Pin = hashedAndSaltPIN.Item1;
-            customer.Pin_salt = hashedAndSaltPIN.Item2;
+            //Encrypt customer's data with AES
+
+            //Creating a new Aes object generates a key and an IV (Initialization Vector)
+            using (Aes myAes = Aes.Create())
+            {
+
+                //e means encrypted
+                // Encrypt the string to an array of bytes.
+                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, myAes.Key, myAes.IV);
+                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, myAes.Key, myAes.IV);
+                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, myAes.Key, myAes.IV);
+                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), myAes.Key, myAes.IV);
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), myAes.Key, myAes.IV);
 
 
-            string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
-                "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
-                customer.Id + "','" + customer.FirstName + "','" + customer.LastName + "','" + customer.Email + 
-                "','" + customer.PhoneNumber + "','" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + 
-                customer.Pin + "','" + customer.Password + "'," + customer.Balance + ", '"+ customer.Pin_salt
-                + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
-            if (Connection.RunDMLCommand(sql) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+                //// Decrypt the bytes to a string.
+                //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
+
+                ////Display the original data and the decrypted data.
+                //Console.WriteLine("Original:   {0}", original);
+                //Console.WriteLine("Round Trip: {0}", roundtrip);
+
+
+                //Double hash
+                customer.Password = HashPassword(customer.Password);
+
+                //Salt and Hash PIN
+                (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
+                customer.Pin = hashedAndSaltPIN.Item1;
+                customer.Pin_salt = hashedAndSaltPIN.Item2;
+
+
+
+
+                string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
+                    "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
+                    customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
+                    "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
+                    customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
+                    + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
+                if (Connection.RunDMLCommand(sql) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
+
         public static bool Update(Customer customer)
         {
-            string sql = "UPDATE 'customer' SET'first_name' = '" + customer.FirstName 
+            string sql = "UPDATE 'tCustomers' SET'first_name' = '" + customer.FirstName 
                 + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email 
                 +"', 'phone_number' = '" + customer.PhoneNumber 
                 + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
@@ -133,7 +176,7 @@ namespace SORA_Class
 
         public static bool Delete(string id)
         {
-            string sql = "DELETE FROM customer WHERE id = '" + id + "';";
+            string sql = "DELETE FROM tCustomers WHERE id = '" + id + "';";
 
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -145,26 +188,37 @@ namespace SORA_Class
             }
         }
 
-        public static Customer CheckLogin(string email, string password)
+        public static Customer CheckLogin(string email,string password)
         {
-            string sql = "SELECT * FROM customer " + "WHERE password = '" + password + "' AND email = '" + email + "';";
-
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
-
-            Customer login = new Customer();
-
-            if (result.Read() == true) 
+            if (CheckPassword(email, password) == false)
             {
-                login.Id = result.GetValue(0).ToString();
-                login.FirstName = result.GetValue(1).ToString();
-                login.LastName = result.GetValue(2).ToString();
-                login.Email = result.GetValue(3).ToString();
-                login.PhoneNumber = result.GetValue(4).ToString();
-                login.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
-                login.Balance = int.Parse(result.GetValue(10).ToString());
+                return null;
             }
+            else
+            {
+                string sql = "SELECT * FROM tCustomers " + "WHERE email = '" + email + "';";
 
-            return login;
+                MySqlDataReader result = Connection.RunQueryCommand(sql);
+
+                Customer login = new Customer();
+
+                if (result.Read() == true)
+                {
+                    login.Id = result.GetValue(0).ToString();
+                    login.FirstName = result.GetValue(1).ToString();
+                    login.LastName = result.GetValue(2).ToString();
+                    login.Email = result.GetValue(3).ToString();
+                    login.PhoneNumber = result.GetValue(4).ToString();
+                    login.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+                    login.Balance = int.Parse(result.GetValue(10).ToString());
+                    login.Banned = int.Parse(result.GetValue(11).ToString());
+                }
+
+                if(login.Banned == 1)
+                    return null;
+                else
+                    return login;
+            }
         }
 
         public static bool CheckPassword(string email, string password) 
@@ -220,6 +274,45 @@ namespace SORA_Class
             {
                 return false;
             }
+        }
+
+        public static List<Customer> ReadData(string email) 
+        {
+            string sql = "SELECT * from tCustomers";
+
+            if(email != "")
+            {
+                sql += " WHERE email = " + email + ";"; 
+            }
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            List<Customer> listCustomer = new List<Customer>();
+
+            while (result.Read() == true)
+            {
+                Customer customerLogin = new Customer();
+                customerLogin.Id = result.GetValue(0).ToString();
+                customerLogin.FirstName = result.GetValue(1).ToString();
+                customerLogin.LastName = result.GetValue(2).ToString();
+                customerLogin.Email = result.GetValue(3).ToString();
+                customerLogin.PhoneNumber = result.GetValue(4).ToString();
+                customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+                customerLogin.Pin = result.GetValue(6).ToString();
+                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
+
+            }
+            return listCustomer;
+        }
+
+        public static void UpdateLastLogin(string customerId)
+        {
+            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = '" + customerId + "';";
+        }
+
+        public static void BanUpdate(string customerId)
+        {
+            string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
     }
 }
