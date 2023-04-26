@@ -68,6 +68,11 @@ namespace SORA_Class
             Banned = false;
         }
 
+        /// <summary>
+        /// Generates a salt, salts the password, and hashes the salted password
+        /// </summary>
+        /// <param name="plainPassword">Plaintext password</param>
+        /// <returns>A tuple (hashedSaltedPassword, salt)</returns>
         public static (string, string) SaltAndHashPassword(string plainPassword)
         {
             string salt = Crypto.GenerateSalt(16);
@@ -77,7 +82,13 @@ namespace SORA_Class
             return (hashedPassword, salt);
         }
 
-        public static string HashPassword(string plainPassword, string salt) 
+        /// <summary>
+        /// Hashes a password based on the salt inputted. Leaving salt empty means hashing the password with no salt.
+        /// </summary>
+        /// <param name="plainPassword">Plaintext password</param>
+        /// <param name="salt">Password salt [Optional]</param>
+        /// <returns>A hashed password (Hashed salted password, if salt is inputted)</returns>
+        public static string HashPassword(string plainPassword, string salt = "") 
         {
             string saltedPassword = salt + plainPassword;
             string hashedPassword = Crypto.HashPassword(saltedPassword);
