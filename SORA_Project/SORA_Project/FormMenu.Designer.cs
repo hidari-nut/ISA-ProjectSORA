@@ -28,41 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.pictureBoxWave = new System.Windows.Forms.PictureBox();
-            this.pictureBoxDeskripsi = new System.Windows.Forms.PictureBox();
-            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelUser = new System.Windows.Forms.Label();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.buttonAccount = new System.Windows.Forms.Button();
+            this.buttonTransfer = new System.Windows.Forms.Button();
+            this.buttonMerchant = new System.Windows.Forms.Button();
+            this.buttonHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeskripsi)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem,
-            this.transactionToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_2;
             this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(157, 57);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(179, 13);
+            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(492, 185);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(562, 247);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -71,99 +54,96 @@
             this.pictureBoxWave.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxWave.BackgroundImage = global::SORA_Project.Properties.Resources.wave1;
             this.pictureBoxWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxWave.Location = new System.Drawing.Point(-116, 345);
+            this.pictureBoxWave.Location = new System.Drawing.Point(-133, 460);
+            this.pictureBoxWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBoxWave.Name = "pictureBoxWave";
-            this.pictureBoxWave.Size = new System.Drawing.Size(1084, 117);
+            this.pictureBoxWave.Size = new System.Drawing.Size(1239, 156);
             this.pictureBoxWave.TabIndex = 2;
             this.pictureBoxWave.TabStop = false;
             // 
-            // pictureBoxDeskripsi
+            // buttonAccount
             // 
-            this.pictureBoxDeskripsi.BackgroundImage = global::SORA_Project.Properties.Resources.Desc;
-            this.pictureBoxDeskripsi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxDeskripsi.Location = new System.Drawing.Point(17, 257);
-            this.pictureBoxDeskripsi.Name = "pictureBoxDeskripsi";
-            this.pictureBoxDeskripsi.Size = new System.Drawing.Size(770, 50);
-            this.pictureBoxDeskripsi.TabIndex = 3;
-            this.pictureBoxDeskripsi.TabStop = false;
+            this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonAccount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonAccount.ForeColor = System.Drawing.Color.White;
+            this.buttonAccount.Location = new System.Drawing.Point(38, 324);
+            this.buttonAccount.Name = "buttonAccount";
+            this.buttonAccount.Size = new System.Drawing.Size(174, 75);
+            this.buttonAccount.TabIndex = 4;
+            this.buttonAccount.Text = "Account";
+            this.buttonAccount.UseVisualStyleBackColor = true;
             // 
-            // menuToolStripMenuItem
+            // buttonTransfer
             // 
-            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adminToolStripMenuItem,
-            this.customersToolStripMenuItem});
-            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.menuToolStripMenuItem.Text = "Menu";
+            this.buttonTransfer.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonTransfer.ForeColor = System.Drawing.Color.White;
+            this.buttonTransfer.Location = new System.Drawing.Point(256, 324);
+            this.buttonTransfer.Name = "buttonTransfer";
+            this.buttonTransfer.Size = new System.Drawing.Size(174, 75);
+            this.buttonTransfer.TabIndex = 5;
+            this.buttonTransfer.Text = "Transfer";
+            this.buttonTransfer.UseVisualStyleBackColor = true;
             // 
-            // exitToolStripMenuItem
+            // buttonMerchant
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.buttonMerchant.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonMerchant.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonMerchant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMerchant.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonMerchant.ForeColor = System.Drawing.Color.White;
+            this.buttonMerchant.Location = new System.Drawing.Point(469, 324);
+            this.buttonMerchant.Name = "buttonMerchant";
+            this.buttonMerchant.Size = new System.Drawing.Size(174, 75);
+            this.buttonMerchant.TabIndex = 6;
+            this.buttonMerchant.Text = "Merchant";
+            this.buttonMerchant.UseVisualStyleBackColor = true;
             // 
-            // transactionToolStripMenuItem
+            // buttonHistory
             // 
-            this.transactionToolStripMenuItem.Name = "transactionToolStripMenuItem";
-            this.transactionToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.transactionToolStripMenuItem.Text = "Transaction";
-            // 
-            // labelUser
-            // 
-            this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(758, 35);
-            this.labelUser.Name = "labelUser";
-            this.labelUser.Size = new System.Drawing.Size(30, 15);
-            this.labelUser.TabIndex = 4;
-            this.labelUser.Text = "User";
-            // 
-            // adminToolStripMenuItem
-            // 
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.adminToolStripMenuItem.Text = "Admin";
-            // 
-            // customersToolStripMenuItem
-            // 
-            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.customersToolStripMenuItem.Text = "Customers";
+            this.buttonHistory.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonHistory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonHistory.ForeColor = System.Drawing.Color.White;
+            this.buttonHistory.Location = new System.Drawing.Point(687, 324);
+            this.buttonHistory.Name = "buttonHistory";
+            this.buttonHistory.Size = new System.Drawing.Size(174, 75);
+            this.buttonHistory.TabIndex = 7;
+            this.buttonHistory.Text = "History";
+            this.buttonHistory.UseVisualStyleBackColor = true;
             // 
             // FormMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelUser);
-            this.Controls.Add(this.pictureBoxDeskripsi);
+            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.buttonHistory);
+            this.Controls.Add(this.buttonMerchant);
+            this.Controls.Add(this.buttonTransfer);
+            this.Controls.Add(this.buttonAccount);
             this.Controls.Add(this.pictureBoxWave);
             this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormMenu";
             this.Text = "FormMenu";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeskripsi)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuToolStripMenuItem;
-        private ToolStripMenuItem exitToolStripMenuItem;
         private PictureBox pictureBoxLogo;
         private PictureBox pictureBoxWave;
-        private PictureBox pictureBoxDeskripsi;
-        private ToolStripMenuItem transactionToolStripMenuItem;
-        private Label labelUser;
-        private ToolStripMenuItem adminToolStripMenuItem;
-        private ToolStripMenuItem customersToolStripMenuItem;
+        private Button buttonAccount;
+        private Button buttonTransfer;
+        private Button buttonMerchant;
+        private Button buttonHistory;
     }
 }
