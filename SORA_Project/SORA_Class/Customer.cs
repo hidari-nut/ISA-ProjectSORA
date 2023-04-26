@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using System.Web.Helpers;
+using System.Security.Cryptography;
 
 namespace SORA_Class
 {
@@ -103,25 +104,54 @@ namespace SORA_Class
             customer.Password = hashedAndSaltPassword.Item1;
             customer.Password_salt = hashedAndSaltPassword.Item2;
 
-            //Salt and Hash PIN
-            (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
-            customer.Pin = hashedAndSaltPIN.Item1;
-            customer.Pin_salt = hashedAndSaltPIN.Item2;
+            //Encrypt customer's data with AES
+
+            //Creating a new Aes object generates a key and an IV (Initialization Vector)
+            using (Aes myAes = Aes.Create())
+            {
+
+                //e means encrypted
+                // Encrypt the string to an array of bytes.
+                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, myAes.Key, myAes.IV);
+                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, myAes.Key, myAes.IV);
+                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, myAes.Key, myAes.IV);
+                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), myAes.Key, myAes.IV);
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), myAes.Key, myAes.IV);
 
 
-            string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
-                "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
-                customer.Id + "','" + customer.FirstName + "','" + customer.LastName + "','" + customer.Email + 
-                "','" + customer.PhoneNumber + "','" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + 
-                customer.Pin + "','" + customer.Password + "'," + customer.Balance + ", '"+ customer.Pin_salt
-                + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
-            if (Connection.RunDMLCommand(sql) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+                //// Decrypt the bytes to a string.
+                //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
+
+                ////Display the original data and the decrypted data.
+                //Console.WriteLine("Original:   {0}", original);
+                //Console.WriteLine("Round Trip: {0}", roundtrip);
+
+
+                //Double hash
+                customer.Password = HashPassword(customer.Password);
+
+                //Salt and Hash PIN
+                (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
+                customer.Pin = hashedAndSaltPIN.Item1;
+                customer.Pin_salt = hashedAndSaltPIN.Item2;
+
+
+
+
+                string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
+                    "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
+                    customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
+                    "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
+                    customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
+                    + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
+                if (Connection.RunDMLCommand(sql) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
