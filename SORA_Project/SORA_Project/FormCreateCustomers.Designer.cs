@@ -55,7 +55,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBoxFName = new System.Windows.Forms.TextBox();
-            this.buttonAccount = new System.Windows.Forms.Button();
+            this.buttonRegister = new System.Windows.Forms.Button();
             this.groupBoxCustomer.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -70,6 +70,7 @@
             // groupBoxCustomer
             // 
             this.groupBoxCustomer.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxCustomer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBoxCustomer.Controls.Add(this.label3);
             this.groupBoxCustomer.Controls.Add(this.label2);
             this.groupBoxCustomer.Controls.Add(this.label1);
@@ -89,10 +90,10 @@
             this.groupBoxCustomer.Controls.Add(this.panel1);
             this.groupBoxCustomer.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCustomer.Name = "groupBoxCustomer";
-            this.groupBoxCustomer.Size = new System.Drawing.Size(776, 404);
-            this.groupBoxCustomer.TabIndex = 1;
+            this.groupBoxCustomer.Size = new System.Drawing.Size(473, 409);
+            this.groupBoxCustomer.TabIndex = 8;
             this.groupBoxCustomer.TabStop = false;
-            this.groupBoxCustomer.Text = "Sign Up for Customers";
+            this.groupBoxCustomer.Text = "Sign Up Customers";
             // 
             // label3
             // 
@@ -156,7 +157,7 @@
             this.comboBoxGender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.comboBoxGender.Location = new System.Drawing.Point(106, 356);
+            this.comboBoxGender.Location = new System.Drawing.Point(110, 370);
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(151, 28);
             this.comboBoxGender.TabIndex = 10;
@@ -164,7 +165,7 @@
             // labelGender
             // 
             this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(6, 359);
+            this.labelGender.Location = new System.Drawing.Point(10, 373);
             this.labelGender.Name = "labelGender";
             this.labelGender.Size = new System.Drawing.Size(57, 20);
             this.labelGender.TabIndex = 9;
@@ -176,7 +177,7 @@
             this.panel8.Controls.Add(this.textBoxAddress);
             this.panel8.Location = new System.Drawing.Point(6, 267);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(374, 47);
+            this.panel8.Size = new System.Drawing.Size(374, 65);
             this.panel8.TabIndex = 5;
             // 
             // textBoxAddress
@@ -187,13 +188,13 @@
             this.textBoxAddress.Multiline = true;
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.PlaceholderText = "Address";
-            this.textBoxAddress.Size = new System.Drawing.Size(366, 35);
+            this.textBoxAddress.Size = new System.Drawing.Size(366, 53);
             this.textBoxAddress.TabIndex = 0;
             // 
             // labelDateOfBirth
             // 
             this.labelDateOfBirth.AutoSize = true;
-            this.labelDateOfBirth.Location = new System.Drawing.Point(6, 323);
+            this.labelDateOfBirth.Location = new System.Drawing.Point(10, 337);
             this.labelDateOfBirth.Name = "labelDateOfBirth";
             this.labelDateOfBirth.Size = new System.Drawing.Size(94, 20);
             this.labelDateOfBirth.TabIndex = 8;
@@ -201,7 +202,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(106, 320);
+            this.dateTimePicker1.Location = new System.Drawing.Point(110, 334);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(250, 27);
             this.dateTimePicker1.TabIndex = 7;
@@ -339,28 +340,30 @@
             this.textBoxFName.Size = new System.Drawing.Size(179, 27);
             this.textBoxFName.TabIndex = 0;
             // 
-            // buttonAccount
+            // buttonRegister
             // 
-            this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
-            this.buttonAccount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonAccount.ForeColor = System.Drawing.Color.White;
-            this.buttonAccount.Location = new System.Drawing.Point(322, 422);
-            this.buttonAccount.Name = "buttonAccount";
-            this.buttonAccount.Size = new System.Drawing.Size(128, 50);
-            this.buttonAccount.TabIndex = 5;
-            this.buttonAccount.Text = "SIGN ME UP";
-            this.buttonAccount.UseVisualStyleBackColor = true;
+            this.buttonRegister.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonRegister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonRegister.ForeColor = System.Drawing.Color.White;
+            this.buttonRegister.Location = new System.Drawing.Point(357, 427);
+            this.buttonRegister.Name = "buttonRegister";
+            this.buttonRegister.Size = new System.Drawing.Size(128, 50);
+            this.buttonRegister.TabIndex = 9;
+            this.buttonRegister.Text = "SIGN ME UP";
+            this.buttonRegister.UseVisualStyleBackColor = true;
             // 
             // FormCreateCustomers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 474);
-            this.Controls.Add(this.buttonAccount);
+            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(800, 479);
             this.Controls.Add(this.groupBoxCustomer);
+            this.Controls.Add(this.buttonRegister);
             this.Name = "FormCreateCustomers";
             this.Text = "FormCreateCustomers";
             this.Load += new System.EventHandler(this.FormCreateCustomers_Load);
@@ -389,20 +392,9 @@
         #endregion
 
         private GroupBox groupBoxCustomer;
-        private Panel panel4;
-        private TextBox textBoxLName;
-        private Panel panel1;
-        private Panel panel2;
-        private TextBox textBox1;
-        private TextBox textBoxFName;
-        private Panel panel6;
-        private TextBox textBoxConfirmPass;
-        private Panel panel7;
-        private TextBox textBoxPassword;
-        private Panel panel3;
-        private TextBox textBoxEmail;
-        private Panel panel5;
-        private TextBox textBoxPhoneNum;
+        private Label label3;
+        private Label label2;
+        private Label label1;
         private ComboBox comboBoxCity;
         private ComboBox comboBoxProvince;
         private ComboBox comboBoxCountry;
@@ -412,9 +404,20 @@
         private TextBox textBoxAddress;
         private Label labelDateOfBirth;
         private DateTimePicker dateTimePicker1;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private Button buttonAccount;
+        private Panel panel5;
+        private TextBox textBoxPhoneNum;
+        private Panel panel3;
+        private TextBox textBoxEmail;
+        private Panel panel4;
+        private TextBox textBoxLName;
+        private Panel panel6;
+        private TextBox textBoxConfirmPass;
+        private Panel panel7;
+        private TextBox textBoxPassword;
+        private Panel panel1;
+        private Panel panel2;
+        private TextBox textBox1;
+        private TextBox textBoxFName;
+        private Button buttonRegister;
     }
 }
