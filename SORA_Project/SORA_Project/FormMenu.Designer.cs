@@ -28,129 +28,130 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.pictureBoxWave = new System.Windows.Forms.PictureBox();
-            this.pictureBoxDeskripsi = new System.Windows.Forms.PictureBox();
-            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelUser = new System.Windows.Forms.Label();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeskripsi)).BeginInit();
-            this.SuspendLayout();
+            menuStrip1 = new MenuStrip();
+            menuToolStripMenuItem = new ToolStripMenuItem();
+            adminToolStripMenuItem = new ToolStripMenuItem();
+            customersToolStripMenuItem = new ToolStripMenuItem();
+            transactionToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            pictureBoxLogo = new PictureBox();
+            pictureBoxWave = new PictureBox();
+            pictureBoxDeskripsi = new PictureBox();
+            labelUser = new Label();
+            menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxWave).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxDeskripsi).BeginInit();
+            SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem,
-            this.transactionToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // pictureBoxLogo
-            // 
-            this.pictureBoxLogo.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_2;
-            this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(157, 57);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(492, 185);
-            this.pictureBoxLogo.TabIndex = 1;
-            this.pictureBoxLogo.TabStop = false;
-            // 
-            // pictureBoxWave
-            // 
-            this.pictureBoxWave.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxWave.BackgroundImage = global::SORA_Project.Properties.Resources.wave1;
-            this.pictureBoxWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxWave.Location = new System.Drawing.Point(-116, 345);
-            this.pictureBoxWave.Name = "pictureBoxWave";
-            this.pictureBoxWave.Size = new System.Drawing.Size(1084, 117);
-            this.pictureBoxWave.TabIndex = 2;
-            this.pictureBoxWave.TabStop = false;
-            // 
-            // pictureBoxDeskripsi
-            // 
-            this.pictureBoxDeskripsi.BackgroundImage = global::SORA_Project.Properties.Resources.Desc;
-            this.pictureBoxDeskripsi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxDeskripsi.Location = new System.Drawing.Point(17, 257);
-            this.pictureBoxDeskripsi.Name = "pictureBoxDeskripsi";
-            this.pictureBoxDeskripsi.Size = new System.Drawing.Size(770, 50);
-            this.pictureBoxDeskripsi.TabIndex = 3;
-            this.pictureBoxDeskripsi.TabStop = false;
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, transactionToolStripMenuItem, exitToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(914, 30);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
             // menuToolStripMenuItem
             // 
-            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adminToolStripMenuItem,
-            this.customersToolStripMenuItem});
-            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.menuToolStripMenuItem.Text = "Menu";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // transactionToolStripMenuItem
-            // 
-            this.transactionToolStripMenuItem.Name = "transactionToolStripMenuItem";
-            this.transactionToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.transactionToolStripMenuItem.Text = "Transaction";
-            // 
-            // labelUser
-            // 
-            this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(758, 35);
-            this.labelUser.Name = "labelUser";
-            this.labelUser.Size = new System.Drawing.Size(30, 15);
-            this.labelUser.TabIndex = 4;
-            this.labelUser.Text = "User";
+            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { adminToolStripMenuItem, customersToolStripMenuItem });
+            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            menuToolStripMenuItem.Size = new Size(60, 24);
+            menuToolStripMenuItem.Text = "Menu";
             // 
             // adminToolStripMenuItem
             // 
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.adminToolStripMenuItem.Text = "Admin";
+            adminToolStripMenuItem.Name = "adminToolStripMenuItem";
+            adminToolStripMenuItem.Size = new Size(161, 26);
+            adminToolStripMenuItem.Text = "Admin";
             // 
             // customersToolStripMenuItem
             // 
-            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.customersToolStripMenuItem.Text = "Customers";
+            customersToolStripMenuItem.Name = "customersToolStripMenuItem";
+            customersToolStripMenuItem.Size = new Size(161, 26);
+            customersToolStripMenuItem.Text = "Customers";
+            // 
+            // transactionToolStripMenuItem
+            // 
+            transactionToolStripMenuItem.Name = "transactionToolStripMenuItem";
+            transactionToolStripMenuItem.Size = new Size(98, 24);
+            transactionToolStripMenuItem.Text = "Transaction";
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(47, 24);
+            exitToolStripMenuItem.Text = "Exit";
+            // 
+            // pictureBoxLogo
+            // 
+            pictureBoxLogo.BackgroundImage = Properties.Resources.Logo_2;
+            pictureBoxLogo.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxLogo.Location = new Point(179, 76);
+            pictureBoxLogo.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxLogo.Name = "pictureBoxLogo";
+            pictureBoxLogo.Size = new Size(562, 247);
+            pictureBoxLogo.TabIndex = 1;
+            pictureBoxLogo.TabStop = false;
+            // 
+            // pictureBoxWave
+            // 
+            pictureBoxWave.BackColor = Color.Transparent;
+            pictureBoxWave.BackgroundImage = Properties.Resources.wave1;
+            pictureBoxWave.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxWave.Location = new Point(-133, 460);
+            pictureBoxWave.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxWave.Name = "pictureBoxWave";
+            pictureBoxWave.Size = new Size(1239, 156);
+            pictureBoxWave.TabIndex = 2;
+            pictureBoxWave.TabStop = false;
+            // 
+            // pictureBoxDeskripsi
+            // 
+            pictureBoxDeskripsi.BackgroundImage = Properties.Resources.Desc;
+            pictureBoxDeskripsi.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxDeskripsi.Location = new Point(19, 343);
+            pictureBoxDeskripsi.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxDeskripsi.Name = "pictureBoxDeskripsi";
+            pictureBoxDeskripsi.Size = new Size(880, 67);
+            pictureBoxDeskripsi.TabIndex = 3;
+            pictureBoxDeskripsi.TabStop = false;
+            // 
+            // labelUser
+            // 
+            labelUser.AutoSize = true;
+            labelUser.Location = new Point(866, 47);
+            labelUser.Name = "labelUser";
+            labelUser.Size = new Size(38, 20);
+            labelUser.TabIndex = 4;
+            labelUser.Text = "User";
             // 
             // FormMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelUser);
-            this.Controls.Add(this.pictureBoxDeskripsi);
-            this.Controls.Add(this.pictureBoxWave);
-            this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FormMenu";
-            this.Text = "FormMenu";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeskripsi)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(914, 600);
+            Controls.Add(labelUser);
+            Controls.Add(pictureBoxDeskripsi);
+            Controls.Add(pictureBoxWave);
+            Controls.Add(pictureBoxLogo);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "FormMenu";
+            Text = "FormMenu";
+            Load += FormMenu_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxWave).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxDeskripsi).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
