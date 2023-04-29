@@ -153,8 +153,8 @@ namespace SORA_Class
 
 
                 string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
-                    "dob, pin, password, balance, pin_salt, password_salt, ban, last_login, rsa_public_key, rsa_private_key," +
-                    "aes_iv, aes_key) VALUES ('" +
+                    "dob, pin, password, balance, pin_salt, password_salt, ban, last_login," +
+                    "aes_data_iv, aes_data_key, aes_key_iv) VALUES ('" +
                     customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
                     "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
                     customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
