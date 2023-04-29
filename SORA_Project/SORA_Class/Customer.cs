@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using System.Web.Helpers;
 using System.Security.Cryptography;
+using System.Data;
 
 namespace SORA_Class
 {
@@ -99,25 +100,39 @@ namespace SORA_Class
 
         public static bool Add(Customer customer)
         {
+            string plainPassword = customer.Password;
+
             //Salt and Hash Password
             (string, string) hashedAndSaltPassword = Customer.SaltAndHashPassword(customer.Password);
             customer.Password = hashedAndSaltPassword.Item1;
             customer.Password_salt = hashedAndSaltPassword.Item2;
 
+            //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
+            var utf8 = new UTF8Encoding();
+
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf8.GetBytes(plainPassword), utf8.GetBytes(customer.Password_salt),
+                100000, HashAlgorithmName.SHA512);
+
+            Aes aesKeyEncrypt = Aes.Create();
+            aesKeyEncrypt.Key = passKey.GetBytes(32);
+
             //Encrypt customer's data with AES
 
             //Creating a new Aes object generates a key and an IV (Initialization Vector)
-            using (Aes myAes = Aes.Create())
+            using (Aes aesData = Aes.Create())
             {
 
                 //e means encrypted
                 // Encrypt the string to an array of bytes.
-                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, myAes.Key, myAes.IV);
-                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, myAes.Key, myAes.IV);
-                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, myAes.Key, myAes.IV);
-                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), myAes.Key, myAes.IV);
-                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), myAes.Key, myAes.IV);
+                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, aesData.Key, aesData.IV);
+                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, aesData.Key, aesData.IV);
+                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, aesData.Key, aesData.IV);
+                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), 
+                    aesData.Key, aesData.IV);
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
 
+                // Encrypt the data key with the user's password derivation as key.
+                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf8.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
                 //// Decrypt the bytes to a string.
                 //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
@@ -138,13 +153,121 @@ namespace SORA_Class
 
 
 
-                string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
-                    "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
-                    customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
-                    "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
-                    customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
-                    + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
-                if (Connection.RunDMLCommand(sql) > 0)
+                //string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
+                //    "dob, pin, password, balance, pin_salt, password_salt, ban, last_login," +
+                //    "aes_data_iv, aes_data_key, aes_key_iv) VALUES ('" +
+                //    customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
+                //    "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
+                //    customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
+                //    + "', '" + customer.Password_salt + "', " + customer.Banned + ", '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+                //    + "', " +");";
+
+                //Use SQL Parameters to avoid SQL Injection attacks
+                const string sql = "INSERT INTO tcustomers(idcustomer, first_name, last_name, email, phone_number, " +
+                    "dob, pin, password, balance, pin_salt, password_salt, ban, last_login, " +
+                    "aes_data_iv, aes_data_key, aes_key_iv) " +
+                    "VALUES(@idcustomer, @first_name, @last_name, @email, @phone_number, " +
+                    "@dob, @pin, @password, @balance, @pin_salt, @password_salt, @ban, @last_login, " +
+                    "@aes_data_iv, @aes_data_key, @aes_key_iv)";
+
+                #region SQL Parameters
+                var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Id
+                };
+
+                var firstNameParam = new MySqlParameter("@first_name", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eFirstName.Length,
+                    Value = eFirstName
+                };
+                var lastNameParam = new MySqlParameter("@last_name", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eLastName.Length,
+                    Value = eLastName
+                };
+                var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Email
+                };
+                var phoneNumberParam = new MySqlParameter("@phone_number", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = ePhoneNumber.Length,
+                    Value = ePhoneNumber
+                };
+                var dobParam = new MySqlParameter("@dob", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eDateOfBirth.Length,
+                    Value = eDateOfBirth
+                };
+                var pinParam = new MySqlParameter("@pin", MySqlDbType.VarChar, 128)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Pin
+                };
+                var passwordParam = new MySqlParameter("@password", MySqlDbType.VarChar, 128)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Password
+                };
+                var balanceParam = new MySqlParameter("@balance", MySqlDbType.VarBinary) 
+                { 
+                    Direction = ParameterDirection.Input,
+                    Size = eBalance.Length,
+                    Value = eBalance 
+                };
+                var pinSaltParam = new MySqlParameter("@pin_salt", MySqlDbType.VarChar, 32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Pin_salt
+                };
+                var passwordSaltParam = new MySqlParameter("@password_salt", MySqlDbType.VarChar, 32)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Password_salt
+                };
+                var banParam = new MySqlParameter("@ban", MySqlDbType.Int64, 8)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Banned
+                };
+                var lastLoginParam = new MySqlParameter("@last_login", MySqlDbType.DateTime)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+                };
+                var dataIVParam = new MySqlParameter("@aes_data_iv", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = aesData.IV.Length,
+                    Value = aesData.IV
+                };
+                var dataKeyParam = new MySqlParameter("@aes_data_key", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eDataKey.Length,
+                    Value = eDataKey
+                };
+                var keyIVParam = new MySqlParameter("@aes_key_iv", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = aesKeyEncrypt.IV.Length,
+                    Value = aesKeyEncrypt.IV
+                };
+                #endregion
+
+                Connection connection = new Connection();
+
+
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam,
+                    emailParam, phoneNumberParam, dobParam, pinParam, passwordParam, balanceParam, pinSaltParam,
+                    passwordSaltParam, banParam, lastLoginParam, dataIVParam, dataKeyParam, keyIVParam) > 0)
                 {
                     return true;
                 }
@@ -276,7 +399,7 @@ namespace SORA_Class
             }
         }
 
-        public static List<Customer> ReadData(string email) 
+        public static Customer ReadData(string email, string password) 
         {
             string sql = "SELECT * from tCustomers";
 
@@ -286,11 +409,11 @@ namespace SORA_Class
             }
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
-            List<Customer> listCustomer = new List<Customer>();
 
-            while (result.Read() == true)
+            Customer customerLogin = new Customer();
+
+            if (result.Read() == true)
             {
-                Customer customerLogin = new Customer();
                 customerLogin.Id = result.GetValue(0).ToString();
                 customerLogin.FirstName = result.GetValue(1).ToString();
                 customerLogin.LastName = result.GetValue(2).ToString();
@@ -300,9 +423,29 @@ namespace SORA_Class
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Password = result.GetValue(8).ToString();
                 customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
-
             }
-            return listCustomer;
+
+            //Decrypt Key.
+
+            return customerLogin;
+
+            //List<Customer> listCustomer = new List<Customer>();
+
+            //while (result.Read() == true)
+            //{
+            //    Customer customerLogin = new Customer();
+            //    customerLogin.Id = result.GetValue(0).ToString();
+            //    customerLogin.FirstName = result.GetValue(1).ToString();
+            //    customerLogin.LastName = result.GetValue(2).ToString();
+            //    customerLogin.Email = result.GetValue(3).ToString();
+            //    customerLogin.PhoneNumber = result.GetValue(4).ToString();
+            //    customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+            //    customerLogin.Pin = result.GetValue(6).ToString();
+            //    customerLogin.Password = result.GetValue(8).ToString();
+            //    customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
+
+            //}
+            //return listCustomer;
         }
 
         public static void UpdateLastLogin(string customerId)
