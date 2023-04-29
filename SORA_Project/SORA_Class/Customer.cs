@@ -99,25 +99,39 @@ namespace SORA_Class
 
         public static bool Add(Customer customer)
         {
+            string plainPassword = customer.Password;
+
             //Salt and Hash Password
             (string, string) hashedAndSaltPassword = Customer.SaltAndHashPassword(customer.Password);
             customer.Password = hashedAndSaltPassword.Item1;
             customer.Password_salt = hashedAndSaltPassword.Item2;
 
+            //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
+            var utf8 = new UTF8Encoding();
+
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf8.GetBytes(plainPassword), utf8.GetBytes(customer.Password_salt),
+                100000, HashAlgorithmName.SHA512);
+
+            Aes aesKeyEncrypt = Aes.Create();
+            aesKeyEncrypt.Key = passKey.GetBytes(32);
+
             //Encrypt customer's data with AES
 
             //Creating a new Aes object generates a key and an IV (Initialization Vector)
-            using (Aes myAes = Aes.Create())
+            using (Aes aesData = Aes.Create())
             {
 
                 //e means encrypted
                 // Encrypt the string to an array of bytes.
-                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, myAes.Key, myAes.IV);
-                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, myAes.Key, myAes.IV);
-                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, myAes.Key, myAes.IV);
-                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), myAes.Key, myAes.IV);
-                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), myAes.Key, myAes.IV);
+                byte[] eFirstName = AES.EncryptStringToBytes_Aes(customer.FirstName, aesData.Key, aesData.IV);
+                byte[] eLastName = AES.EncryptStringToBytes_Aes(customer.LastName, aesData.Key, aesData.IV);
+                byte[] ePhoneNumber = AES.EncryptStringToBytes_Aes(customer.PhoneNumber, aesData.Key, aesData.IV);
+                byte[] eDateOfBirth = AES.EncryptStringToBytes_Aes(customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss"), 
+                    aesData.Key, aesData.IV);
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
 
+                // Encrypt the data key with the user's password derivation as key.
+                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf8.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
                 //// Decrypt the bytes to a string.
                 //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
@@ -139,11 +153,13 @@ namespace SORA_Class
 
 
                 string sql = "INSERT INTO tcustomers (idcustomer, first_name, last_name, email, phone_number, " +
-                    "dob, pin, password, balance, pin_salt, password_salt, ban) VALUES ('" +
+                    "dob, pin, password, balance, pin_salt, password_salt, ban, last_login, rsa_public_key, rsa_private_key," +
+                    "aes_iv, aes_key) VALUES ('" +
                     customer.Id + "','" + eFirstName + "','" + eLastName + "','" + customer.Email +
                     "','" + ePhoneNumber + "','" + eDateOfBirth + "','" +
                     customer.Pin + "','" + customer.Password + "'," + eBalance + ", '" + customer.Pin_salt
-                    + "', '" + customer.Password_salt + "', " + customer.Banned + ");";
+                    + "', '" + customer.Password_salt + "', " + customer.Banned + ", '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+                    + "');";
                 if (Connection.RunDMLCommand(sql) > 0)
                 {
                     return true;
