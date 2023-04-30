@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBoxCustomer = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonRegister = new System.Windows.Forms.Button();
-            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBoxCustomer.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCustomer
@@ -54,9 +57,27 @@
             this.groupBoxCustomer.TabStop = false;
             this.groupBoxCustomer.Text = "Registering Verified Account";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Category:";
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(73, 95);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxCategory.TabIndex = 6;
+            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.panel1);
             this.panel3.Controls.Add(this.textBoxName);
             this.panel3.Location = new System.Drawing.Point(6, 52);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -90,22 +111,26 @@
             this.buttonRegister.Text = "REGISTER";
             this.buttonRegister.UseVisualStyleBackColor = true;
             // 
-            // comboBoxCategory
+            // panel1
             // 
-            this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Location = new System.Drawing.Point(73, 95);
-            this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxCategory.TabIndex = 6;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(188, 26);
+            this.panel1.TabIndex = 6;
             // 
-            // label1
+            // textBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 98);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Category:";
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(3, 5);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PlaceholderText = "Name";
+            this.textBox1.Size = new System.Drawing.Size(181, 16);
+            this.textBox1.TabIndex = 0;
             // 
             // FormCreateOA
             // 
@@ -122,6 +147,8 @@
             this.groupBoxCustomer.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -134,5 +161,7 @@
         private Button buttonRegister;
         private Label label1;
         private ComboBox comboBoxCategory;
+        private Panel panel1;
+        private TextBox textBox1;
     }
 }
