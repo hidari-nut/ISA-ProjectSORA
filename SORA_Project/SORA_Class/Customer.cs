@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Data;
 using Org.BouncyCastle.Crypto.Engines;
 using System.Text.Unicode;
+using Org.BouncyCastle.Ocsp;
 
 namespace SORA_Class
 {
@@ -127,6 +128,14 @@ namespace SORA_Class
             Aes aesKeyEncrypt = Aes.Create();
             aesKeyEncrypt.Key = passKey.GetBytes(32);
 
+            //Create RSA Keys and Encrypt the Private Key.
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            byte[] publicKeyRSA = RSA.ExportRSAPublicKey();
+            byte[] privateKeyRSA = RSA.ExportPkcs8PrivateKey();
+
+            privateKeyRSA = AES.EncryptStringToBytes_Aes(utf16.GetString(privateKeyRSA), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+
+
             //Encrypt customer's data with AES
 
             //Creating a new Aes object generates a key and an IV (Initialization Vector)
@@ -172,10 +181,10 @@ namespace SORA_Class
                 //Use SQL Parameters to avoid SQL Injection attacks
                 const string sql = "INSERT INTO tcustomers(idcustomer, first_name, last_name, email, phone_number, " +
                     "dob, pin, password, balance, pin_salt, password_salt, ban, last_login, " +
-                    "aes_data_iv, aes_data_key, aes_key_iv) " +
+                    "aes_data_iv, aes_data_key, aes_key_iv, rsa_private_key, rsa_public_key) " +
                     "VALUES(@idcustomer, @first_name, @last_name, @email, @phone_number, " +
                     "@dob, @pin, @password, @balance, @pin_salt, @password_salt, @ban, @last_login, " +
-                    "@aes_data_iv, @aes_data_key, @aes_key_iv)";
+                    "@aes_data_iv, @aes_data_key, @aes_key_iv, @rsa_private_key, @rsa_public_key)";
 
                 #region SQL Parameters
                 var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
@@ -267,6 +276,19 @@ namespace SORA_Class
                     Size = aesKeyEncrypt.IV.Length,
                     Value = aesKeyEncrypt.IV
                 };
+                var privateKeyRSAParam = new MySqlParameter("@rsa_private_key", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = privateKeyRSA.Length,
+                    Value = privateKeyRSA
+                };
+                var publicKeyRSAParam = new MySqlParameter("@rsa_public_key", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = publicKeyRSA.Length,
+                    Value = publicKeyRSA
+                };
+                
                 #endregion
 
                 Connection connection = new Connection();
@@ -413,6 +435,84 @@ namespace SORA_Class
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns the RSA Public Key of a specified user using user's email.
+        /// </summary>
+        /// <param name="email">Specified User's Email</param>
+        /// <returns>RSA Public Key of specified User in byte array</returns>
+        public static byte[] GetRSAPublicKey(string email)
+        {
+            byte[] publicKeyRSA = null;
+
+            string sql = "SELECT rsa_public_key FROM tCustomers WHERE email = @email";
+
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = email
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+
+            if (result.Read() == true)
+            {
+                publicKeyRSA = (byte[])(result["rsa_public_key"]);
+            }
+
+            return publicKeyRSA;
+        }
+
+        /// <summary>
+        /// Returns the RSA Private Key of a specified user using user's email and password
+        /// </summary>
+        /// <param name="email">User's email</param>
+        /// <param name="password">User's password</param>
+        /// <returns>RSA Private Key of the User in byte array</returns>
+        public static byte[] GetRSAPrivateKey(string email, string password)
+        {
+            byte[] encryptedPrivateKeyRSA = null;
+            byte[] privateKeyRSA = null;
+            string passwordSalt = "";
+            byte[] keyIV = null;
+
+            string sql = "SELECT rsa_private_key, password_salt FROM tCustomers WHERE email = @email";
+
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = email
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+
+            if (result.Read() == true)
+            {
+                encryptedPrivateKeyRSA = (byte[])(result["rsa_private_key"]);
+                passwordSalt = result.GetValue(2).ToString();
+                keyIV = (byte[])(result["aes_key_iv"]);
+            }
+
+            //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
+            var utf16 = new UnicodeEncoding();
+
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(password), 
+                utf16.GetBytes(passwordSalt),
+                100000, HashAlgorithmName.SHA512);
+
+            Aes aesKeyEncrypt = Aes.Create();
+            aesKeyEncrypt.Key = passKey.GetBytes(32);
+            aesKeyEncrypt.IV = keyIV;
+
+            string privateKeyRSAString = AES.DecryptStringFromBytes_Aes(encryptedPrivateKeyRSA, 
+                aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+
+            privateKeyRSA = utf16.GetBytes(privateKeyRSAString);
+
+            return privateKeyRSA;
         }
 
         public static Customer ReadData(string email, string password) 
