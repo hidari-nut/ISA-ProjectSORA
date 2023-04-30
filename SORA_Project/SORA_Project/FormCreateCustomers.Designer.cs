@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBoxCustomer = new System.Windows.Forms.GroupBox();
-            this.panel8 = new System.Windows.Forms.Panel();
             this.labelDateOfBirth = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -61,7 +60,6 @@
             // 
             this.groupBoxCustomer.BackColor = System.Drawing.Color.Transparent;
             this.groupBoxCustomer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBoxCustomer.Controls.Add(this.panel8);
             this.groupBoxCustomer.Controls.Add(this.labelDateOfBirth);
             this.groupBoxCustomer.Controls.Add(this.dateTimePicker1);
             this.groupBoxCustomer.Controls.Add(this.panel5);
@@ -74,24 +72,15 @@
             this.groupBoxCustomer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBoxCustomer.Name = "groupBoxCustomer";
             this.groupBoxCustomer.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBoxCustomer.Size = new System.Drawing.Size(414, 239);
+            this.groupBoxCustomer.Size = new System.Drawing.Size(414, 190);
             this.groupBoxCustomer.TabIndex = 8;
             this.groupBoxCustomer.TabStop = false;
             this.groupBoxCustomer.Text = "Customer Sign Up";
             // 
-            // panel8
-            // 
-            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel8.Location = new System.Drawing.Point(5, 151);
-            this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(328, 49);
-            this.panel8.TabIndex = 5;
-            // 
             // labelDateOfBirth
             // 
             this.labelDateOfBirth.AutoSize = true;
-            this.labelDateOfBirth.Location = new System.Drawing.Point(9, 203);
+            this.labelDateOfBirth.Location = new System.Drawing.Point(9, 153);
             this.labelDateOfBirth.Name = "labelDateOfBirth";
             this.labelDateOfBirth.Size = new System.Drawing.Size(73, 15);
             this.labelDateOfBirth.TabIndex = 8;
@@ -99,7 +88,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(96, 201);
+            this.dateTimePicker1.Location = new System.Drawing.Point(96, 151);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(219, 23);
@@ -259,7 +248,7 @@
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(314, 254);
+            this.buttonRegister.Location = new System.Drawing.Point(314, 205);
             this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(112, 38);
@@ -274,7 +263,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::SORA_Project.Properties.Resources.BG;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(493, 295);
+            this.ClientSize = new System.Drawing.Size(493, 255);
             this.Controls.Add(this.groupBoxCustomer);
             this.Controls.Add(this.buttonRegister);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -304,7 +293,6 @@
         #endregion
 
         private GroupBox groupBoxCustomer;
-        private Panel panel8;
         private Label labelDateOfBirth;
         private DateTimePicker dateTimePicker1;
         private Panel panel5;
