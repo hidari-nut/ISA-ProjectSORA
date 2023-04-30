@@ -8,6 +8,7 @@ using MySqlX.XDevAPI.Common;
 using System.Web.Helpers;
 using System.Security.Cryptography;
 using System.Data;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace SORA_Class
 {
@@ -28,6 +29,11 @@ namespace SORA_Class
         private string pin_salt;
         private string password_salt;
 
+        private DateTime lastLogin;
+        private Byte[] dataIV;
+        private Byte[] dataKey;
+        private Byte[] keyIV;
+
         public string Id { get => id; set => id = value; }
         public string FirstName { get => firstName; set => firstName = value; }
         public string LastName { get => lastName; set => lastName = value; }
@@ -40,6 +46,10 @@ namespace SORA_Class
         public string Password { get => password; set => password = value; }
         public string Pin_salt { get => pin_salt; set => pin_salt = value; }
         public string Password_salt { get => password_salt; set => password_salt = value; }
+        public DateTime LastLogin { get => lastLogin; set => lastLogin = value; }
+        public byte[] DataIV { get => dataIV; set => dataIV = value; }
+        public byte[] DataKey { get => dataKey; set => dataKey = value; }
+        public byte[] KeyIV { get => keyIV; set => keyIV = value; }
 
         public Customer(string id, string firstName, string lastName, string email, string phoneNumber, 
             DateTime dateOfBirth, decimal balance, int banned, string pin, string password, 
@@ -411,21 +421,72 @@ namespace SORA_Class
             MySqlDataReader result = Connection.RunQueryCommand(sql);
 
             Customer customerLogin = new Customer();
+            byte[] customerFirstNameBytes;
+            byte[] customerLastNameBytes;
+            byte[] customerPhoneNumberBytes;
+            byte[] customerDOBBytes;
+            byte[] customerBalanceBytes;
+
+            var utf8 = new UTF8Encoding();
 
             if (result.Read() == true)
             {
-                customerLogin.Id = result.GetValue(0).ToString();
-                customerLogin.FirstName = result.GetValue(1).ToString();
-                customerLogin.LastName = result.GetValue(2).ToString();
-                customerLogin.Email = result.GetValue(3).ToString();
-                customerLogin.PhoneNumber = result.GetValue(4).ToString();
-                customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
-                customerLogin.Pin = result.GetValue(6).ToString();
-                customerLogin.Password = result.GetValue(8).ToString();
-                customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
-            }
+                //customerLogin.Id = result.GetValue(0).ToString();
+                //customerLogin.FirstName = result.GetValue(1).ToString();
+                //customerLogin.LastName = result.GetValue(2).ToString();
+                //customerLogin.Email = result.GetValue(3).ToString();
+                //customerLogin.PhoneNumber = result.GetValue(4).ToString();
+                //customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
+                //customerLogin.Pin = result.GetValue(6).ToString();
+                //customerLogin.Password = result.GetValue(8).ToString();
+                //customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
+                //customerLogin.Banned = 
 
-            //Decrypt Key.
+                customerLogin.Id = result.GetValue(0).ToString();
+                customerFirstNameBytes = (byte[])(result["first_name"]); //Bytes
+                customerLastNameBytes = (byte[])(result["last_name"]); //Bytes
+                customerLogin.Email = result.GetValue(3).ToString();
+                customerPhoneNumberBytes = (byte[])(result["phone_number"]); //Bytes
+                customerDOBBytes = (byte[])(result["dob"]); //Bytes
+                customerLogin.Pin = result.GetValue(6).ToString();
+                customerLogin.Pin_salt = result.GetValue(7).ToString();
+                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password_salt = result.GetValue(9).ToString();
+                customerBalanceBytes = (byte[])(result["balance"]); //Bytes
+                customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
+                customerLogin.LastLogin = DateTime.Parse(result.GetValue(12).ToString());
+                customerLogin.DataIV = (byte[])(result["aes_data_iv"]); //Bytes
+                customerLogin.DataKey = (byte[])(result["aes_data_key"]); //Bytes
+                customerLogin.KeyIV = (byte[])(result["aes_key_iv"]); //Bytes
+
+                //Derive password hash to decrypt data key
+                Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf8.GetBytes(password),
+                utf8.GetBytes(customerLogin.Password_salt),
+                100000, HashAlgorithmName.SHA512);
+
+                Aes aesKeyEncrypt = Aes.Create();
+                aesKeyEncrypt.Key = passKey.GetBytes(32);
+                aesKeyEncrypt.IV = customerLogin.KeyIV;
+
+
+
+                using (Aes aesData = Aes.Create())
+                {
+                    //Decrypt key
+                    string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+                    aesData.Key = utf8.GetBytes(dataKey);
+                    aesData.IV = customerLogin.DataIV;
+                    
+                    //Decrypt data
+                    customerLogin.FirstName = AES.DecryptStringFromBytes_Aes(customerFirstNameBytes, aesData.Key, aesData.IV);
+                    customerLogin.LastName = AES.DecryptStringFromBytes_Aes(customerLastNameBytes, aesData.Key, aesData.IV);
+                    customerLogin.PhoneNumber = AES.DecryptStringFromBytes_Aes(customerPhoneNumberBytes, aesData.Key, aesData.IV);
+                    customerLogin.DateOfBirth = DateTime.Parse(AES.DecryptStringFromBytes_Aes(customerDOBBytes, 
+                        aesData.Key, aesData.IV));
+                    customerLogin.Balance = Decimal.Parse(AES.DecryptStringFromBytes_Aes(customerBalanceBytes,
+                        aesData.Key, aesData.IV));
+                }
+            }
 
             return customerLogin;
 
