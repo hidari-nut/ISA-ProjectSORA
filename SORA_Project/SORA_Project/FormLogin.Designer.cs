@@ -105,6 +105,7 @@
             // buttonSignUp
             // 
             this.buttonSignUp.BackColor = System.Drawing.Color.White;
+            this.buttonSignUp.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonF;
             this.buttonSignUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonSignUp.FlatAppearance.BorderSize = 0;
             this.buttonSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
