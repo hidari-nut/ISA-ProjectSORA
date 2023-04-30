@@ -11,10 +11,10 @@ and to purchase certain products and services from our verified vendors
 According to the ISA project requirement that the projects must implement any form
 of cryptography or encryption, SORA has several measures of cryptography implemented:
 
-1. Salted and double hashed password stored in the database. The hash method used
+1. Salted and hashed password stored in the database. The hash method used
 on this project is PBKDF2 (or IETF RFC 2898).
 
-2. Encrypted Customer personal data using the encryption method AES-128-CBC.
+2. Encrypted Customer personal data using the encryption method AES-256-CBC.
 The key generated to encrypt these personal data is reencrypted with AES with
 the derivation of the customer's password hash as key.
 
@@ -22,3 +22,10 @@ the derivation of the customer's password hash as key.
 be stored normally in the database, but the private key would be stored
 in the same manner that the personal data is stored (Encrypted with AES with the key
 being encrypted with the password hash derivation)
+
+Details:
+The project converts string to bytes with UnicodeEncoding
+
+The RSA Private key is encrypted with the derivation of the 
+hash of the password (100,000 iterations) as key
+and aes_key_iv as the IV.
