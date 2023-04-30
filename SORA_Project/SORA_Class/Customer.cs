@@ -9,6 +9,7 @@ using System.Web.Helpers;
 using System.Security.Cryptography;
 using System.Data;
 using Org.BouncyCastle.Crypto.Engines;
+using System.Text.Unicode;
 
 namespace SORA_Class
 {
@@ -118,9 +119,9 @@ namespace SORA_Class
             customer.Password_salt = hashedAndSaltPassword.Item2;
 
             //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
-            var utf8 = new UTF8Encoding();
+            var utf16 = new UnicodeEncoding();
 
-            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf8.GetBytes(plainPassword), utf8.GetBytes(customer.Password_salt),
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(plainPassword), utf16.GetBytes(customer.Password_salt),
                 100000, HashAlgorithmName.SHA512);
 
             Aes aesKeyEncrypt = Aes.Create();
@@ -142,7 +143,7 @@ namespace SORA_Class
                 byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
 
                 // Encrypt the data key with the user's password derivation as key.
-                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf8.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf16.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
                 //// Decrypt the bytes to a string.
                 //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
@@ -420,7 +421,7 @@ namespace SORA_Class
 
             if(email != "")
             {
-                sql += " WHERE email = " + email + ";"; 
+                sql += " WHERE email = '" + email + "';"; 
             }
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
@@ -432,7 +433,7 @@ namespace SORA_Class
             byte[] customerDOBBytes;
             byte[] customerBalanceBytes;
 
-            var utf8 = new UTF8Encoding();
+            var utf16 = new UnicodeEncoding();
 
             if (result.Read() == true)
             {
@@ -465,8 +466,8 @@ namespace SORA_Class
                 customerLogin.KeyIV = (byte[])(result["aes_key_iv"]); //Bytes
 
                 //Derive password hash to decrypt data key
-                Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf8.GetBytes(password),
-                utf8.GetBytes(customerLogin.Password_salt),
+                Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(password),
+                utf16.GetBytes(customerLogin.Password_salt),
                 100000, HashAlgorithmName.SHA512);
 
                 Aes aesKeyEncrypt = Aes.Create();
@@ -479,7 +480,8 @@ namespace SORA_Class
                 {
                     //Decrypt key
                     string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
-                    aesData.Key = utf8.GetBytes(dataKey);
+                    
+                    aesData.Key = utf16.GetBytes(dataKey);
                     aesData.IV = customerLogin.DataIV;
                     
                     //Decrypt data

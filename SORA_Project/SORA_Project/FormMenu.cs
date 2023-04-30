@@ -39,14 +39,20 @@ namespace SORA_Project
             //Customer.Add(customer);
             //MessageBox.Show("Customer added!");
 
-            if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
-            {
-                MessageBox.Show("Login success! Password is correct!");
-            }
-            else
-            {
-                MessageBox.Show("Login failed! Please check your email or password!");
-            }
+            //if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
+            //{
+            //    MessageBox.Show("Login success! Password is correct!");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Login failed! Please check your email or password!");
+            //}
+
+            Customer customer = Customer.ReadData("mei@gmail.com", "meiRinjyo");
+            MessageBox.Show("Name: " + customer.FirstName + " " + customer.LastName + "\n" +
+                "Phone Number: " + customer.PhoneNumber + "\n" +
+                "DOB: " + customer.DateOfBirth + "\n" +
+                "Balance: " + customer.Balance + "\n");
         }
     }
 }
