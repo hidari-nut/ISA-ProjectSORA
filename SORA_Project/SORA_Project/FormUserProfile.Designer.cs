@@ -42,7 +42,7 @@
             this.textBoxPhone = new System.Windows.Forms.TextBox();
             this.textBoxDoB = new System.Windows.Forms.TextBox();
             this.textBoxAccountDate = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonReturn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,19 +181,19 @@
             this.textBoxAccountDate.Size = new System.Drawing.Size(265, 16);
             this.textBoxAccountDate.TabIndex = 13;
             // 
-            // button1
+            // buttonReturn
             // 
-            this.button1.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(23, 455);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 40);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Change Password";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonReturn.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
+            this.buttonReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonReturn.ForeColor = System.Drawing.Color.White;
+            this.buttonReturn.Location = new System.Drawing.Point(382, 455);
+            this.buttonReturn.Name = "buttonReturn";
+            this.buttonReturn.Size = new System.Drawing.Size(72, 40);
+            this.buttonReturn.TabIndex = 14;
+            this.buttonReturn.Text = "Return";
+            this.buttonReturn.UseVisualStyleBackColor = true;
             // 
             // FormUserProfile
             // 
@@ -203,7 +203,7 @@
             this.BackgroundImage = global::SORA_Project.Properties.Resources.BG_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(478, 507);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonReturn);
             this.Controls.Add(this.textBoxAccountDate);
             this.Controls.Add(this.textBoxDoB);
             this.Controls.Add(this.textBoxPhone);
@@ -242,6 +242,6 @@
         private TextBox textBoxPhone;
         private TextBox textBoxDoB;
         private TextBox textBoxAccountDate;
-        private Button button1;
+        private Button buttonReturn;
     }
 }
