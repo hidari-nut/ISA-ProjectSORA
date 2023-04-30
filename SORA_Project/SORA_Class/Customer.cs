@@ -151,10 +151,6 @@ namespace SORA_Class
                 //Console.WriteLine("Original:   {0}", original);
                 //Console.WriteLine("Round Trip: {0}", roundtrip);
 
-
-                //Double hash
-                customer.Password = HashPassword(customer.Password);
-
                 //Salt and Hash PIN
                 (string, string) hashedAndSaltPIN = Customer.SaltAndHashPassword(customer.Pin);
                 customer.Pin = hashedAndSaltPIN.Item1;
@@ -369,10 +365,19 @@ namespace SORA_Class
                 userPasswordSalt = result.GetString("password_salt");
             }
 
-            string saltedInputPassword = userPasswordSalt + password;
+            //string saltedInputPassword = userPasswordSalt + password;
 
+            ////First hash
+            //string onceHashed = Crypto.HashPassword(saltedInputPassword);
 
-            if(Crypto.VerifyHashedPassword(userPassword, saltedInputPassword) == true)
+            //string doubleHashed = Crypto.HashPassword(onceHashed);
+
+            string saltedPlain = userPasswordSalt + password;
+
+            string onceHashed = Crypto.HashPassword(saltedPlain);
+
+            //Second hash done in verify method.
+            if (Crypto.VerifyHashedPassword(userPassword, saltedPlain) == true)
             {
                 return true;
             }

@@ -33,20 +33,20 @@ namespace SORA_Project
             //    "Salt: " + "qfvNfOKcaKcvWqmOuMNNdw==" + "\n" +
             //    "Password is Correct: " + passIsCorrect.ToString());
 
-            //Customer customer = new Customer("1236", "Rie", "Takanashi", "rie@gmail.com", "1234", DateTime.Now,
-            //    15000, 0, "123456", "aPlainPassword");
+            //Customer customer = new Customer("2345", "Mei", "Rinjyo", "mei@gmail.com", "1234", DateTime.Now,
+            //    15000, 0, "234567", "meiRinjyo");
 
             //Customer.Add(customer);
             //MessageBox.Show("Customer added!");
 
-            //if (Customer.CheckPin("mkfelka@gmail.com", "123456"))
-            //{
-            //    MessageBox.Show("Login success! Password is correct!");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Login failed! Please check your email or password!");
-            //}
+            if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
+            {
+                MessageBox.Show("Login success! Password is correct!");
+            }
+            else
+            {
+                MessageBox.Show("Login failed! Please check your email or password!");
+            }
         }
     }
 }
