@@ -28,121 +28,113 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBoxLogo = new PictureBox();
-            labelLogin = new Label();
-            textBoxUsername = new TextBox();
-            textBoxPassword = new TextBox();
-            buttonLogIn = new Button();
-            label1 = new Label();
-            buttonSignUp = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
-            SuspendLayout();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.buttonLogIn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonSignUp = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.SuspendLayout();
             // 
             // pictureBoxLogo
             // 
-            pictureBoxLogo.BackColor = Color.Transparent;
-            pictureBoxLogo.BackgroundImage = Properties.Resources.Logo_SORA1;
-            pictureBoxLogo.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBoxLogo.Location = new Point(163, 47);
-            pictureBoxLogo.Margin = new Padding(3, 4, 3, 4);
-            pictureBoxLogo.Name = "pictureBoxLogo";
-            pictureBoxLogo.Size = new Size(33, 44);
-            pictureBoxLogo.TabIndex = 0;
-            pictureBoxLogo.TabStop = false;
+            this.pictureBoxLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxLogo.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_SORA1;
+            this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(143, 35);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(29, 33);
+            this.pictureBoxLogo.TabIndex = 0;
+            this.pictureBoxLogo.TabStop = false;
             // 
             // labelLogin
             // 
-            labelLogin.AutoSize = true;
-            labelLogin.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            labelLogin.Location = new Point(127, 109);
-            labelLogin.Name = "labelLogin";
-            labelLogin.Size = new Size(121, 36);
-            labelLogin.TabIndex = 1;
-            labelLogin.Text = "LOG IN";
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelLogin.Location = new System.Drawing.Point(111, 82);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(99, 29);
+            this.labelLogin.TabIndex = 1;
+            this.labelLogin.Text = "LOG IN";
             // 
             // textBoxUsername
             // 
-            textBoxUsername.Location = new Point(27, 177);
-            textBoxUsername.Margin = new Padding(3, 4, 3, 4);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.PlaceholderText = "E-mail";
-            textBoxUsername.Size = new Size(311, 27);
-            textBoxUsername.TabIndex = 2;
+            this.textBoxUsername.Location = new System.Drawing.Point(24, 133);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.PlaceholderText = "E-mail";
+            this.textBoxUsername.Size = new System.Drawing.Size(273, 23);
+            this.textBoxUsername.TabIndex = 2;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Location = new Point(27, 235);
-            textBoxPassword.Margin = new Padding(3, 4, 3, 4);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.PasswordChar = '*';
-            textBoxPassword.PlaceholderText = "Password";
-            textBoxPassword.Size = new Size(311, 27);
-            textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.Location = new System.Drawing.Point(24, 176);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.PlaceholderText = "Password";
+            this.textBoxPassword.Size = new System.Drawing.Size(273, 23);
+            this.textBoxPassword.TabIndex = 3;
             // 
             // buttonLogIn
             // 
-            buttonLogIn.BackColor = Color.White;
-            buttonLogIn.BackgroundImage = Properties.Resources.ButtonE;
-            buttonLogIn.BackgroundImageLayout = ImageLayout.Stretch;
-            buttonLogIn.FlatAppearance.BorderSize = 0;
-            buttonLogIn.FlatStyle = FlatStyle.Flat;
-            buttonLogIn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonLogIn.ForeColor = SystemColors.ButtonHighlight;
-            buttonLogIn.Location = new Point(137, 311);
-            buttonLogIn.Margin = new Padding(3, 4, 3, 4);
-            buttonLogIn.Name = "buttonLogIn";
-            buttonLogIn.Size = new Size(86, 31);
-            buttonLogIn.TabIndex = 4;
-            buttonLogIn.Text = "Log In";
-            buttonLogIn.UseVisualStyleBackColor = false;
+            this.buttonLogIn.BackColor = System.Drawing.Color.White;
+            this.buttonLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonLogIn.FlatAppearance.BorderSize = 0;
+            this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonLogIn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonLogIn.Location = new System.Drawing.Point(120, 233);
+            this.buttonLogIn.Name = "buttonLogIn";
+            this.buttonLogIn.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogIn.TabIndex = 4;
+            this.buttonLogIn.Text = "Log In";
+            this.buttonLogIn.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(105, 345);
-            label1.Name = "label1";
-            label1.Size = new Size(167, 18);
-            label1.TabIndex = 5;
-            label1.Text = "--------------or---------------";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(92, 259);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 15);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "--------------or---------------";
             // 
             // buttonSignUp
             // 
-            buttonSignUp.BackColor = Color.White;
-            buttonSignUp.BackgroundImage = Properties.Resources.ButtonF;
-            buttonSignUp.BackgroundImageLayout = ImageLayout.Stretch;
-            buttonSignUp.FlatAppearance.BorderSize = 0;
-            buttonSignUp.FlatStyle = FlatStyle.Flat;
-            buttonSignUp.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonSignUp.ForeColor = SystemColors.ControlText;
-            buttonSignUp.Location = new Point(137, 369);
-            buttonSignUp.Margin = new Padding(3, 4, 3, 4);
-            buttonSignUp.Name = "buttonSignUp";
-            buttonSignUp.Size = new Size(86, 31);
-            buttonSignUp.TabIndex = 6;
-            buttonSignUp.Text = "Sign Up";
-            buttonSignUp.UseVisualStyleBackColor = false;
+            this.buttonSignUp.BackColor = System.Drawing.Color.White;
+            this.buttonSignUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonSignUp.FlatAppearance.BorderSize = 0;
+            this.buttonSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonSignUp.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSignUp.Location = new System.Drawing.Point(120, 277);
+            this.buttonSignUp.Name = "buttonSignUp";
+            this.buttonSignUp.Size = new System.Drawing.Size(75, 23);
+            this.buttonSignUp.TabIndex = 6;
+            this.buttonSignUp.Text = "Sign Up";
+            this.buttonSignUp.UseVisualStyleBackColor = false;
             // 
             // FormLogin
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            ClientSize = new Size(375, 427);
-            Controls.Add(buttonSignUp);
-            Controls.Add(label1);
-            Controls.Add(buttonLogIn);
-            Controls.Add(textBoxPassword);
-            Controls.Add(textBoxUsername);
-            Controls.Add(labelLogin);
-            Controls.Add(pictureBoxLogo);
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "FormLogin";
-            Text = "FormLogin";
-            Load += FormLogin_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(328, 320);
+            this.Controls.Add(this.buttonSignUp);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonLogIn);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.textBoxUsername);
+            this.Controls.Add(this.labelLogin);
+            this.Controls.Add(this.pictureBoxLogo);
+            this.Name = "FormLogin";
+            this.Text = "FormLogin";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
