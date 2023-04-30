@@ -124,14 +124,17 @@
   <data name="wave1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wave1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ButtonC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Desc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Desc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,13 +154,13 @@
   <data name="ButtonA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Logo_SORA1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo_SORA1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Title Read" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title Read.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
