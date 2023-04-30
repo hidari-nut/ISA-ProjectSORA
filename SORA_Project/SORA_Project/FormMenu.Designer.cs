@@ -42,10 +42,9 @@
             // 
             this.pictureBoxLogo.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_2;
             this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(179, 13);
-            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(157, 10);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(562, 247);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(492, 185);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -54,82 +53,80 @@
             this.pictureBoxWave.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxWave.BackgroundImage = global::SORA_Project.Properties.Resources.wave1;
             this.pictureBoxWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxWave.Location = new System.Drawing.Point(-133, 460);
-            this.pictureBoxWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBoxWave.Location = new System.Drawing.Point(-116, 345);
             this.pictureBoxWave.Name = "pictureBoxWave";
-            this.pictureBoxWave.Size = new System.Drawing.Size(1239, 156);
+            this.pictureBoxWave.Size = new System.Drawing.Size(1084, 117);
             this.pictureBoxWave.TabIndex = 2;
             this.pictureBoxWave.TabStop = false;
             // 
             // buttonAccount
             // 
-            this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_Account;
             this.buttonAccount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonAccount.ForeColor = System.Drawing.Color.White;
-            this.buttonAccount.Location = new System.Drawing.Point(38, 324);
+            this.buttonAccount.Location = new System.Drawing.Point(33, 243);
+            this.buttonAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAccount.Name = "buttonAccount";
-            this.buttonAccount.Size = new System.Drawing.Size(174, 75);
+            this.buttonAccount.Size = new System.Drawing.Size(152, 81);
             this.buttonAccount.TabIndex = 4;
-            this.buttonAccount.Text = "Account";
             this.buttonAccount.UseVisualStyleBackColor = true;
             // 
             // buttonTransfer
             // 
-            this.buttonTransfer.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonTransfer.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_Transfer;
             this.buttonTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonTransfer.ForeColor = System.Drawing.Color.White;
-            this.buttonTransfer.Location = new System.Drawing.Point(256, 324);
+            this.buttonTransfer.Location = new System.Drawing.Point(224, 243);
+            this.buttonTransfer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonTransfer.Name = "buttonTransfer";
-            this.buttonTransfer.Size = new System.Drawing.Size(174, 75);
+            this.buttonTransfer.Size = new System.Drawing.Size(152, 81);
             this.buttonTransfer.TabIndex = 5;
-            this.buttonTransfer.Text = "Transfer";
             this.buttonTransfer.UseVisualStyleBackColor = true;
             // 
             // buttonMerchant
             // 
-            this.buttonMerchant.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonMerchant.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_OA;
             this.buttonMerchant.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonMerchant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMerchant.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonMerchant.ForeColor = System.Drawing.Color.White;
-            this.buttonMerchant.Location = new System.Drawing.Point(469, 324);
+            this.buttonMerchant.Location = new System.Drawing.Point(410, 243);
+            this.buttonMerchant.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonMerchant.Name = "buttonMerchant";
-            this.buttonMerchant.Size = new System.Drawing.Size(174, 75);
+            this.buttonMerchant.Size = new System.Drawing.Size(152, 81);
             this.buttonMerchant.TabIndex = 6;
-            this.buttonMerchant.Text = "Merchant";
             this.buttonMerchant.UseVisualStyleBackColor = true;
             // 
             // buttonHistory
             // 
-            this.buttonHistory.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonHistory.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_History;
             this.buttonHistory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonHistory.ForeColor = System.Drawing.Color.White;
-            this.buttonHistory.Location = new System.Drawing.Point(687, 324);
+            this.buttonHistory.Location = new System.Drawing.Point(601, 243);
+            this.buttonHistory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHistory.Name = "buttonHistory";
-            this.buttonHistory.Size = new System.Drawing.Size(174, 75);
+            this.buttonHistory.Size = new System.Drawing.Size(152, 81);
             this.buttonHistory.TabIndex = 7;
-            this.buttonHistory.Text = "History";
             this.buttonHistory.UseVisualStyleBackColor = true;
             // 
             // FormMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonHistory);
             this.Controls.Add(this.buttonMerchant);
             this.Controls.Add(this.buttonTransfer);
             this.Controls.Add(this.buttonAccount);
             this.Controls.Add(this.pictureBoxWave);
             this.Controls.Add(this.pictureBoxLogo);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormMenu";
             this.Text = "FormMenu";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();

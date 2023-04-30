@@ -79,6 +79,7 @@
             // buttonLogIn
             // 
             this.buttonLogIn.BackColor = System.Drawing.Color.White;
+            this.buttonLogIn.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
             this.buttonLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonLogIn.FlatAppearance.BorderSize = 0;
             this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
