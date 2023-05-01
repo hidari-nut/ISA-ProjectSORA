@@ -8,5 +8,10 @@ namespace SORA_Class
 {
     internal class Transaksi
     {
+        int id;
+        Customer sender;
+        Customer recepient;
+        DateTime transactionDate;
+        double nominal;
     }
 }
