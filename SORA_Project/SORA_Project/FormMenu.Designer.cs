@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.pictureBoxWave = new System.Windows.Forms.PictureBox();
             this.buttonAccount = new System.Windows.Forms.Button();
@@ -47,18 +48,15 @@
             this.pictureBoxLogo.Size = new System.Drawing.Size(492, 185);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
+
             // 
-            // pictureBoxWave
+            // adminToolStripMenuItem
             // 
-            this.pictureBoxWave.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxWave.BackgroundImage = global::SORA_Project.Properties.Resources.wave1;
-            this.pictureBoxWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxWave.Location = new System.Drawing.Point(-116, 345);
-            this.pictureBoxWave.Name = "pictureBoxWave";
-            this.pictureBoxWave.Size = new System.Drawing.Size(1084, 117);
-            this.pictureBoxWave.TabIndex = 2;
-            this.pictureBoxWave.TabStop = false;
+            adminToolStripMenuItem.Name = "adminToolStripMenuItem";
+            adminToolStripMenuItem.Size = new Size(161, 26);
+            adminToolStripMenuItem.Text = "Admin";
             // 
+
             // buttonAccount
             // 
             this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_Account;
@@ -132,7 +130,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWave)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
