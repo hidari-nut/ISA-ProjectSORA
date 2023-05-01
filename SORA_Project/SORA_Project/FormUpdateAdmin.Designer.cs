@@ -31,8 +31,6 @@
             this.groupBoxCustomer = new System.Windows.Forms.GroupBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.textBoxPhoneNum = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textBoxLName = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -44,14 +42,16 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBoxFName = new System.Windows.Forms.TextBox();
             this.buttonRegister = new System.Windows.Forms.Button();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.groupBoxCustomer.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCustomer
@@ -93,27 +93,6 @@
             this.textBoxPhoneNum.PlaceholderText = "Phone Number";
             this.textBoxPhoneNum.Size = new System.Drawing.Size(181, 16);
             this.textBoxPhoneNum.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.textBoxEmail);
-            this.panel3.Location = new System.Drawing.Point(6, 52);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(188, 26);
-            this.panel3.TabIndex = 5;
-            // 
-            // textBoxEmail
-            // 
-            this.textBoxEmail.BackColor = System.Drawing.Color.White;
-            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxEmail.Location = new System.Drawing.Point(3, 5);
-            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.PlaceholderText = "email@address";
-            this.textBoxEmail.Size = new System.Drawing.Size(181, 16);
-            this.textBoxEmail.TabIndex = 0;
             // 
             // panel4
             // 
@@ -234,6 +213,27 @@
             this.buttonRegister.Text = "SAVE";
             this.buttonRegister.UseVisualStyleBackColor = true;
             // 
+            // textBoxEmail
+            // 
+            this.textBoxEmail.BackColor = System.Drawing.Color.White;
+            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxEmail.Location = new System.Drawing.Point(3, 5);
+            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.PlaceholderText = "email@address";
+            this.textBoxEmail.Size = new System.Drawing.Size(181, 16);
+            this.textBoxEmail.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.textBoxEmail);
+            this.panel3.Location = new System.Drawing.Point(6, 52);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(188, 26);
+            this.panel3.TabIndex = 5;
+            // 
             // FormUpdateAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -249,8 +249,6 @@
             this.groupBoxCustomer.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -261,6 +259,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -270,8 +270,6 @@
         private GroupBox groupBoxCustomer;
         private Panel panel5;
         private TextBox textBoxPhoneNum;
-        private Panel panel3;
-        private TextBox textBoxEmail;
         private Panel panel4;
         private TextBox textBoxLName;
         private Panel panel6;
@@ -283,5 +281,7 @@
         private TextBox textBox1;
         private TextBox textBoxFName;
         private Button buttonRegister;
+        private Panel panel3;
+        private TextBox textBoxEmail;
     }
 }
