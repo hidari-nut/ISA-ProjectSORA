@@ -16,24 +16,25 @@ namespace SORA_Class
     {
         int id;
         Customer sender;
-        Customer recepient;
+        Customer recipient;
         DateTime transactionDate;
         decimal nominal;
         bool completed;
 
         public int Id { get => id; set => id = value; }
         public Customer Sender { get => sender; set => sender = value; }
-        public Customer Recepient { get => recepient; set => recepient = value; }
+        public Customer Recipient { get => recipient; set => recipient = value; }
         public DateTime TransactionDate { get => transactionDate; set => transactionDate = value; }
         public decimal Nominal { get => nominal; set => nominal = value; }
         public bool Completed { get => completed; set => completed = value; }
+       
 
-        public Transaction(int id, Customer sender, Customer recepient, DateTime transactionDate,
+        public Transaction(int id, Customer sender, Customer recipient, DateTime transactionDate,
             decimal nominal, bool completed)
         {
             Id = id;
             Sender = sender;
-            Recepient = recepient;
+            Recipient = recipient;
             TransactionDate = transactionDate;
             Nominal = nominal;
             Completed = completed;
@@ -43,17 +44,23 @@ namespace SORA_Class
         {
             Id = 0;
             Sender = new Customer();
-            Recepient = new Customer();
+            Recipient = new Customer();
             TransactionDate = DateTime.Now;
             Nominal = 0;
             Completed = true;
         }
 
+        /// <summary>
+        /// Inserts a transaction to the database
+        /// </summary>
+        /// <param name="transaction">Transaction object to be inserted. The customer objects need atleast
+        /// their ID set.</param>
+        /// <returns>If true, means that the insert is successfu. If false, then it has failed.</returns>
         public static bool Add(Transaction transaction)
         {
             var utf16 = new UnicodeEncoding();
 
-            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.Recepient.Email);
+            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.Recipient.Id);
             int bytesRead = 0;
 
             //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
@@ -84,7 +91,7 @@ namespace SORA_Class
             var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
-                Value = transaction.Recepient.Id
+                Value = transaction.Recipient.Id
             };
 
             var transactionNominalParam = new MySqlParameter("@transaction_nominal", MySqlDbType.VarBinary)
@@ -156,8 +163,10 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                //transaction.Sender = Customer.FINDUSERFROMID(result.GetValue(0).ToString());
-                //transaction.Recepient = Customer.FINDUSERFROMID(result.GetValue(1).ToString());
+                transaction.Sender.Id = result.GetValue(0).ToString();
+                transaction.Recipient.Id = result.GetValue(1).ToString();
+                //transaction.Sender.Email = Customer.FINDEMAILWITHID(transaction.Sender.Id);
+                //transaction.Recipient.Email = Customer.FINDEMAILWITHID(transaction.Recipient.Id);
 
                 byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
