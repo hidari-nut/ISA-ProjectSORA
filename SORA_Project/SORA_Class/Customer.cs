@@ -625,5 +625,10 @@ namespace SORA_Class
         {
             string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
+
+        //public static bool ProcessTransaction(Customer customer)
+        //{
+
+        //}
     }
 }

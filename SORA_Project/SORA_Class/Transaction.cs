@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace SORA_Class
 {
@@ -94,6 +96,36 @@ namespace SORA_Class
             else
             {
                 return false;
+            }
+        }
+
+        //Read user transactions query:
+        //SELECT*
+        //FROM tTransaction_Account-Account
+        //WHERE senderID = @idcustomer OR recipientID = @idcustomer
+        //ORDER BY transaction_date DESC;
+
+        /// <summary>
+        /// Reads all incoming transactions that aren't processed yet
+        /// </summary>
+        /// <param name="customerId">Customer's ID</param>
+        /// <returns>A list of unprocessed incoming transactions</returns>
+        public static List<Transaction> ReadProcessTransactions(string customerId)
+        {
+            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID";
+
+            var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = customerId
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, recipientIDParam);
+
+            while (result.Read() == true)
+            {
+                Transaction transaction = new Transaction();
             }
         }
     }
