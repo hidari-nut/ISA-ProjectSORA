@@ -48,15 +48,7 @@
             this.pictureBoxLogo.Size = new System.Drawing.Size(492, 185);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
-
             // 
-            // adminToolStripMenuItem
-            // 
-            adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            adminToolStripMenuItem.Size = new Size(161, 26);
-            adminToolStripMenuItem.Text = "Admin";
-            // 
-
             // buttonAccount
             // 
             this.buttonAccount.BackgroundImage = global::SORA_Project.Properties.Resources.Buttons_Account;
