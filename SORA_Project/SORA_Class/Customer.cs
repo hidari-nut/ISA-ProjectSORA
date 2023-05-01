@@ -288,7 +288,7 @@ namespace SORA_Class
                     Size = publicKeyRSA.Length,
                     Value = publicKeyRSA
                 };
-                
+
                 #endregion
 
                 Connection connection = new Connection();
