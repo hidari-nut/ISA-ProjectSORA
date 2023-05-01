@@ -54,9 +54,6 @@ namespace SORA_Class
 
         public static bool AddAdmin(Admin admin)
         {
-            string sql = "INSERT INTO 'tAdmins' ('id', 'first_name', 'last_name', 'email', 'dob', 'password') VALUES ('" +
-                admin.Id + "','" + admin.FirstName + "','" + admin.LastName + "','" + admin.Email + "','" + admin.PhoneNumber + "','" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + admin.Password + "');";
-
             #region SQL Parameter
             var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
             {
@@ -100,6 +97,8 @@ namespace SORA_Class
                 Value = admin.DateOfBirth
             };
             #endregion
+
+            string sql = "INSERT INTO 'tAdmins' ('id', 'first_name', 'last_name', 'email', 'dob', 'password') VALUES (@id, @first_name, @last_name, @email, @dob, @password);";
 
             Connection connection = new Connection();
 
@@ -115,9 +114,6 @@ namespace SORA_Class
 
         public static bool UpdateAdmin(Admin admin)
         {
-            string sql = "UPDATE 'tAdmins' SET'first_name' = '" + admin.FirstName + "', 'last_name' = '" + admin.LastName + "', 'email' = '" + admin.Email + "', 'phone_number' = '" + admin.PhoneNumber + "', 'dob' = '" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "',"
-                + "', 'password' = '" + admin.Password + "';" ;
-
             #region SQL Parameter
             var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
             {
@@ -161,6 +157,8 @@ namespace SORA_Class
                 Value = admin.DateOfBirth
             };
             #endregion
+
+            string sql = "UPDATE 'tAdmins' SET'first_name' = @first_name, 'last_name' = @last_name, 'email' = @email, 'phone_number' = @phone_number, 'dob' = @dob, 'password' = @password;" ;
 
             Connection connection = new Connection();
 
