@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,8 +27,18 @@ namespace SORA_Class
 
         public static bool Add(Transaction transaction)
         {
+            var utf16 = new UnicodeEncoding();
 
+            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.Recepient.Email);
+            int bytesRead = 0;
 
+            //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            //RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+
+            byte[] transactionNominalBytes = utf16.GetBytes(transaction.Nominal.ToString());
+
+            //Encrypt the nominal with RSA.
+            byte[] eTransactionNominal = RSA.RSAEncrypt(transactionNominalBytes, recipientPublicKey);
 
             const string sql = "INSERT INTO tTransaction_Account-Account(senderID, recipientID, transaction_nominal," +
                 "transaction_date, completed) " +
@@ -55,8 +66,8 @@ namespace SORA_Class
             var transactionNominalParam = new MySqlParameter("@transaction_nominal", MySqlDbType.VarBinary)
             {
                 Direction = ParameterDirection.Input,
-                //Size = transaction.Nominal.Length
-                Value = transaction.Nominal
+                Size = eTransactionNominal.Length,
+                Value = eTransactionNominal
             };
 
             var transactionDateParam = new MySqlParameter("@transaction_date", MySqlDbType.DateTime)
