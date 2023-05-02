@@ -218,7 +218,7 @@ namespace SORA_Class
             }
             else
             {
-                string sql = "SELECT * FROM tAdmins WHERE password = @password AND email = @email;";
+                string sql = "SELECT * FROM tAdmins WHERE  tAdmins.email = @email AND tAdmins.password = @password;";
 
                 MySqlDataReader result = Connection.RunQueryCommand(sql);
 
@@ -253,7 +253,7 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "SELECT email FROM tAdmins WHERE tAdmins.password = @password AND tAdmins.email = @email;";
+            string sql = "SELECT email FROM tAdmins WHERE tAdmins.email = @email AND tAdmins.password = @password;";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
