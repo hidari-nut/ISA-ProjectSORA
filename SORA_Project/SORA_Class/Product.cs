@@ -33,5 +33,49 @@ namespace SORA_Class
             Price = 0;
             Owner = new VerifiedAccount();
         }
+
+        public static bool AddProduct(Product product)
+        {
+            #region SQL PARAMETER
+            var idParam = new MySqlParamater("@Product_id", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = product.Id
+            };
+
+            var nameParam = new MySqlParameter("@name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = product.name
+            };
+
+            var priceParam = new MySqlParameter("@price", MySqlDbType.Decimal, 19.6)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = product.price
+            };
+
+            var ownerParam = new MySqlParameter("@owner", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = product.owner
+            };
+
+            #endregion
+            string sql = "INSERT INTO tProduct(product_id, name, price, owner) VALUES " +
+                "(@product_id, @name, @price, @owner);";
+
+            Connection connection = new Connection();
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, nameParam, priceParam, ownerParam) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }
