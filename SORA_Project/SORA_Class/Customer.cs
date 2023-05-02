@@ -288,7 +288,7 @@ namespace SORA_Class
                     Size = publicKeyRSA.Length,
                     Value = publicKeyRSA
                 };
-                
+
                 #endregion
 
                 Connection connection = new Connection();
@@ -442,20 +442,20 @@ namespace SORA_Class
         /// </summary>
         /// <param name="email">Specified User's Email</param>
         /// <returns>RSA Public Key of specified User in byte array</returns>
-        public static byte[] GetRSAPublicKey(string email)
+        public static byte[] GetRSAPublicKey(string customerID)
         {
             byte[] publicKeyRSA = null;
 
-            string sql = "SELECT rsa_public_key FROM tCustomers WHERE email = @email";
+            string sql = "SELECT rsa_public_key FROM tCustomers WHERE idCustomer = @idCustomer";
 
-            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            var idParam = new MySqlParameter("@idCustomer", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
-                Value = email
+                Value = customerID
             };
 
             Connection connection = new Connection();
-            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
 
             if (result.Read() == true)
             {
@@ -625,5 +625,38 @@ namespace SORA_Class
         {
             string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
+
+
+        public static Customer SearchByEmail(string email)
+        {
+          
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar,45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            string sql = "SELECT id FROM tCustomers WHERE email = @email;";
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            if(result.Read() == true)
+            {
+                Customer customer = new Customer();
+                string idCustomer = result.GetString(0);
+                return customer;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        //public static bool ProcessTransaction(Customer customer)
+        //{
+
+        //}
+
     }
 }

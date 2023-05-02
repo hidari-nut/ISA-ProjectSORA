@@ -18,6 +18,7 @@ namespace SORA_Class
         private DateTime dateOfBirth;
 
         private string password;
+        private string password_salt;
 
         public string Id { get => id; set => id = value; }
         public string FirstName { get => firstName; set => firstName = value; }
@@ -26,8 +27,9 @@ namespace SORA_Class
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public string Password { get => password; set => password = value; }
+        public string Password_salt { get => password_salt; set => password_salt = value; }
 
-        public Admin(string id, string firstName, string lastName, string email, string phoneNumber, DateTime dateOfBirth, string password)
+        public Admin(string id, string firstName, string lastName, string email, string phoneNumber, DateTime dateOfBirth, string password, string password_salt = "")
         {
             Id = id;
             FirstName = firstName;
@@ -36,6 +38,7 @@ namespace SORA_Class
             PhoneNumber = phoneNumber;
             DateOfBirth = dateOfBirth;
             Password = password;
+            Password_salt = password_salt;
         }
 
         public Admin()
@@ -48,12 +51,59 @@ namespace SORA_Class
             DateOfBirth = DateTime.Now;
         }
 
+
         public static bool AddAdmin(Admin admin)
         {
-            string sql = "INSERT INTO 'tAdmins' ('id', 'first_name', 'last_name', 'email', 'dob', 'password') VALUES ('" +
-                admin.Id + "','" + admin.FirstName + "','" + admin.LastName + "','" + admin.Email + "','" + admin.PhoneNumber + "','" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "','" + admin.Password + "');";
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Id
+            };
 
-            if (Connection.RunDMLCommand(sql) > 0)
+            var firstNameParam = new MySqlParameter("@first_name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.FirstName
+            };
+            var lastNameParam = new MySqlParameter("@last_name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.LastName
+            };
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Email
+            };
+            var passwordParam = new MySqlParameter("@password", MySqlDbType.VarChar, 128)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Password
+            };
+            var passwordSaltParam = new MySqlParameter("@password", MySqlDbType.VarChar, 32)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Password_salt
+            };
+            var phoneNumberParam = new MySqlParameter("@phone_number", MySqlDbType.VarChar, 15)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.PhoneNumber
+            };
+            var dobParam = new MySqlParameter("@dob", MySqlDbType.Date)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.DateOfBirth
+            };
+            #endregion
+
+            string sql = "INSERT INTO tAdmins (admin_id, first_name, last_name, email, password, password_salt, phone_number, dob) VALUES " +
+                "(@admin_id, @first_name, @last_name, @email, @password, @password_salt, @phone_number, @dob);";
+
+            Connection connection = new Connection();
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam, emailParam, passwordParam, passwordSaltParam, phoneNumberParam, dobParam) > 0)
             {
                 return true;
             }
@@ -65,9 +115,55 @@ namespace SORA_Class
 
         public static bool UpdateAdmin(Admin admin)
         {
-            string sql = "UPDATE 'tAdmins' SET'first_name' = '" + admin.FirstName + "', 'last_name' = '" + admin.LastName + "', 'email' = '" + admin.Email + "', 'phone_number' = '" + admin.PhoneNumber + "', 'dob' = '" + admin.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "',"
-                + "', 'password' = '" + admin.Password + "';" ;
-            if (Connection.RunDMLCommand(sql) > 0)
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Id
+            };
+
+            var firstNameParam = new MySqlParameter("@first_name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.FirstName
+            };
+            var lastNameParam = new MySqlParameter("@last_name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.LastName
+            };
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Email
+            };
+            var passwordParam = new MySqlParameter("@password", MySqlDbType.VarChar, 128)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Password
+            };
+            var passwordSaltParam = new MySqlParameter("@password", MySqlDbType.VarChar, 32)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.Password_salt
+            };
+            var phoneNumberParam = new MySqlParameter("@phone_number", MySqlDbType.VarChar, 15)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.PhoneNumber
+            };
+            var dobParam = new MySqlParameter("@dob", MySqlDbType.Date)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = admin.DateOfBirth
+            };
+            #endregion
+
+            string sql = "UPDATE tAdmins SET first_name = @first_name, last_name = @last_name, email = @email, password = @password, password_salt = @password_salt, phone_number = @phone_number, dob = @dob WHERE admin_id = @admin_id;";
+
+            Connection connection = new Connection();
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam, emailParam, passwordParam, passwordSaltParam, phoneNumberParam, dobParam) > 0)
             {
                 return true;
             }
@@ -79,7 +175,15 @@ namespace SORA_Class
 
         public static bool DeleteAdmin(string id)
         {
-            string sql = "DELETE FROM tAdmins WHERE id = '" + id + "';";
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = id
+            };
+            #endregion
+
+            string sql = "DELETE FROM tAdmins WHERE admin_id = @admin_id ;";
 
             if (Connection.RunDMLCommand(sql) > 0)
             {
@@ -93,13 +197,28 @@ namespace SORA_Class
 
         public static Admin CheckLogin(string email, string password)
         {
+
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            var passwordParam = new MySqlParameter("@password", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = password
+            };
+            #endregion
+
+
             if (CheckPassword(email, password) == false)
             {
                 return null;
             }
             else
             {
-                string sql = "SELECT * FROM tAdmins " + "WHERE password = '" + password + "' AND email = '" + email + "';";
+                string sql = "SELECT * FROM tAdmins WHERE  tAdmins.email = @email AND tAdmins.password = @password;";
 
                 MySqlDataReader result = Connection.RunQueryCommand(sql);
 
@@ -121,7 +240,20 @@ namespace SORA_Class
 
         public static bool CheckPassword(string email, string password)
         {
-            string sql = "SELECT email FROM tAdmins " + "WHERE tAdmins.password = '" + password + "' AND tAdmins.email = '" + email + "';";
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            var passwordParam = new MySqlParameter("@password", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = password
+            };
+            #endregion
+
+            string sql = "SELECT email FROM tAdmins WHERE tAdmins.email = @email AND tAdmins.password = @password;";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             string userEmail = "";
@@ -143,11 +275,19 @@ namespace SORA_Class
 
         public static List<Admin> ReadData(string email)
         {
+
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
             string sql = "SELECT * from tAdmins";
 
             if (email != "")
             {
-                sql += " WHERE email = " + email + ";";
+                sql += " WHERE email = @email;";
             }
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
@@ -167,9 +307,18 @@ namespace SORA_Class
             return listAdmin;
         }
 
-        public static void UpdateLastLogin(string customerId)
+        public static void UpdateLastLogin(string id)
         {
-            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = '" + customerId + "';";
+
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = id
+            };
+            #endregion
+            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = @admin_id;";
+        
         }
 
     }
