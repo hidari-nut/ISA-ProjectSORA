@@ -98,7 +98,8 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "INSERT INTO tAdmins (id, first_name, last_name, email, dob, password) VALUES (@id, @first_name, @last_name, @email, @dob, @password);";
+            string sql = "INSERT INTO tAdmins (id, first_name, last_name, email, password, password_salt, phone_number, dob) VALUES " +
+                "(@id, @first_name, @last_name, @email, @password, @password_salt, @phone_number, @dob);";
 
             Connection connection = new Connection();
 
@@ -158,7 +159,7 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "UPDATE tAdmins SET first_name = @first_name, last_name = @last_name, email = @email, phone_number = @phone_number, dob = @dob, password = @password;" ;
+            string sql = "UPDATE tAdmins SET first_name = @first_name, last_name = @last_name, email = @email, password = @password, password_salt = @password_salt, phone_number = @phone_number, dob = @dob;";
 
             Connection connection = new Connection();
 
