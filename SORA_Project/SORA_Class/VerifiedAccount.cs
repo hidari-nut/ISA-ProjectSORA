@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,37 @@ namespace SORA_Class
             CreationTime = DateTime.Now;
             Category = new AccountCategory();
             Verificator = new Admin();
+        }
+
+        public static bool AddVerif(VerifiedAccount verifiedAccount)
+        {
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@id", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = verifiedAccount.Id
+            };
+
+            var nameParam = new MySqlParameter("@merchant_name", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input, 
+                Value = verifiedAccount.Name
+            };
+
+            #endregion
+
+            string sql = "INSERT INTO tAdmins (id, merchant_name) VALUES (@id, @merchant_name);";
+
+            Connection connection = new Connection();
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, nameParam) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -288,7 +288,7 @@ namespace SORA_Class
                     Size = publicKeyRSA.Length,
                     Value = publicKeyRSA
                 };
-                
+
                 #endregion
 
                 Connection connection = new Connection();
@@ -626,9 +626,37 @@ namespace SORA_Class
             string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
 
+
+        public static Customer SearchByEmail(string email)
+        {
+          
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar,45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            string sql = "SELECT id FROM tCustomers WHERE email = @email;";
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            if(result.Read() == true)
+            {
+                Customer customer = new Customer();
+                string idCustomer = result.GetString(0);
+                return customer;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         //public static bool ProcessTransaction(Customer customer)
         //{
 
         //}
+
     }
 }
