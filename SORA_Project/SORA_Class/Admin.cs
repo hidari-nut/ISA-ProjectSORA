@@ -159,7 +159,7 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "UPDATE tAdmins SET first_name = @first_name, last_name = @last_name, email = @email, password = @password, password_salt = @password_salt, phone_number = @phone_number, dob = @dob;";
+            string sql = "UPDATE tAdmins SET first_name = @first_name, last_name = @last_name, email = @email, password = @password, password_salt = @password_salt, phone_number = @phone_number, dob = @dob WHERE admin_id = @admin_id;";
 
             Connection connection = new Connection();
 
