@@ -37,7 +37,7 @@ namespace SORA_Class
             }
         }
 
-        public static byte[] RSADecrypt(byte[] DataToDecrypt, byte[] recipientPrivateKey, byte[] passwordBytes)
+        public static byte[] RSADecrypt(byte[] DataToDecrypt, byte[] recipientPrivateKey)
         {
             try
             {

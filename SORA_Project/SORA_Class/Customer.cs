@@ -442,20 +442,20 @@ namespace SORA_Class
         /// </summary>
         /// <param name="email">Specified User's Email</param>
         /// <returns>RSA Public Key of specified User in byte array</returns>
-        public static byte[] GetRSAPublicKey(string email)
+        public static byte[] GetRSAPublicKey(string customerID)
         {
             byte[] publicKeyRSA = null;
 
-            string sql = "SELECT rsa_public_key FROM tCustomers WHERE email = @email";
+            string sql = "SELECT rsa_public_key FROM tCustomers WHERE idCustomer = @idCustomer";
 
-            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            var idParam = new MySqlParameter("@idCustomer", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
-                Value = email
+                Value = customerID
             };
 
             Connection connection = new Connection();
-            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
 
             if (result.Read() == true)
             {
@@ -626,6 +626,7 @@ namespace SORA_Class
             string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
 
+
         public static Customer SearchByEmail(string email)
         {
           
@@ -652,6 +653,10 @@ namespace SORA_Class
             }
         }
 
+        //public static bool ProcessTransaction(Customer customer)
+        //{
+
+        //}
 
     }
 }
