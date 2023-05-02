@@ -98,8 +98,8 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "INSERT INTO tAdmins (id, first_name, last_name, email, password, password_salt, phone_number, dob) VALUES " +
-                "(@id, @first_name, @last_name, @email, @password, @password_salt, @phone_number, @dob);";
+            string sql = "INSERT INTO tAdmins (admin_id, first_name, last_name, email, password, password_salt, phone_number, dob) VALUES " +
+                "(@admin_id, @first_name, @last_name, @email, @password, @password_salt, @phone_number, @dob);";
 
             Connection connection = new Connection();
 
@@ -183,7 +183,7 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "DELETE FROM tAdmins WHERE id = @admin_id ;";
+            string sql = "DELETE FROM tAdmins WHERE admin_id = @admin_id ;";
 
             if (Connection.RunDMLCommand(sql) > 0)
             {
