@@ -25,5 +25,45 @@ namespace SORA_Class
             Id = "";
             Name = "";
         }
+
+        public static class AccountCategory
+        {
+            private static List<AccountCategory> accountCategories = new List<AccountCategory>();
+
+            public static AccountCategory CreateAccountCategory(int id, string name)
+            {
+                AccountCategory accountCategory = new AccountCategory { Id = id, Name = name };
+                accountCategories.Add(accountCategory);
+                return accountCategory;
+            }
+        }
+        public void AddAccountCategory(AccountCategory accountCategory)
+        {
+            accountCategories.Add(accountCategory);
+        }
+
+        //READ method
+        public List<AccountCategory> GetAllAccountCategories()
+        {
+            return accountCategories();
+        }
+        public AccountCategory GetAccountCategoryId(string id)
+        {
+            return accountCategories.Find(AccountCategory.id == id);
+        }
+
+        public void UpdateAccountCategory(AccountCategory accountCategory)
+        {
+            int index = accountCategories.FindIndex(ac => ac.Id == accountCategory.Id);
+            if (index >= 0)
+            {
+                accountCategories[index] = accountCategory;
+            }
+        }
+
+        public void DeleteAccountCategory(int id)
+        {
+            accountCategories.RemoveAll(ac => ac.Id == id);
+        }
     }
 }
