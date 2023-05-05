@@ -189,15 +189,31 @@ namespace SORA_Class
             return transactionList;
         }
 
-        /// <summary>
-        /// Reads all incoming transactions that aren't processed yet
-        /// </summary>
-        /// <param name="customerId">Customer's ID</param>
-        /// <returns>A list of unprocessed incoming transactions</returns>
-        public static List<Transaction> ReadProcessTransactions(string customerId, string email, string password)
+        public static bool CompleteTransaction(string transactionID, Connection connection)
+        {
+            const string sql = "UPDATE tTransaction_Account-Account SET completed = 1 " +
+                "WHERE transactionID = @transactionID";
+
+            var idParam = new MySqlParameter("@transactionID", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = transactionID
+            };
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool ProcessTransactions(string customerId, string email, string password)
         {
             const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID " +
-                "AND completed == 0"; 
+                "AND completed = 0"; 
             //Reads all transactions where the user is the recipient
             //and the transaction is not yet processed or completed
 
@@ -244,7 +260,18 @@ namespace SORA_Class
 
                 transactionList.Add(transaction);
             }
-            return transactionList;
+            //return transactionList;
+
+            Customer customer = Customer.ReadData(email, password);
+            //List<Transaction> unprocessedTransactions = Transaction.ReadProcessTransactions(customer.Id,
+            //    email, password);
+
+            foreach (Transaction transaction in transactionList)
+            {
+                customer.Balance += transaction.Nominal;
+            }
+
+            return false;
         }
     }
 }

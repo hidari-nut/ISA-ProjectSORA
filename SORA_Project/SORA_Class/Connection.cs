@@ -8,7 +8,7 @@ using System.Configuration;
 
 namespace SORA_Class
 {
-    internal class Connection
+    public class Connection
     {
         private MySqlConnection dbConnection;
 

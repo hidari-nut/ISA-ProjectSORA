@@ -686,10 +686,24 @@ namespace SORA_Class
             }
         }
 
-        //public static bool ProcessTransaction(Customer customer)
+        //public static bool ProcessTransaction(string email, string password)
         //{
+        //    Customer customer = Customer.ReadData(email, password);
+        //    List<Transaction> unprocessedTransactions = Transaction.ReadProcessTransactions(customer.Id,
+        //        email, password);
 
+        //    foreach(Transaction transaction in unprocessedTransactions)
+        //    {
+        //        customer.Balance += transaction.Nominal;
+
+        //    }
         //}
 
+        //public static bool UpdateBalance(string customerId, string balance)
+        //{
+        //    const string sql = "UPDATE tCustomers SET balance = @balance WHERE idCustomer = idCustomer;";
+
+
+        //}
     }
 }
