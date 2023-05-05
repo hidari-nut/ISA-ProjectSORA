@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using System.Web.Helpers;
+using System.Security.Cryptography;
+using System.Data;
+using Org.BouncyCastle.Crypto.Engines;
+using System.Text.Unicode;
+using Org.BouncyCastle.Ocsp;
 
 namespace SORA_Class
 {
@@ -37,7 +45,7 @@ namespace SORA_Class
         public static bool AddProduct(Product product)
         {
             #region SQL PARAMETER
-            var idParam = new MySqlParamater("@Product_id", MySqlDbType.Int64)
+            var idParam = new MySqlParameter("@Product_id", MySqlDbType.Int64)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = product.Id
@@ -46,19 +54,19 @@ namespace SORA_Class
             var nameParam = new MySqlParameter("@name", MySqlDbType.VarChar, 45)
             {
                 Direction = System.Data.ParameterDirection.Input,
-                Value = product.name
+                Value = product.Name
             };
 
-            var priceParam = new MySqlParameter("@price", MySqlDbType.Decimal, 19.6)
+            var priceParam = new MySqlParameter("@price", MySqlDbType.Decimal)
             {
                 Direction = System.Data.ParameterDirection.Input,
-                Value = product.price
+                Value = product.Price
             };
 
             var ownerParam = new MySqlParameter("@owner", MySqlDbType.VarChar, 45)
             {
                 Direction = System.Data.ParameterDirection.Input,
-                Value = product.owner
+                Value = product.Owner.Id
             };
 
             #endregion

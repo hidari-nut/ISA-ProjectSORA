@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using System.Web.Helpers;
+using System.Security.Cryptography;
+using System.Data;
+using Org.BouncyCastle.Crypto.Engines;
+using System.Text.Unicode;
+using Org.BouncyCastle.Ocsp;
 
 namespace SORA_Class
 {
@@ -29,7 +37,7 @@ namespace SORA_Class
         public static bool AddAccountCategory(AccountCategory accountCategory)
         {
             #region SQL PARAMETER
-            var idParam = new MySqlParamater("@AccountCategory_id", MySqlDbType.Int64)
+            var idParam = new MySqlParameter("@AccountCategory_id", MySqlDbType.Int64)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = accountCategory.Id
