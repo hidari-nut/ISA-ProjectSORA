@@ -134,6 +134,54 @@ namespace SORA_Class
         //WHERE senderID = @idcustomer OR recipientID = @idcustomer
         //ORDER BY transaction_date DESC;
 
+        public static List<Transaction> ReadTransactions(string customerId, string email, string password)
+        {
+            const string sql = "//SELECT* FROM tTransaction_Account-Account " +
+                "WHERE senderID = @idcustomer OR recipientID = @idcustomer ORDER BY transaction_date DESC;";
+
+            var utf16 = new UnicodeEncoding();
+
+            byte[] privateKey = Customer.GetRSAPrivateKey(email, password);
+
+            var recipientIDParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = customerId
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, recipientIDParam);
+
+            List<Transaction> transactionList = new List<Transaction>();
+            while (result.Read() == true)
+            {
+                Transaction transaction = new Transaction();
+                transaction.Sender.Id = result.GetValue(0).ToString();
+                transaction.Recipient.Id = result.GetValue(1).ToString();
+                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
+
+                byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
+                byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
+                transaction.Nominal = decimal.Parse(utf16.GetString(transactionNominalBytes));
+
+                transaction.TransactionDate = DateTime.Parse(result.GetValue(3).ToString());
+
+                int completedInt = int.Parse(result.GetValue(4).ToString());
+                if (completedInt == 0)
+                {
+                    transaction.Completed = false;
+                }
+                else
+                {
+                    transaction.Completed = true;
+                }
+
+                transactionList.Add(transaction);
+            }
+            return transactionList;
+        }
+
         /// <summary>
         /// Reads all incoming transactions that aren't processed yet
         /// </summary>
@@ -165,8 +213,8 @@ namespace SORA_Class
                 Transaction transaction = new Transaction();
                 transaction.Sender.Id = result.GetValue(0).ToString();
                 transaction.Recipient.Id = result.GetValue(1).ToString();
-                //transaction.Sender.Email = Customer.FINDEMAILWITHID(transaction.Sender.Id);
-                //transaction.Recipient.Email = Customer.FINDEMAILWITHID(transaction.Recipient.Id);
+                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
                 byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);

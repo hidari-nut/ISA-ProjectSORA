@@ -626,8 +626,12 @@ namespace SORA_Class
             string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
         }
 
-
-        public static Customer SearchByEmail(string email)
+        /// <summary>
+        /// Searches for customer's id by inputted email
+        /// </summary>
+        /// <param name="email">Customer's email address</param>
+        /// <returns>Customer's ID</returns>
+        public static string SearchByEmail(string email)
         {
           
             #region SQL Parameter
@@ -638,14 +642,43 @@ namespace SORA_Class
             };
             #endregion
 
-            string sql = "SELECT id FROM tCustomers WHERE email = @email;";
+            string sql = "SELECT idCustomer FROM tCustomers WHERE email = @email;";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
             if(result.Read() == true)
             {
-                Customer customer = new Customer();
-                string idCustomer = result.GetString(0);
-                return customer;
+                string customerID = result.GetString(0);
+                return customerID;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Searches customer's email by id input
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <returns>Customer's Email address</returns>
+        public static string SearchByID(string id)
+        {
+
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@idCustomer", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = id
+            };
+            #endregion
+
+            string sql = "SELECT email FROM tCustomers WHERE idCustomer = @idCustomer;";
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            if (result.Read() == true)
+            {
+                string customerEmail = result.GetString(0);
+                return customerEmail;
             }
             else
             {
