@@ -134,6 +134,13 @@ namespace SORA_Class
         //WHERE senderID = @idcustomer OR recipientID = @idcustomer
         //ORDER BY transaction_date DESC;
 
+        /// <summary>
+        /// Reads all user Transactions history both Sending and Receiving
+        /// </summary>
+        /// <param name="customerId">Customer's ID</param>
+        /// <param name="email">Customer's Email address</param>
+        /// <param name="password">Customer's password in plaintext</param>
+        /// <returns>All user Transactions history</returns>
         public static List<Transaction> ReadTransactions(string customerId, string email, string password)
         {
             const string sql = "//SELECT* FROM tTransaction_Account-Account " +
@@ -189,7 +196,10 @@ namespace SORA_Class
         /// <returns>A list of unprocessed incoming transactions</returns>
         public static List<Transaction> ReadProcessTransactions(string customerId, string email, string password)
         {
-            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID";
+            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID " +
+                "AND completed == 0"; 
+            //Reads all transactions where the user is the recipient
+            //and the transaction is not yet processed or completed
 
             var utf16 = new UnicodeEncoding();
 
