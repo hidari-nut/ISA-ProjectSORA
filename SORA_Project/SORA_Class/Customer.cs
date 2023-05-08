@@ -307,22 +307,137 @@ namespace SORA_Class
             }
         }
 
-
-        public static bool Update(Customer customer)
+        /// <summary>
+        /// Updates the balance of a customer
+        /// </summary>
+        /// <param name="customer">Designated customer</param>
+        /// <param name="plainPassword">Customer's plaintext password</param>
+        /// <returns>If the update is successful</returns>
+        public static bool UpdateBalance(Customer customer, string plainPassword)
         {
-            string sql = "UPDATE 'tCustomers' SET'first_name' = '" + customer.FirstName 
-                + "', 'last_name' = '" + customer.LastName + "', 'email' = '" + customer.Email 
-                +"', 'phone_number' = '" + customer.PhoneNumber 
-                + "', 'dob' = '" + customer.DateOfBirth.ToString("yyyy-MM-dd hh:mm:ss") + "', 'pin' = '" + customer.Pin
-                + "', 'password' = '" +customer.Password + "', 'saldo' = "+ customer.Balance +";"; 
-                
-            if (Connection.RunDMLCommand(sql) > 0)
+            //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
+            var utf16 = new UnicodeEncoding();
+
+            //Derive password hash to decrypt data key
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(plainPassword),
+            utf16.GetBytes(customer.Password_salt),
+            100000, HashAlgorithmName.SHA512);
+
+            Aes aesKeyEncrypt = Aes.Create();
+            aesKeyEncrypt.Key = passKey.GetBytes(32);
+            aesKeyEncrypt.IV = customer.KeyIV;
+
+            using (Aes aesData = Aes.Create())
             {
-                return true;
+                //Decrypt key
+                string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+
+                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.IV = customer.DataIV;
+
+                //Encrypt Balance
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
+
+                string sql = "UPDATE tCustomers SET balance = @balance, last_login = @last_login " +
+                    "WHERE idCustomer = @idcustomer";
+
+                #region SQL Parameters
+                var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Id
+                };
+                var balanceParam = new MySqlParameter("@balance", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eBalance.Length,
+                    Value = eBalance
+                };
+                var lastLoginParam = new MySqlParameter("@last_login", MySqlDbType.DateTime)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+                };
+                #endregion
+
+                Connection connection = new Connection();
+
+
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, 
+                    balanceParam, lastLoginParam) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+        }
+
+        /// <summary>
+        /// Updates the balance of a Customer
+        /// </summary>
+        /// <param name="customer">Designated customer</param>
+        /// <param name="plainPassword">Customer's plaintext password</param>
+        /// <param name="connection">Connection used, Inputted if TransactionScope is used</param>
+        /// <returns>If the update is successful</returns>
+        public static bool UpdateBalance(Customer customer, string plainPassword, Connection connection)
+        {
+            //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
+            var utf16 = new UnicodeEncoding();
+
+            //Derive password hash to decrypt data key
+            Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(plainPassword),
+            utf16.GetBytes(customer.Password_salt),
+            100000, HashAlgorithmName.SHA512);
+
+            Aes aesKeyEncrypt = Aes.Create();
+            aesKeyEncrypt.Key = passKey.GetBytes(32);
+            aesKeyEncrypt.IV = customer.KeyIV;
+
+            using (Aes aesData = Aes.Create())
             {
-                return false;
+                //Decrypt key
+                string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+
+                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.IV = customer.DataIV;
+
+                //Encrypt Balance
+                byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
+
+                string sql = "UPDATE tCustomers SET balance = @balance, last_login = @last_login " +
+                    "WHERE idCustomer = @idcustomer";
+
+                #region SQL Parameters
+                var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = customer.Id
+                };
+                var balanceParam = new MySqlParameter("@balance", MySqlDbType.VarBinary)
+                {
+                    Direction = ParameterDirection.Input,
+                    Size = eBalance.Length,
+                    Value = eBalance
+                };
+                var lastLoginParam = new MySqlParameter("@last_login", MySqlDbType.DateTime)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+                };
+                #endregion
+
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam,
+                    balanceParam, lastLoginParam) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -616,14 +731,88 @@ namespace SORA_Class
             //return listCustomer;
         }
 
-        public static void UpdateLastLogin(string customerId)
+        /// <summary>
+        /// Updates Customer's last login to current time.
+        /// </summary>
+        /// <param name="customerId">Designated customer's id</param>
+        /// <returns>If the update is successful</returns>
+        public static bool UpdateLastLogin(string customerId)
         {
-            string sql = "UPDATE tCustomers SET 'last_login' = NOW() WHERE idCustomer = '" + customerId + "';";
+            string sql = "UPDATE tCustomers SET last_login = @last_login " +
+                    "WHERE idCustomer = @idcustomer";
+
+            #region SQL Parameters
+            var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = customerId
+            };
+            var lastLoginParam = new MySqlParameter("@last_login", MySqlDbType.DateTime)
+            {
+                Direction = ParameterDirection.Input,
+                Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+            };
+            #endregion
+
+            Connection connection = new Connection();
+
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam,
+                lastLoginParam) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public static void BanUpdate(string customerId)
+        /// <summary>
+        /// Updates the customer's ban status.
+        /// </summary>
+        /// <param name="customerId">Designated customer's id</param>
+        /// <returns>If the update is successful</returns>
+        public static bool BanUpdate(string customerId, bool banStatus)
         {
-            string sql = "UPDATE 'tCustomers' SET'ban' = 1 WHERE idCustomer = '" + customerId + "';";
+            string sql = "UPDATE tCustomers SET ban = @ban " +
+            "WHERE idCustomer = @idcustomer";
+
+            int banInt = 0;
+            if(banStatus == true)
+            {
+                banInt = 1;
+            }
+            else
+            {
+                banInt = 0;
+            }
+
+            #region SQL Parameters
+            var idParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = customerId
+            };
+            var banParam = new MySqlParameter("@ban", MySqlDbType.Int64, 8)
+            {
+                Direction = ParameterDirection.Input,
+                Value = banInt
+            };
+            #endregion
+
+            Connection connection = new Connection();
+
+
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam,
+                banParam) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

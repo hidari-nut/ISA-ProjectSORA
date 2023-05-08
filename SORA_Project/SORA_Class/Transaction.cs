@@ -266,12 +266,42 @@ namespace SORA_Class
             //List<Transaction> unprocessedTransactions = Transaction.ReadProcessTransactions(customer.Id,
             //    email, password);
 
+ 
             foreach (Transaction transaction in transactionList)
             {
                 customer.Balance += transaction.Nominal;
             }
 
-            return false;
+            using(TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    string sqlUpdateTransaction = "UPDATE tTransaction_Account-Account SET completed = 1 WHERE completed = 0";
+
+                    if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sqlUpdateTransaction) > 0)
+                    {
+                        if(Customer.UpdateBalance(customer, password, connection) == true)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    //Returns true anyway because no transactions are modified
+                    //This route means that the customer don't have unprocessed transactions
+                    //Therefore doesn't need to have their balance updated.
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    return false;
+                    throw new Exception("Transaction failed!: " + ex.Message);
+                }
+            }
         }
     }
 }
