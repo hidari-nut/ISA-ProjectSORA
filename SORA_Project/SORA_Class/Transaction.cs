@@ -189,27 +189,14 @@ namespace SORA_Class
             return transactionList;
         }
 
-        public static bool CompleteTransaction(string transactionID, Connection connection)
-        {
-            const string sql = "UPDATE tTransaction_Account-Account SET completed = 1 " +
-                "WHERE transactionID = @transactionID";
-
-            var idParam = new MySqlParameter("@transactionID", MySqlDbType.Int64)
-            {
-                Direction = System.Data.ParameterDirection.Input,
-                Value = transactionID
-            };
-
-            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        /// <summary>
+        /// Processes all customer's unprocessed transactions, adding nominal to customer's balance
+        /// </summary>
+        /// <param name="customerId">Designated customer's id</param>
+        /// <param name="email">Designated customer's email</param>
+        /// <param name="password">Customer's plaintext password</param>
+        /// <returns>If the process is successful</returns>
+        /// <exception cref="Exception"></exception>
         public static bool ProcessTransactions(string customerId, string email, string password)
         {
             const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID " +
@@ -226,9 +213,6 @@ namespace SORA_Class
                 Direction = ParameterDirection.Input,
                 Value = customerId
             };
-
-            //Encrypt the nominal with RSA.
-            //byte[] eTransactionNominal = RSA.RSADecrypt(transactionNominalBytes, recipientPublicKey);
 
             Connection connection = new Connection();
             MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, recipientIDParam);
@@ -263,9 +247,6 @@ namespace SORA_Class
             //return transactionList;
 
             Customer customer = Customer.ReadData(email, password);
-            //List<Transaction> unprocessedTransactions = Transaction.ReadProcessTransactions(customer.Id,
-            //    email, password);
-
  
             foreach (Transaction transaction in transactionList)
             {

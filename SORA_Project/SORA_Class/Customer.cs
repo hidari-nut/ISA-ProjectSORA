@@ -652,17 +652,6 @@ namespace SORA_Class
 
             if (result.Read() == true)
             {
-                //customerLogin.Id = result.GetValue(0).ToString();
-                //customerLogin.FirstName = result.GetValue(1).ToString();
-                //customerLogin.LastName = result.GetValue(2).ToString();
-                //customerLogin.Email = result.GetValue(3).ToString();
-                //customerLogin.PhoneNumber = result.GetValue(4).ToString();
-                //customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
-                //customerLogin.Pin = result.GetValue(6).ToString();
-                //customerLogin.Password = result.GetValue(8).ToString();
-                //customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
-                //customerLogin.Banned = 
-
                 customerLogin.Id = result.GetValue(0).ToString();
                 customerFirstNameBytes = (byte[])(result["first_name"]); //Bytes
                 customerLastNameBytes = (byte[])(result["last_name"]); //Bytes
@@ -711,24 +700,6 @@ namespace SORA_Class
             }
 
             return customerLogin;
-
-            //List<Customer> listCustomer = new List<Customer>();
-
-            //while (result.Read() == true)
-            //{
-            //    Customer customerLogin = new Customer();
-            //    customerLogin.Id = result.GetValue(0).ToString();
-            //    customerLogin.FirstName = result.GetValue(1).ToString();
-            //    customerLogin.LastName = result.GetValue(2).ToString();
-            //    customerLogin.Email = result.GetValue(3).ToString();
-            //    customerLogin.PhoneNumber = result.GetValue(4).ToString();
-            //    customerLogin.DateOfBirth = DateTime.Parse(result.GetValue(5).ToString());
-            //    customerLogin.Pin = result.GetValue(6).ToString();
-            //    customerLogin.Password = result.GetValue(8).ToString();
-            //    customerLogin.Balance = int.Parse(result.GetValue(10).ToString());
-
-            //}
-            //return listCustomer;
         }
 
         /// <summary>
@@ -874,25 +845,5 @@ namespace SORA_Class
                 return null;
             }
         }
-
-        //public static bool ProcessTransaction(string email, string password)
-        //{
-        //    Customer customer = Customer.ReadData(email, password);
-        //    List<Transaction> unprocessedTransactions = Transaction.ReadProcessTransactions(customer.Id,
-        //        email, password);
-
-        //    foreach(Transaction transaction in unprocessedTransactions)
-        //    {
-        //        customer.Balance += transaction.Nominal;
-
-        //    }
-        //}
-
-        //public static bool UpdateBalance(string customerId, string balance)
-        //{
-        //    const string sql = "UPDATE tCustomers SET balance = @balance WHERE idCustomer = idCustomer;";
-
-
-        //}
     }
 }
