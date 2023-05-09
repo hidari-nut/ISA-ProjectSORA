@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows.Forms;
 
 namespace SORA_Project
@@ -78,25 +77,29 @@ namespace SORA_Project
             //    "DOB: " + customer2.DateOfBirth + "\n" +
             //    "Balance: " + customer2.Balance + "\n");
 
-            Customer senderUser = Customer.ReadData(Customer.SearchByID("2345")
-            ,"meiRinjyo");
-            MessageBox.Show("Name: " + senderUser.FirstName + " " + senderUser.LastName + "\n" +
-                "Phone Number: " + senderUser.PhoneNumber + "\n" +
-                "DOB: " + senderUser.DateOfBirth + "\n" +
-                "Balance: " + senderUser.Balance + "\n");
+            //Customer senderUser = Customer.ReadData(Customer.SearchByID("2345")
+            //, "meiRinjyo");
+            //MessageBox.Show("Name: " + senderUser.FirstName + " " + senderUser.LastName + "\n" +
+            //    "Phone Number: " + senderUser.PhoneNumber + "\n" +
+            //    "DOB: " + senderUser.DateOfBirth + "\n" +
+            //    "Balance: " + senderUser.Balance + "\n");
 
+            //Customer senderUser = Customer.ReadData(Customer.SearchByID("2345")
+            //, "meiRinjyo");
+            //senderUser.Balance = 100000;
+            //Customer.UpdateBalance(senderUser, "meiRinjyo");
 
-            //try
-            //{
-            //    Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
-            //    bool successful = Transaction.Add(transaction, "meiRinjyo");
-            //    MessageBox.Show("Transaction Successful?: " + successful);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    throw;
-            //}
+            try
+            {
+                Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
+                bool successful = Transaction.Add(transaction, "meiRinjyo");
+                MessageBox.Show("Transaction Successful?: " + successful);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
         }
     }
 }

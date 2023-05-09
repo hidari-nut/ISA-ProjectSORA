@@ -114,45 +114,78 @@ namespace SORA_Class
             };
             #endregion
 
-            using(TransactionScope transactionScope = new TransactionScope())
+
+            Connection connection = new Connection();
+
+            string senderEmail = Customer.SearchByID(transaction.SenderID);
+            Customer senderUser = Customer.ReadData(senderEmail, senderPlainPassword);
+
+            if (senderUser.Balance >= transaction.Nominal)
             {
-                try
+                senderUser.Balance -= transaction.Nominal;
+
+                Customer.UpdateBalance(senderUser, senderPlainPassword);
+
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam,
+                transactionNominalParam, transactionDateParam, completedParam) > 0)
                 {
-                    Connection connection = new Connection();
-
-                    Customer senderUser = Customer.ReadData(Customer.SearchByID(transaction.SenderID)
-                        , senderPlainPassword);
-
-                    if(senderUser.Balance >= transaction.Nominal)
-                    {
-                        senderUser.Balance -= transaction.Nominal;
-
-                        Customer.UpdateBalance(senderUser, senderPlainPassword, connection);
-
-                        if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam,
-                        transactionNominalParam, transactionDateParam, completedParam) > 0)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        //Sender's balance is not enough.
-                        return false;
-                    }
-                    
+                    return true;
                 }
-                catch (Exception ex)
+                else
                 {
-                    transactionScope.Dispose();
                     return false;
-                    throw new Exception("Transaction failed!: " + ex.Message);
                 }
             }
+            else
+            {
+                //Sender's balance is not enough.
+                return false;
+            }
+
+
+            //using(TransactionScope transactionScope = new TransactionScope())
+            //{
+            //    try
+            //    {
+            //        Connection connection = new Connection();
+
+            //        string senderEmail = Customer.SearchByID(transaction.SenderID, connection);
+            //        Customer senderUser = Customer.ReadData(senderEmail, senderPlainPassword, connection);
+
+            //        if(senderUser.Balance >= transaction.Nominal)
+            //        {
+            //            senderUser.Balance -= transaction.Nominal;
+
+            //            Customer.UpdateBalance(senderUser, senderPlainPassword, connection);
+
+            //            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam,
+            //            transactionNominalParam, transactionDateParam, completedParam) > 0)
+            //            {
+            //                transactionScope.Complete();
+            //                return true;
+            //            }
+            //            else
+            //            {
+            //                transactionScope.Dispose();
+            //                return false;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //Sender's balance is not enough.
+            //            transactionScope.Dispose();
+            //            return false;
+            //        }
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        transactionScope.Dispose();
+            //        throw new Exception("Transaction failed!: " + ex.Message);
+            //        return false;
+
+            //    }
+            //}
         }
 
         //Read user transactions query:
