@@ -267,7 +267,6 @@ namespace SORA_Class
                 var dataKeyParam = new MySqlParameter("@aes_data_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = eDataKey.Length,
                     Value = eDataKey
                 };
                 var keyIVParam = new MySqlParameter("@aes_key_iv", MySqlDbType.VarBinary)
