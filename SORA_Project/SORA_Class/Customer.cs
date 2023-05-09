@@ -130,10 +130,11 @@ namespace SORA_Class
 
             //Create RSA Keys and Encrypt the Private Key.
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            byte[] publicKeyRSA = RSA.ExportRSAPublicKey();
-            byte[] privateKeyRSA = RSA.ExportPkcs8PrivateKey();
+            string publicKeyRSA = RSA.ToXmlString(false);
+            string privateKeyRSA = RSA.ToXmlString(true);
 
-            privateKeyRSA = AES.EncryptStringToBytes_Aes(utf16.GetString(privateKeyRSA), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+            byte[] publicKeyRSABytes = utf16.GetBytes(publicKeyRSA);
+            byte[] ePrivateKeyRSA = AES.EncryptStringToBytes_Aes(privateKeyRSA, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
 
             //Encrypt customer's data with AES
@@ -276,12 +277,12 @@ namespace SORA_Class
                 var privateKeyRSAParam = new MySqlParameter("@rsa_private_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Value = privateKeyRSA
+                    Value = ePrivateKeyRSA
                 };
                 var publicKeyRSAParam = new MySqlParameter("@rsa_public_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Value = publicKeyRSA
+                    Value = publicKeyRSABytes
                 };
 
                 #endregion
@@ -564,9 +565,10 @@ namespace SORA_Class
         /// </summary>
         /// <param name="email">Specified User's Email</param>
         /// <returns>RSA Public Key of specified User in byte array</returns>
-        public static byte[] GetRSAPublicKey(string customerID)
+        public static string GetRSAPublicKey(string customerID)
         {
-            byte[] publicKeyRSA = null;
+            string publicKeyRSA = "";
+            byte[] publicKeyRSABytes = null;
 
             string sql = "SELECT rsa_public_key FROM tCustomers WHERE idCustomer = @idCustomer";
 
@@ -575,13 +577,15 @@ namespace SORA_Class
                 Direction = ParameterDirection.Input,
                 Value = customerID
             };
+            var utf16 = new UnicodeEncoding();
 
             Connection connection = new Connection();
             MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
 
             if (result.Read() == true)
             {
-                publicKeyRSA = (byte[])(result["rsa_public_key"]);
+                publicKeyRSABytes = (byte[])(result["rsa_public_key"]);
+                publicKeyRSA = utf16.GetString(publicKeyRSABytes);
             }
 
             return publicKeyRSA;
@@ -593,10 +597,10 @@ namespace SORA_Class
         /// <param name="email">User's email</param>
         /// <param name="password">User's password</param>
         /// <returns>RSA Private Key of the User in byte array</returns>
-        public static byte[] GetRSAPrivateKey(string email, string password)
+        public static string GetRSAPrivateKey(string email, string password)
         {
             byte[] encryptedPrivateKeyRSA = null;
-            byte[] privateKeyRSA = null;
+            string privateKeyRSA = "";
             string passwordSalt = "";
             byte[] keyIV = null;
 
@@ -632,7 +636,7 @@ namespace SORA_Class
             string privateKeyRSAString = AES.DecryptStringFromBytes_Aes(encryptedPrivateKeyRSA, 
                 aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-            privateKeyRSA = utf16.GetBytes(privateKeyRSAString);
+            privateKeyRSA = privateKeyRSAString;
 
             return privateKeyRSA;
         }

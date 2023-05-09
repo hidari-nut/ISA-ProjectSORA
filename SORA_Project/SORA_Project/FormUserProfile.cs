@@ -90,9 +90,9 @@ namespace SORA_Project
             //    MessageBox.Show(ex.Message);
             //}
 
-            bool success = Transaction.ProcessTransactions("2346", "anya@gmail.com", "anyaRinjyo");
-            MessageBox.Show("Process Completed!\n" +
-                "Success: " + success);
+            //bool success = Transaction.ProcessTransactions("2346", "anya@gmail.com", "anyaRinjyo");
+            //MessageBox.Show("Process Completed!\n" +
+            //    "Success: " + success);
 
             //try
             //{

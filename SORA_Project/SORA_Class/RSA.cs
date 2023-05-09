@@ -9,7 +9,7 @@ namespace SORA_Class
 {
     public class RSA
     {
-        public static byte[] RSAEncrypt(byte[] DataToEncrypt, byte[] recipientPublicKey)
+        public static byte[] RSAEncrypt(byte[] DataToEncrypt, string recipientPublicKey)
         {
             try
             {
@@ -20,7 +20,8 @@ namespace SORA_Class
                     int bytesRead = 0;
 
                     //Import the Public Key (of the Recipient)
-                    RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+                    //RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+                    RSA.FromXmlString(recipientPublicKey);
 
                     //Encrypt the passed byte array with SHA512 OAEP padding.
                     encryptedData = RSA.Encrypt(DataToEncrypt, RSAEncryptionPadding.Pkcs1);
@@ -37,7 +38,7 @@ namespace SORA_Class
             }
         }
 
-        public static byte[] RSADecrypt(byte[] DataToDecrypt, byte[] recipientPrivateKey)
+        public static byte[] RSADecrypt(byte[] DataToDecrypt, string recipientPrivateKey)
         {
             byte[] decryptedData;
             //Create a new instance of RSACryptoServiceProvider.
@@ -46,8 +47,8 @@ namespace SORA_Class
                 int bytesRead = 0;
 
                 //Import the Private key (of the Receiving user)
-                RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
-                //RSA.ImportRSAPrivateKey(recipientPrivateKey, out bytesRead);
+                //RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+                RSA.FromXmlString(recipientPrivateKey);
 
                 //Decrypt the passed byte array with SHA512 OAEP padding.  
                 decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);

@@ -60,7 +60,7 @@ namespace SORA_Class
         {
             var utf16 = new UnicodeEncoding();
 
-            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.RecipientID);
+            string recipientPublicKey = Customer.GetRSAPublicKey(transaction.RecipientID);
             int bytesRead = 0;
 
             //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
@@ -213,7 +213,7 @@ namespace SORA_Class
 
             var utf16 = new UnicodeEncoding();
 
-            byte[] privateKey = Customer.GetRSAPrivateKey(email, password);
+            string privateKey = Customer.GetRSAPrivateKey(email, password);
 
             var recipientIDParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
             {
@@ -228,8 +228,9 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.SenderID = result.GetValue(0).ToString();
-                transaction.RecipientID = result.GetValue(1).ToString();
+                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.SenderID = result.GetValue(1).ToString();
+                transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
                 //transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
@@ -237,9 +238,9 @@ namespace SORA_Class
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
                 transaction.Nominal = decimal.Parse(utf16.GetString(transactionNominalBytes));
 
-                transaction.TransactionDate = DateTime.Parse(result.GetValue(3).ToString());
+                transaction.TransactionDate = DateTime.Parse(result.GetValue(4).ToString());
 
-                int completedInt = int.Parse(result.GetValue(4).ToString());
+                int completedInt = int.Parse(result.GetValue(5).ToString());
                 if (completedInt == 0)
                 {
                     transaction.Completed = false;
@@ -271,7 +272,7 @@ namespace SORA_Class
 
             var utf16 = new UnicodeEncoding();
 
-            byte[] privateKey = Customer.GetRSAPrivateKey(email, password);
+            string privateKey = Customer.GetRSAPrivateKey(email, password);
 
             var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
             {
@@ -286,8 +287,9 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.SenderID = result.GetValue(0).ToString();
-                transaction.RecipientID = result.GetValue(1).ToString();
+                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.SenderID = result.GetValue(1).ToString();
+                transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
                 //transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
@@ -295,9 +297,9 @@ namespace SORA_Class
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
                 transaction.Nominal = decimal.Parse(utf16.GetString(transactionNominalBytes));
 
-                transaction.TransactionDate = DateTime.Parse(result.GetValue(3).ToString());
+                transaction.TransactionDate = DateTime.Parse(result.GetValue(4).ToString());
 
-                int completedInt = int.Parse(result.GetValue(4).ToString());
+                int completedInt = int.Parse(result.GetValue(5).ToString());
                 if (completedInt == 0)
                 {
                     transaction.Completed = false;
@@ -322,12 +324,15 @@ namespace SORA_Class
             {
                 try
                 {
+                    connection = new Connection();
+
                     string sqlUpdateTransaction = "UPDATE tTransaction_Account SET completed = 1 WHERE completed = 0";
 
                     if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sqlUpdateTransaction) > 0)
                     {
                         if(Customer.UpdateBalance(customer, password, connection) == true)
                         {
+                            transactionScope.Complete();
                             return true;
                         }
                         else
@@ -336,6 +341,7 @@ namespace SORA_Class
                         }
                     }
 
+                    transactionScope.Complete();
                     //Returns true anyway because no transactions are modified
                     //This route means that the customer don't have unprocessed transactions
                     //Therefore doesn't need to have their balance updated.
