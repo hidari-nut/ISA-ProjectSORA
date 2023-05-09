@@ -130,10 +130,11 @@ namespace SORA_Class
 
             //Create RSA Keys and Encrypt the Private Key.
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            byte[] publicKeyRSA = RSA.ExportRSAPublicKey();
-            byte[] privateKeyRSA = RSA.ExportPkcs8PrivateKey();
+            string publicKeyRSA = RSA.ToXmlString(false);
+            string privateKeyRSA = RSA.ToXmlString(true);
 
-            privateKeyRSA = AES.EncryptStringToBytes_Aes(utf16.GetString(privateKeyRSA), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+            byte[] publicKeyRSABytes = utf16.GetBytes(publicKeyRSA);
+            byte[] ePrivateKeyRSA = AES.EncryptStringToBytes_Aes(privateKeyRSA, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
 
             //Encrypt customer's data with AES
@@ -261,32 +262,27 @@ namespace SORA_Class
                 var dataIVParam = new MySqlParameter("@aes_data_iv", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = aesData.IV.Length,
                     Value = aesData.IV
                 };
                 var dataKeyParam = new MySqlParameter("@aes_data_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = eDataKey.Length,
                     Value = eDataKey
                 };
                 var keyIVParam = new MySqlParameter("@aes_key_iv", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = aesKeyEncrypt.IV.Length,
                     Value = aesKeyEncrypt.IV
                 };
                 var privateKeyRSAParam = new MySqlParameter("@rsa_private_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = privateKeyRSA.Length,
-                    Value = privateKeyRSA
+                    Value = ePrivateKeyRSA
                 };
                 var publicKeyRSAParam = new MySqlParameter("@rsa_public_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = publicKeyRSA.Length,
-                    Value = publicKeyRSA
+                    Value = publicKeyRSABytes
                 };
 
                 #endregion
@@ -296,7 +292,8 @@ namespace SORA_Class
 
                 if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam,
                     emailParam, phoneNumberParam, dobParam, pinParam, passwordParam, balanceParam, pinSaltParam,
-                    passwordSaltParam, banParam, lastLoginParam, dataIVParam, dataKeyParam, keyIVParam) > 0)
+                    passwordSaltParam, banParam, lastLoginParam, dataIVParam, dataKeyParam, keyIVParam,
+                    privateKeyRSAParam, publicKeyRSAParam) > 0)
                 {
                     return true;
                 }
@@ -490,9 +487,18 @@ namespace SORA_Class
 
         public static bool CheckPassword(string email, string password) 
         {
-            string sql = "SELECT password, password_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
+            string sql = "SELECT password, password_salt FROM tcustomers WHERE tcustomers.email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
             string userEmail = "";
             string userPassword = "";
             string userPasswordSalt = "";
@@ -502,13 +508,6 @@ namespace SORA_Class
                 userPassword = result.GetString("password");
                 userPasswordSalt = result.GetString("password_salt");
             }
-
-            //string saltedInputPassword = userPasswordSalt + password;
-
-            ////First hash
-            //string onceHashed = Crypto.HashPassword(saltedInputPassword);
-
-            //string doubleHashed = Crypto.HashPassword(onceHashed);
 
             string saltedPlain = userPasswordSalt + password;
 
@@ -527,9 +526,18 @@ namespace SORA_Class
 
         public static bool CheckPin(string email, string pin) 
         {
-            string sql = "SELECT pin, pin_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
+            string sql = "SELECT pin, pin_salt FROM tcustomers " + "WHERE tcustomers.email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
             string userEmail = "";
             string userPIN = "";
             string userPINsalt = "";
@@ -557,9 +565,10 @@ namespace SORA_Class
         /// </summary>
         /// <param name="email">Specified User's Email</param>
         /// <returns>RSA Public Key of specified User in byte array</returns>
-        public static byte[] GetRSAPublicKey(string customerID)
+        public static string GetRSAPublicKey(string customerID)
         {
-            byte[] publicKeyRSA = null;
+            string publicKeyRSA = "";
+            byte[] publicKeyRSABytes = null;
 
             string sql = "SELECT rsa_public_key FROM tCustomers WHERE idCustomer = @idCustomer";
 
@@ -568,13 +577,15 @@ namespace SORA_Class
                 Direction = ParameterDirection.Input,
                 Value = customerID
             };
+            var utf16 = new UnicodeEncoding();
 
             Connection connection = new Connection();
             MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
 
             if (result.Read() == true)
             {
-                publicKeyRSA = (byte[])(result["rsa_public_key"]);
+                publicKeyRSABytes = (byte[])(result["rsa_public_key"]);
+                publicKeyRSA = utf16.GetString(publicKeyRSABytes);
             }
 
             return publicKeyRSA;
@@ -586,14 +597,14 @@ namespace SORA_Class
         /// <param name="email">User's email</param>
         /// <param name="password">User's password</param>
         /// <returns>RSA Private Key of the User in byte array</returns>
-        public static byte[] GetRSAPrivateKey(string email, string password)
+        public static string GetRSAPrivateKey(string email, string password)
         {
             byte[] encryptedPrivateKeyRSA = null;
-            byte[] privateKeyRSA = null;
+            string privateKeyRSA = "";
             string passwordSalt = "";
             byte[] keyIV = null;
 
-            string sql = "SELECT rsa_private_key, password_salt FROM tCustomers WHERE email = @email";
+            string sql = "SELECT rsa_private_key, password_salt, aes_key_iv FROM tCustomers WHERE email = @email";
 
             var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
@@ -607,7 +618,7 @@ namespace SORA_Class
             if (result.Read() == true)
             {
                 encryptedPrivateKeyRSA = (byte[])(result["rsa_private_key"]);
-                passwordSalt = result.GetValue(2).ToString();
+                passwordSalt = result.GetValue(1).ToString();
                 keyIV = (byte[])(result["aes_key_iv"]);
             }
 
@@ -625,21 +636,25 @@ namespace SORA_Class
             string privateKeyRSAString = AES.DecryptStringFromBytes_Aes(encryptedPrivateKeyRSA, 
                 aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-            privateKeyRSA = utf16.GetBytes(privateKeyRSAString);
+            privateKeyRSA = privateKeyRSAString;
 
             return privateKeyRSA;
         }
 
         public static Customer ReadData(string email, string password) 
         {
-            string sql = "SELECT * from tCustomers";
+            string sql = "SELECT * from tCustomers WHERE email = @email;";
 
-            if(email != "")
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
-                sql += " WHERE email = '" + email + "';"; 
-            }
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
 
             Customer customerLogin = new Customer();
             byte[] customerFirstNameBytes;
@@ -693,6 +708,81 @@ namespace SORA_Class
                     customerLogin.LastName = AES.DecryptStringFromBytes_Aes(customerLastNameBytes, aesData.Key, aesData.IV);
                     customerLogin.PhoneNumber = AES.DecryptStringFromBytes_Aes(customerPhoneNumberBytes, aesData.Key, aesData.IV);
                     customerLogin.DateOfBirth = DateTime.Parse(AES.DecryptStringFromBytes_Aes(customerDOBBytes, 
+                        aesData.Key, aesData.IV));
+                    customerLogin.Balance = Decimal.Parse(AES.DecryptStringFromBytes_Aes(customerBalanceBytes,
+                        aesData.Key, aesData.IV));
+                }
+            }
+
+            return customerLogin;
+        }
+
+        public static Customer ReadData(string email, string password, Connection connection)
+        {
+            string sql = "SELECT * from tCustomers WHERE email = @email;";
+
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+
+            Customer customerLogin = new Customer();
+            byte[] customerFirstNameBytes;
+            byte[] customerLastNameBytes;
+            byte[] customerPhoneNumberBytes;
+            byte[] customerDOBBytes;
+            byte[] customerBalanceBytes;
+
+            var utf16 = new UnicodeEncoding();
+
+            if (result.Read() == true)
+            {
+                customerLogin.Id = result.GetValue(0).ToString();
+                customerFirstNameBytes = (byte[])(result["first_name"]); //Bytes
+                customerLastNameBytes = (byte[])(result["last_name"]); //Bytes
+                customerLogin.Email = result.GetValue(3).ToString();
+                customerPhoneNumberBytes = (byte[])(result["phone_number"]); //Bytes
+                customerDOBBytes = (byte[])(result["dob"]); //Bytes
+                customerLogin.Pin = result.GetValue(6).ToString();
+                customerLogin.Pin_salt = result.GetValue(7).ToString();
+                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password_salt = result.GetValue(9).ToString();
+                customerBalanceBytes = (byte[])(result["balance"]); //Bytes
+                customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
+                customerLogin.LastLogin = DateTime.Parse(result.GetValue(12).ToString());
+                customerLogin.DataIV = (byte[])(result["aes_data_iv"]); //Bytes
+                customerLogin.DataKey = (byte[])(result["aes_data_key"]); //Bytes
+                customerLogin.KeyIV = (byte[])(result["aes_key_iv"]); //Bytes
+
+                //Derive password hash to decrypt data key
+                Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(password),
+                utf16.GetBytes(customerLogin.Password_salt),
+                100000, HashAlgorithmName.SHA512);
+
+                Aes aesKeyEncrypt = Aes.Create();
+                aesKeyEncrypt.Key = passKey.GetBytes(32);
+                aesKeyEncrypt.IV = customerLogin.KeyIV;
+
+
+
+                using (Aes aesData = Aes.Create())
+                {
+                    //Decrypt key
+                    string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+
+                    aesData.Key = utf16.GetBytes(dataKey);
+                    aesData.IV = customerLogin.DataIV;
+
+                    //Decrypt data
+                    customerLogin.FirstName = AES.DecryptStringFromBytes_Aes(customerFirstNameBytes, aesData.Key, aesData.IV);
+                    customerLogin.LastName = AES.DecryptStringFromBytes_Aes(customerLastNameBytes, aesData.Key, aesData.IV);
+                    customerLogin.PhoneNumber = AES.DecryptStringFromBytes_Aes(customerPhoneNumberBytes, aesData.Key, aesData.IV);
+                    customerLogin.DateOfBirth = DateTime.Parse(AES.DecryptStringFromBytes_Aes(customerDOBBytes,
                         aesData.Key, aesData.IV));
                     customerLogin.Balance = Decimal.Parse(AES.DecryptStringFromBytes_Aes(customerBalanceBytes,
                         aesData.Key, aesData.IV));
@@ -804,8 +894,40 @@ namespace SORA_Class
 
             string sql = "SELECT idCustomer FROM tCustomers WHERE email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
-            if(result.Read() == true)
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+            if (result.Read() == true)
+            {
+                string customerID = result.GetString(0);
+                return customerID;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Searches for customer's id by inputted email
+        /// </summary>
+        /// <param name="email">Customer's email address</param>
+        /// <param name="connection">Transaction's Connection</param>
+        /// <returns>Customer's ID</returns>
+        public static string SearchByEmail(string email, Connection connection)
+        {
+
+            #region SQL Parameter
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            string sql = "SELECT idCustomer FROM tCustomers WHERE email = @email;";
+
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+            if (result.Read() == true)
             {
                 string customerID = result.GetString(0);
                 return customerID;
@@ -834,7 +956,39 @@ namespace SORA_Class
 
             string sql = "SELECT email FROM tCustomers WHERE idCustomer = @idCustomer;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
+            if (result.Read() == true)
+            {
+                string customerEmail = result.GetString(0);
+                return customerEmail;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Searches customer's email by id input
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <param name="connection">Transaction Connection</param>
+        /// <returns>Customer's Email address</returns>
+        public static string SearchByID(string id, Connection connection)
+        {
+
+            #region SQL Parameter
+            var idParam = new MySqlParameter("@idCustomer", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = id
+            };
+            #endregion
+
+            string sql = "SELECT email FROM tCustomers WHERE idCustomer = @idCustomer;";
+
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
             if (result.Read() == true)
             {
                 string customerEmail = result.GetString(0);

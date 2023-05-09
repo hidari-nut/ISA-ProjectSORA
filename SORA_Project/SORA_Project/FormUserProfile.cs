@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SORA_Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,93 @@ namespace SORA_Project
         public FormUserProfile()
         {
             InitializeComponent();
+        }
+
+        private void FormUserProfile_Load(object sender, EventArgs e)
+        {
+            //if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
+            //{
+            //    MessageBox.Show("Login success! Password is correct!");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Login failed! Please check your email or password!");
+            //}
+
+            //Customer customer = Customer.ReadData("mei@gmail.com", "meiRinjyo");
+
+            //MessageBox.Show("Name: " + customer.FirstName + " " + customer.LastName + "\n" +
+            //    "Phone Number: " + customer.PhoneNumber + "\n" +
+            //    "DOB: " + customer.DateOfBirth + "\n" +
+            //    "Balance: " + customer.Balance + "\n");
+
+            //Customer customer = new Customer("2345", "Mei", "Rinjyo", "mei@gmail.com", "1234", DateTime.Now,
+            //    100000, 0, "234567", "meiRinjyo");
+
+            //Customer.Add(customer);
+            //MessageBox.Show("Customer added!");
+
+            //Customer customer2 = new Customer("2346", "Anya", "Rinjyo", "anya@gmail.com", "1234", DateTime.Now,
+            //    15000, 0, "234567", "anyaRinjyo");
+
+            //Customer.Add(customer2);
+            //MessageBox.Show("Customer added!");
+
+            //bool isCorrect = Customer.CheckPassword("anya@gmail.com", "anyaRinjyo");
+            //MessageBox.Show("The password is: " + isCorrect);
+
+
+            //bool isCorrect = Customer.CheckPassword("mei@gmail.com", "meiRinjyo");
+            //MessageBox.Show("The password is: " + isCorrect);
+
+            //Customer customer = Customer.ReadData("mei@gmail.com", "meiRinjyo");
+            //MessageBox.Show("Name: " + customer.FirstName + " " + customer.LastName + "\n" +
+            //    "Phone Number: " + customer.PhoneNumber + "\n" +
+            //    "DOB: " + customer.DateOfBirth + "\n" +
+            //    "Balance: " + customer.Balance + "\n");
+
+            //Customer customer2 = Customer.ReadData("anya@gmail.com", "anyaRinjyo");
+            //MessageBox.Show("Name: " + customer2.FirstName + " " + customer2.LastName + "\n" +
+            //    "Phone Number: " + customer2.PhoneNumber + "\n" +
+            //    "DOB: " + customer2.DateOfBirth + "\n" +
+            //    "Balance: " + customer2.Balance + "\n");
+
+            //Customer senderUser = Customer.ReadData(Customer.SearchByID("2345")
+            //, "meiRinjyo");
+            //MessageBox.Show("Name: " + senderUser.FirstName + " " + senderUser.LastName + "\n" +
+            //    "Phone Number: " + senderUser.PhoneNumber + "\n" +
+            //    "DOB: " + senderUser.DateOfBirth + "\n" +
+            //    "Balance: " + senderUser.Balance + "\n");
+
+            //Customer senderUser = Customer.ReadData(Customer.SearchByID("2345")
+            //, "meiRinjyo");
+            //senderUser.Balance = 100000;
+            //Customer.UpdateBalance(senderUser, "meiRinjyo");
+
+            //try
+            //{
+            //    Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
+            //    bool successful = Transaction.Add(transaction, "meiRinjyo");
+            //    MessageBox.Show("Transaction Successful?: " + successful);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+            //bool success = Transaction.ProcessTransactions("2346", "anya@gmail.com", "anyaRinjyo");
+            //MessageBox.Show("Process Completed!\n" +
+            //    "Success: " + success);
+
+            //try
+            //{
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
         }
     }
 }

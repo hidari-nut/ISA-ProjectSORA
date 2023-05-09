@@ -9,7 +9,7 @@ namespace SORA_Class
 {
     public class RSA
     {
-        public static byte[] RSAEncrypt(byte[] DataToEncrypt, byte[] recipientPublicKey)
+        public static byte[] RSAEncrypt(byte[] DataToEncrypt, string recipientPublicKey)
         {
             try
             {
@@ -20,49 +20,66 @@ namespace SORA_Class
                     int bytesRead = 0;
 
                     //Import the Public Key (of the Recipient)
-                    RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+                    //RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+                    RSA.FromXmlString(recipientPublicKey);
 
                     //Encrypt the passed byte array with SHA512 OAEP padding.
-                    encryptedData = RSA.Encrypt(DataToEncrypt, RSAEncryptionPadding.OaepSHA512);
+                    encryptedData = RSA.Encrypt(DataToEncrypt, RSAEncryptionPadding.Pkcs1);
                 }
                 return encryptedData;
             }
             //Catch and display a CryptographicException  
             //to the console.
             catch (CryptographicException e)
-            {
-                Console.WriteLine(e.Message);
-
+            {                
+                throw new Exception(e.Message);
                 return null;
+
             }
         }
 
-        public static byte[] RSADecrypt(byte[] DataToDecrypt, byte[] recipientPrivateKey)
+        public static byte[] RSADecrypt(byte[] DataToDecrypt, string recipientPrivateKey)
         {
-            try
+            byte[] decryptedData;
+            //Create a new instance of RSACryptoServiceProvider.
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
-                byte[] decryptedData;
-                //Create a new instance of RSACryptoServiceProvider.
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    int bytesRead = 0;
+                int bytesRead = 0;
 
-                    //Import the Private key (of the Receiving user)
-                    RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+                //Import the Private key (of the Receiving user)
+                //RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+                RSA.FromXmlString(recipientPrivateKey);
 
-                    //Decrypt the passed byte array with SHA512 OAEP padding.  
-                    decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.OaepSHA512);
-                }
+                //Decrypt the passed byte array with SHA512 OAEP padding.  
+                decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
+
                 return decryptedData;
             }
-            //Catch and display a CryptographicException  
-            //to the console.
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e.ToString());
 
-                return null;
-            }
+            //try
+            //{
+            //    byte[] decryptedData;
+            //    //Create a new instance of RSACryptoServiceProvider.
+            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            //    {
+            //        int bytesRead = 0;
+
+            //        //Import the Private key (of the Receiving user)
+            //        RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+
+            //        //Decrypt the passed byte array with SHA512 OAEP padding.  
+            //        decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
+
+            //        return decryptedData;
+            //    }
+            //}
+            ////Catch and display a CryptographicException  
+            ////to the console.
+            //catch (CryptographicException e)
+            //{
+            //    throw new Exception(e.Message);
+            //    return null;
+            //}
         }
     }
 }
