@@ -135,26 +135,26 @@ namespace SORA_Class
         //ORDER BY transaction_date DESC;
 
         /// <summary>
-        /// Reads all incoming transactions that aren't processed yet
+        /// Reads all user Transactions history both Sending and Receiving
         /// </summary>
         /// <param name="customerId">Customer's ID</param>
-        /// <returns>A list of unprocessed incoming transactions</returns>
-        public static List<Transaction> ReadProcessTransactions(string customerId, string email, string password)
+        /// <param name="email">Customer's Email address</param>
+        /// <param name="password">Customer's password in plaintext</param>
+        /// <returns>All user Transactions history</returns>
+        public static List<Transaction> ReadTransactions(string customerId, string email, string password)
         {
-            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID";
+            const string sql = "//SELECT* FROM tTransaction_Account-Account " +
+                "WHERE senderID = @idcustomer OR recipientID = @idcustomer ORDER BY transaction_date DESC;";
 
             var utf16 = new UnicodeEncoding();
 
             byte[] privateKey = Customer.GetRSAPrivateKey(email, password);
 
-            var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
+            var recipientIDParam = new MySqlParameter("@idcustomer", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
                 Value = customerId
             };
-
-            //Encrypt the nominal with RSA.
-            //byte[] eTransactionNominal = RSA.RSADecrypt(transactionNominalBytes, recipientPublicKey);
 
             Connection connection = new Connection();
             MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, recipientIDParam);
@@ -165,8 +165,8 @@ namespace SORA_Class
                 Transaction transaction = new Transaction();
                 transaction.Sender.Id = result.GetValue(0).ToString();
                 transaction.Recipient.Id = result.GetValue(1).ToString();
-                //transaction.Sender.Email = Customer.FINDEMAILWITHID(transaction.Sender.Id);
-                //transaction.Recipient.Email = Customer.FINDEMAILWITHID(transaction.Recipient.Id);
+                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
                 byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
@@ -187,6 +187,102 @@ namespace SORA_Class
                 transactionList.Add(transaction);
             }
             return transactionList;
+        }
+
+        /// <summary>
+        /// Processes all customer's unprocessed transactions, adding nominal to customer's balance
+        /// </summary>
+        /// <param name="customerId">Designated customer's id</param>
+        /// <param name="email">Designated customer's email</param>
+        /// <param name="password">Customer's plaintext password</param>
+        /// <returns>If the process is successful</returns>
+        /// <exception cref="Exception"></exception>
+        public static bool ProcessTransactions(string customerId, string email, string password)
+        {
+            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID " +
+                "AND completed = 0"; 
+            //Reads all transactions where the user is the recipient
+            //and the transaction is not yet processed or completed
+
+            var utf16 = new UnicodeEncoding();
+
+            byte[] privateKey = Customer.GetRSAPrivateKey(email, password);
+
+            var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = customerId
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, recipientIDParam);
+
+            List<Transaction> transactionList = new List<Transaction>();
+            while (result.Read() == true)
+            {
+                Transaction transaction = new Transaction();
+                transaction.Sender.Id = result.GetValue(0).ToString();
+                transaction.Recipient.Id = result.GetValue(1).ToString();
+                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
+
+                byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
+                byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
+                transaction.Nominal = decimal.Parse(utf16.GetString(transactionNominalBytes));
+
+                transaction.TransactionDate = DateTime.Parse(result.GetValue(3).ToString());
+
+                int completedInt = int.Parse(result.GetValue(4).ToString());
+                if (completedInt == 0)
+                {
+                    transaction.Completed = false;
+                }
+                else
+                {
+                    transaction.Completed = true;
+                }
+
+                transactionList.Add(transaction);
+            }
+            //return transactionList;
+
+            Customer customer = Customer.ReadData(email, password);
+ 
+            foreach (Transaction transaction in transactionList)
+            {
+                customer.Balance += transaction.Nominal;
+            }
+
+            using(TransactionScope transactionScope = new TransactionScope())
+            {
+                try
+                {
+                    string sqlUpdateTransaction = "UPDATE tTransaction_Account-Account SET completed = 1 WHERE completed = 0";
+
+                    if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sqlUpdateTransaction) > 0)
+                    {
+                        if(Customer.UpdateBalance(customer, password, connection) == true)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    //Returns true anyway because no transactions are modified
+                    //This route means that the customer don't have unprocessed transactions
+                    //Therefore doesn't need to have their balance updated.
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    return false;
+                    throw new Exception("Transaction failed!: " + ex.Message);
+                }
+            }
         }
     }
 }
