@@ -123,7 +123,7 @@ namespace SORA_Class
                     Customer senderUser = Customer.ReadData(Customer.SearchByID(transaction.SenderID)
                         , senderPlainPassword);
 
-                    if(senderUser.Balance < transaction.Nominal)
+                    if(senderUser.Balance >= transaction.Nominal)
                     {
                         senderUser.Balance -= transaction.Nominal;
 

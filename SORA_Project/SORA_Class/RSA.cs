@@ -23,17 +23,17 @@ namespace SORA_Class
                     RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
 
                     //Encrypt the passed byte array with SHA512 OAEP padding.
-                    encryptedData = RSA.Encrypt(DataToEncrypt, RSAEncryptionPadding.OaepSHA512);
+                    encryptedData = RSA.Encrypt(DataToEncrypt, RSAEncryptionPadding.Pkcs1);
                 }
                 return encryptedData;
             }
             //Catch and display a CryptographicException  
             //to the console.
             catch (CryptographicException e)
-            {
-                Console.WriteLine(e.Message);
-
+            {                
+                throw new Exception(e.Message);
                 return null;
+
             }
         }
 
@@ -51,7 +51,7 @@ namespace SORA_Class
                     RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
 
                     //Decrypt the passed byte array with SHA512 OAEP padding.  
-                    decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.OaepSHA512);
+                    decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
                 }
                 return decryptedData;
             }
@@ -59,8 +59,7 @@ namespace SORA_Class
             //to the console.
             catch (CryptographicException e)
             {
-                Console.WriteLine(e.ToString());
-
+                throw new Exception(e.Message);
                 return null;
             }
         }

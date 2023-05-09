@@ -490,9 +490,18 @@ namespace SORA_Class
 
         public static bool CheckPassword(string email, string password) 
         {
-            string sql = "SELECT password, password_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
+            string sql = "SELECT password, password_salt FROM tcustomers WHERE tcustomers.email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
             string userEmail = "";
             string userPassword = "";
             string userPasswordSalt = "";
@@ -502,13 +511,6 @@ namespace SORA_Class
                 userPassword = result.GetString("password");
                 userPasswordSalt = result.GetString("password_salt");
             }
-
-            //string saltedInputPassword = userPasswordSalt + password;
-
-            ////First hash
-            //string onceHashed = Crypto.HashPassword(saltedInputPassword);
-
-            //string doubleHashed = Crypto.HashPassword(onceHashed);
 
             string saltedPlain = userPasswordSalt + password;
 
@@ -527,9 +529,18 @@ namespace SORA_Class
 
         public static bool CheckPin(string email, string pin) 
         {
-            string sql = "SELECT pin, pin_salt FROM tcustomers " + "WHERE tcustomers.email = '" + email + "';";
+            string sql = "SELECT pin, pin_salt FROM tcustomers " + "WHERE tcustomers.email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
             string userEmail = "";
             string userPIN = "";
             string userPINsalt = "";
@@ -632,14 +643,18 @@ namespace SORA_Class
 
         public static Customer ReadData(string email, string password) 
         {
-            string sql = "SELECT * from tCustomers";
+            string sql = "SELECT * from tCustomers WHERE email = @email;";
 
-            if(email != "")
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
-                sql += " WHERE email = '" + email + "';"; 
-            }
+                Direction = System.Data.ParameterDirection.Input,
+                Value = email
+            };
+            #endregion
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
 
             Customer customerLogin = new Customer();
             byte[] customerFirstNameBytes;
@@ -804,8 +819,9 @@ namespace SORA_Class
 
             string sql = "SELECT idCustomer FROM tCustomers WHERE email = @email;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
-            if(result.Read() == true)
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
+            if (result.Read() == true)
             {
                 string customerID = result.GetString(0);
                 return customerID;
@@ -834,7 +850,8 @@ namespace SORA_Class
 
             string sql = "SELECT email FROM tCustomers WHERE idCustomer = @idCustomer;";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, idParam);
             if (result.Read() == true)
             {
                 string customerEmail = result.GetString(0);
