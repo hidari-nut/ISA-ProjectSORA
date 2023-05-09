@@ -15,26 +15,26 @@ namespace SORA_Class
     public class Transaction
     {
         int id;
-        Customer sender;
-        Customer recipient;
+        string senderID;
+        string recipientID;
         DateTime transactionDate;
         decimal nominal;
         bool completed;
 
         public int Id { get => id; set => id = value; }
-        public Customer Sender { get => sender; set => sender = value; }
-        public Customer Recipient { get => recipient; set => recipient = value; }
+        public string SenderID { get => senderID; set => senderID = value; }
+        public string RecipientID { get => recipientID; set => recipientID = value; }
         public DateTime TransactionDate { get => transactionDate; set => transactionDate = value; }
         public decimal Nominal { get => nominal; set => nominal = value; }
         public bool Completed { get => completed; set => completed = value; }
        
 
-        public Transaction(int id, Customer sender, Customer recipient, DateTime transactionDate,
+        public Transaction(int id, string senderID, string recipientID, DateTime transactionDate,
             decimal nominal, bool completed)
         {
             Id = id;
-            Sender = sender;
-            Recipient = recipient;
+            SenderID = senderID;
+            RecipientID = recipientID;
             TransactionDate = transactionDate;
             Nominal = nominal;
             Completed = completed;
@@ -43,8 +43,8 @@ namespace SORA_Class
         public Transaction()
         {
             Id = 0;
-            Sender = new Customer();
-            Recipient = new Customer();
+            SenderID = "";
+            RecipientID = "";
             TransactionDate = DateTime.Now;
             Nominal = 0;
             Completed = true;
@@ -56,11 +56,11 @@ namespace SORA_Class
         /// <param name="transaction">Transaction object to be inserted. The customer objects need atleast
         /// their ID set.</param>
         /// <returns>If true, means that the insert is successfu. If false, then it has failed.</returns>
-        public static bool Add(Transaction transaction)
+        public static bool Add(Transaction transaction, string senderPlainPassword)
         {
             var utf16 = new UnicodeEncoding();
 
-            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.Recipient.Id);
+            byte[] recipientPublicKey = Customer.GetRSAPublicKey(transaction.RecipientID);
             int bytesRead = 0;
 
             //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
@@ -85,13 +85,13 @@ namespace SORA_Class
             var senderIDParam = new MySqlParameter("@senderID", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
-                Value = transaction.Sender.Id
+                Value = transaction.SenderID
             };
 
             var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
-                Value = transaction.Recipient.Id
+                Value = transaction.RecipientID
             };
 
             var transactionNominalParam = new MySqlParameter("@transaction_nominal", MySqlDbType.VarBinary)
@@ -114,17 +114,44 @@ namespace SORA_Class
             };
             #endregion
 
-            Connection connection = new Connection();
-
-
-            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam, 
-                transactionNominalParam, transactionDateParam, completedParam) > 0)
+            using(TransactionScope transactionScope = new TransactionScope())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                try
+                {
+                    Connection connection = new Connection();
+
+                    Customer senderUser = Customer.ReadData(Customer.SearchByID(transaction.SenderID)
+                        , senderPlainPassword);
+
+                    if(senderUser.Balance < transaction.Nominal)
+                    {
+                        senderUser.Balance -= transaction.Nominal;
+
+                        Customer.UpdateBalance(senderUser, senderPlainPassword, connection);
+
+                        if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam,
+                        transactionNominalParam, transactionDateParam, completedParam) > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //Sender's balance is not enough.
+                        return false;
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    transactionScope.Dispose();
+                    return false;
+                    throw new Exception("Transaction failed!: " + ex.Message);
+                }
             }
         }
 
@@ -163,10 +190,10 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Sender.Id = result.GetValue(0).ToString();
-                transaction.Recipient.Id = result.GetValue(1).ToString();
-                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
-                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
+                transaction.SenderID = result.GetValue(0).ToString();
+                transaction.RecipientID = result.GetValue(1).ToString();
+                //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                //transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
                 byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);
@@ -221,10 +248,10 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Sender.Id = result.GetValue(0).ToString();
-                transaction.Recipient.Id = result.GetValue(1).ToString();
-                transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
-                transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
+                transaction.SenderID = result.GetValue(0).ToString();
+                transaction.RecipientID = result.GetValue(1).ToString();
+                //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
+                //transaction.Recipient.Email = Customer.SearchByID(transaction.Recipient.Id);
 
                 byte[] eTransactionNominal = (byte[])(result["transaction_nominal"]);
                 byte[] transactionNominalBytes = RSA.RSADecrypt(eTransactionNominal, privateKey);

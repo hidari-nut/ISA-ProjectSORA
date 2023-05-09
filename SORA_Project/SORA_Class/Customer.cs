@@ -296,7 +296,8 @@ namespace SORA_Class
 
                 if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam,
                     emailParam, phoneNumberParam, dobParam, pinParam, passwordParam, balanceParam, pinSaltParam,
-                    passwordSaltParam, banParam, lastLoginParam, dataIVParam, dataKeyParam, keyIVParam) > 0)
+                    passwordSaltParam, banParam, lastLoginParam, dataIVParam, dataKeyParam, keyIVParam,
+                    privateKeyRSAParam, publicKeyRSAParam) > 0)
                 {
                     return true;
                 }
