@@ -261,7 +261,6 @@ namespace SORA_Class
                 var dataIVParam = new MySqlParameter("@aes_data_iv", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = aesData.IV.Length,
                     Value = aesData.IV
                 };
                 var dataKeyParam = new MySqlParameter("@aes_data_key", MySqlDbType.VarBinary)
@@ -272,19 +271,16 @@ namespace SORA_Class
                 var keyIVParam = new MySqlParameter("@aes_key_iv", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = aesKeyEncrypt.IV.Length,
                     Value = aesKeyEncrypt.IV
                 };
                 var privateKeyRSAParam = new MySqlParameter("@rsa_private_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = privateKeyRSA.Length,
                     Value = privateKeyRSA
                 };
                 var publicKeyRSAParam = new MySqlParameter("@rsa_public_key", MySqlDbType.VarBinary)
                 {
                     Direction = ParameterDirection.Input,
-                    Size = publicKeyRSA.Length,
                     Value = publicKeyRSA
                 };
 
@@ -604,7 +600,7 @@ namespace SORA_Class
             string passwordSalt = "";
             byte[] keyIV = null;
 
-            string sql = "SELECT rsa_private_key, password_salt FROM tCustomers WHERE email = @email";
+            string sql = "SELECT rsa_private_key, password_salt, aes_key_iv FROM tCustomers WHERE email = @email";
 
             var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
@@ -618,7 +614,7 @@ namespace SORA_Class
             if (result.Read() == true)
             {
                 encryptedPrivateKeyRSA = (byte[])(result["rsa_private_key"]);
-                passwordSalt = result.GetValue(2).ToString();
+                passwordSalt = result.GetValue(1).ToString();
                 keyIV = (byte[])(result["aes_key_iv"]);
             }
 

@@ -39,29 +39,46 @@ namespace SORA_Class
 
         public static byte[] RSADecrypt(byte[] DataToDecrypt, byte[] recipientPrivateKey)
         {
-            try
+            byte[] decryptedData;
+            //Create a new instance of RSACryptoServiceProvider.
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
-                byte[] decryptedData;
-                //Create a new instance of RSACryptoServiceProvider.
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    int bytesRead = 0;
+                int bytesRead = 0;
 
-                    //Import the Private key (of the Receiving user)
-                    RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+                //Import the Private key (of the Receiving user)
+                RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+                //RSA.ImportRSAPrivateKey(recipientPrivateKey, out bytesRead);
 
-                    //Decrypt the passed byte array with SHA512 OAEP padding.  
-                    decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
-                }
+                //Decrypt the passed byte array with SHA512 OAEP padding.  
+                decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
+
                 return decryptedData;
             }
-            //Catch and display a CryptographicException  
-            //to the console.
-            catch (CryptographicException e)
-            {
-                throw new Exception(e.Message);
-                return null;
-            }
+
+            //try
+            //{
+            //    byte[] decryptedData;
+            //    //Create a new instance of RSACryptoServiceProvider.
+            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            //    {
+            //        int bytesRead = 0;
+
+            //        //Import the Private key (of the Receiving user)
+            //        RSA.ImportPkcs8PrivateKey(recipientPrivateKey, out bytesRead);
+
+            //        //Decrypt the passed byte array with SHA512 OAEP padding.  
+            //        decryptedData = RSA.Decrypt(DataToDecrypt, RSAEncryptionPadding.Pkcs1);
+
+            //        return decryptedData;
+            //    }
+            //}
+            ////Catch and display a CryptographicException  
+            ////to the console.
+            //catch (CryptographicException e)
+            //{
+            //    throw new Exception(e.Message);
+            //    return null;
+            //}
         }
     }
 }

@@ -71,9 +71,9 @@ namespace SORA_Class
             //Encrypt the nominal with RSA.
             byte[] eTransactionNominal = RSA.RSAEncrypt(transactionNominalBytes, recipientPublicKey);
 
-            const string sql = "INSERT INTO tTransaction_Account-Account(senderID, recipientID, transaction_nominal," +
+            const string sql = "INSERT INTO tTransaction_Account(transactionID, senderID, recipientID, transaction_nominal," +
                 "transaction_date, completed) " +
-                "VALUES(@senderID, @recipientID, @transaction_nominal, @transaction_date, @completed);";
+                "VALUES(@transactionID, @senderID, @recipientID, @transaction_nominal, @transaction_date, @completed);";
 
             int transactionCompletedInt = 0;
             if (transaction.Completed)
@@ -82,6 +82,11 @@ namespace SORA_Class
             }
 
             #region SQL Parameters
+            var transactionIdParam = new MySqlParameter("@transactionID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transaction.Id
+            };
             var senderIDParam = new MySqlParameter("@senderID", MySqlDbType.VarChar, 45)
             {
                 Direction = ParameterDirection.Input,
@@ -126,7 +131,7 @@ namespace SORA_Class
 
                 Customer.UpdateBalance(senderUser, senderPlainPassword);
 
-                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, senderIDParam, recipientIDParam,
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, transactionIdParam,senderIDParam, recipientIDParam,
                 transactionNominalParam, transactionDateParam, completedParam) > 0)
                 {
                     return true;
@@ -190,7 +195,7 @@ namespace SORA_Class
 
         //Read user transactions query:
         //SELECT*
-        //FROM tTransaction_Account-Account
+        //FROM tTransaction_Account
         //WHERE senderID = @idcustomer OR recipientID = @idcustomer
         //ORDER BY transaction_date DESC;
 
@@ -203,7 +208,7 @@ namespace SORA_Class
         /// <returns>All user Transactions history</returns>
         public static List<Transaction> ReadTransactions(string customerId, string email, string password)
         {
-            const string sql = "//SELECT* FROM tTransaction_Account-Account " +
+            const string sql = "//SELECT* FROM tTransaction_Account " +
                 "WHERE senderID = @idcustomer OR recipientID = @idcustomer ORDER BY transaction_date DESC;";
 
             var utf16 = new UnicodeEncoding();
@@ -259,7 +264,7 @@ namespace SORA_Class
         /// <exception cref="Exception"></exception>
         public static bool ProcessTransactions(string customerId, string email, string password)
         {
-            const string sql = "SELECT * FROM tTransaction_Account-Account WHERE recipientID = @recipientID " +
+            const string sql = "SELECT * FROM tTransaction_Account WHERE recipientID = @recipientID " +
                 "AND completed = 0"; 
             //Reads all transactions where the user is the recipient
             //and the transaction is not yet processed or completed
@@ -317,7 +322,7 @@ namespace SORA_Class
             {
                 try
                 {
-                    string sqlUpdateTransaction = "UPDATE tTransaction_Account-Account SET completed = 1 WHERE completed = 0";
+                    string sqlUpdateTransaction = "UPDATE tTransaction_Account SET completed = 1 WHERE completed = 0";
 
                     if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sqlUpdateTransaction) > 0)
                     {

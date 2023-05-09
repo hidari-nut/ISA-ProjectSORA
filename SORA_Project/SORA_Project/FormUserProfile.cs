@@ -20,19 +20,6 @@ namespace SORA_Project
 
         private void FormUserProfile_Load(object sender, EventArgs e)
         {
-            //(string, string) hashedPassword = Customer.SaltAndHashPassword("aPlainPassword");
-            //string hashedSaltedPassword = hashedPassword.Item1;
-            //string passwordSalt = hashedPassword.Item2;
-
-            //string saltedPassword = "qfvNfOKcaKcvWqmOuMNNdw==" + "aPlainPassword";
-            //bool passIsCorrect = Crypto.VerifyHashedPassword("AEjwGNVY26BHoZUcO3+qFfUrqascsqbsvnCcfmp6gzjvBqcia+dIfSy7AfGn3tYpOA==",
-            //    saltedPassword);
-
-            //MessageBox.Show("Plain password: aPlainPassword\n" +
-            //    "Hashed password: " + "AEjwGNVY26BHoZUcO3+qFfUrqascsqbsvnCcfmp6gzjvBqcia+dIfSy7AfGn3tYpOA==" + "\n" +
-            //    "Salt: " + "qfvNfOKcaKcvWqmOuMNNdw==" + "\n" +
-            //    "Password is Correct: " + passIsCorrect.ToString());
-
             //if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
             //{
             //    MessageBox.Show("Login success! Password is correct!");
@@ -44,14 +31,13 @@ namespace SORA_Project
 
             //Customer customer = Customer.ReadData("mei@gmail.com", "meiRinjyo");
 
-
             //MessageBox.Show("Name: " + customer.FirstName + " " + customer.LastName + "\n" +
             //    "Phone Number: " + customer.PhoneNumber + "\n" +
             //    "DOB: " + customer.DateOfBirth + "\n" +
             //    "Balance: " + customer.Balance + "\n");
 
             //Customer customer = new Customer("2345", "Mei", "Rinjyo", "mei@gmail.com", "1234", DateTime.Now,
-            //    15000, 0, "234567", "meiRinjyo");
+            //    100000, 0, "234567", "meiRinjyo");
 
             //Customer.Add(customer);
             //MessageBox.Show("Customer added!");
@@ -63,6 +49,10 @@ namespace SORA_Project
             //MessageBox.Show("Customer added!");
 
             //bool isCorrect = Customer.CheckPassword("anya@gmail.com", "anyaRinjyo");
+            //MessageBox.Show("The password is: " + isCorrect);
+
+
+            //bool isCorrect = Customer.CheckPassword("mei@gmail.com", "meiRinjyo");
             //MessageBox.Show("The password is: " + isCorrect);
 
             //Customer customer = Customer.ReadData("mei@gmail.com", "meiRinjyo");
@@ -89,17 +79,30 @@ namespace SORA_Project
             //senderUser.Balance = 100000;
             //Customer.UpdateBalance(senderUser, "meiRinjyo");
 
-            try
-            {
-                Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
-                bool successful = Transaction.Add(transaction, "meiRinjyo");
-                MessageBox.Show("Transaction Successful?: " + successful);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                throw;
-            }
+            //try
+            //{
+            //    Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
+            //    bool successful = Transaction.Add(transaction, "meiRinjyo");
+            //    MessageBox.Show("Transaction Successful?: " + successful);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+            bool success = Transaction.ProcessTransactions("2346", "anya@gmail.com", "anyaRinjyo");
+            MessageBox.Show("Process Completed!\n" +
+                "Success: " + success);
+
+            //try
+            //{
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
         }
     }
 }

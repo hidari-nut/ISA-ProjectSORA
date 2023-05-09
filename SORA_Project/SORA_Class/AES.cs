@@ -49,6 +49,28 @@ namespace SORA_Class
             return encrypted;
         }
 
+        public static byte[] EncryptBytesToBytes_Aes(byte[] data, byte[] key, byte[] iv)
+        {
+            using Aes aes = Aes.Create();
+            aes.Key = key;
+            aes.IV = iv;
+
+            using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+            using MemoryStream msEncrypt = new MemoryStream();
+            using CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
+
+            csEncrypt.Write(data, 0, data.Length);
+            csEncrypt.FlushFinalBlock();
+
+            byte[] encryptedData = msEncrypt.ToArray();
+
+            byte[] result = new byte[iv.Length + encryptedData.Length];
+            Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
+            Buffer.BlockCopy(encryptedData, 0, result, iv.Length, encryptedData.Length);
+
+            return result;
+        }
+
 
         public static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
         {
@@ -91,6 +113,26 @@ namespace SORA_Class
             }
 
             return plaintext;
+        }
+
+        public static byte[] DecryptBytesFromBytes_Aes(byte[] encryptedData, byte[] key, byte[] iv)
+        {
+            byte[] cipherText = new byte[encryptedData.Length - 16];
+            Buffer.BlockCopy(encryptedData, 0, iv, 0, 16);
+            Buffer.BlockCopy(encryptedData, 16, cipherText, 0, cipherText.Length);
+
+            using Aes aes = Aes.Create();
+            aes.Key = key;
+            aes.IV = iv;
+
+            using ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+            using MemoryStream msDecrypt = new MemoryStream(cipherText);
+            using CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
+
+            byte[] decryptedData = new byte[cipherText.Length];
+            int bytesRead = csDecrypt.Read(decryptedData, 0, decryptedData.Length);
+
+            return decryptedData.Take(bytesRead).ToArray();
         }
     }
 }
