@@ -284,5 +284,27 @@ namespace SORA_Class
                 }
             }
         }
+        public int GenerateCode()
+        {
+            string sql = "SELECT CONCAT(transaction_date, MAX(RIGHT(transactionID, 3))) FROM tTransaction_Account-Account";
+
+            int code = 0;
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+
+            if (result.Read() == true)
+            {
+                if (result.GetValue(0).ToString() != "")
+                {
+                    code = int.Parse(result.GetValue(0).ToString()) + 1;
+
+                }
+                else
+                {
+                    code = 1;
+                }
+            }
+            return code;
+        }
     }
 }
