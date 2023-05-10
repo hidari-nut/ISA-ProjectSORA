@@ -38,7 +38,7 @@ namespace SORA_Project
                 string email = textBoxOutsider.Text;
                 Decimal amount = numericUpDownValue.Value;
                 DateTime transactionTime = DateTime.Now;
-                string transactionID = Transaction.GenerateID(transactionTime);
+                string transactionID = Transaction.GenerateID(transactionTime, "00");
 
                 string recipientID = Customer.SearchByEmail(email);
 

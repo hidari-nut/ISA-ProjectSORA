@@ -31,6 +31,12 @@ namespace SORA_Project
             if (pinCorrect)
             {
                 bool successful = Transaction.Add(ongoingTransaction, customerLogin.Password);
+
+                Transaction transactionSenderRead = ongoingTransaction;
+                transactionSenderRead.Id = Transaction.GenerateID(transactionSenderRead.TransactionDate,
+                    "01");
+
+                successful = Transaction.AddSenderRead(ongoingTransaction, customerLogin.Password);
                 if (successful)
                 {
                     FormTransactionSuccess formTransactionSuccess = new FormTransactionSuccess();

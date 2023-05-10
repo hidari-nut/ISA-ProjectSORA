@@ -56,7 +56,7 @@ namespace SORA_Project
             if (transactionList.Count > 0)
             {
                 foreach (Transaction transaction in transactionList)
-                {                    
+                {
                     //Indicator if user is sending or receiving in the Transaction
                     string sendReceive = "";
                     //The email of the origin if the user is receiving, or the destination if the user is sending.
@@ -78,6 +78,11 @@ namespace SORA_Project
                         transaction.TransactionDate.ToString());
                 }
             }
+        }
+
+        private void buttonTransfer_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

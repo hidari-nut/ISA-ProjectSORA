@@ -58,6 +58,7 @@
             buttonTransfer.TabIndex = 13;
             buttonTransfer.Text = "Close";
             buttonTransfer.UseVisualStyleBackColor = true;
+            buttonTransfer.Click += buttonTransfer_Click;
             // 
             // dataGridViewInfo
             // 

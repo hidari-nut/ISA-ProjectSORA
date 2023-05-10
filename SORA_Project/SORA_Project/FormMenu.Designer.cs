@@ -117,6 +117,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormMenu";
             Text = "FormMenu";
+            Load += FormMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             ResumeLayout(false);
         }
