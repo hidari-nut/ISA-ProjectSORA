@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
@@ -502,9 +503,9 @@ namespace SORA_Class
                 tempFile.WriteLine("Order #" + transaction.Id);
                 tempFile.WriteLine("Date       :" + transaction.TransactionDate);
                 tempFile.WriteLine("");
-                tempFile.WriteLine("Sender     :" + transaction.SenderID);
-                tempFile.WriteLine("Amount     :" + transaction.Nominal);
-                tempFile.WriteLine("Receiver   :" + transaction.RecipientID);
+                tempFile.WriteLine("Sender     :" + Customer.SearchByID(transaction.SenderID));
+                tempFile.WriteLine("Amount     :" + transaction.Nominal.ToString("C", CultureInfo.GetCultureInfo("en-US")));
+                tempFile.WriteLine("Receiver   :" + Customer.SearchByID(transaction.RecipientID));
                 tempFile.WriteLine(""); 
                 tempFile.WriteLine("=".PadRight(50, '='));
             }
