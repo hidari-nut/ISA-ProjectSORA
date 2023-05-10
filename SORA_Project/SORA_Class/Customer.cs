@@ -999,5 +999,27 @@ namespace SORA_Class
                 return null;
             }
         }
+        public int GenerateCode()
+        {
+            string sql = "SELECT MAX(RIGHT(id, 3)) FROM tUsers";
+
+            int code = 0;
+
+            MySqlDataReader result = Connection.RunQueryCommand(sql);
+
+            if (result.Read() == true)
+            {
+                if (result.GetValue(0).ToString() != "")
+                {
+                    code = int.Parse(result.GetValue(0).ToString()) + 1;
+
+                }
+                else
+                {
+                    code = 1;
+                }
+            }
+            return code;
+        }
     }
 }
