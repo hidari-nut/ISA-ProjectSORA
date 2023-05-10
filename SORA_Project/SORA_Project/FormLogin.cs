@@ -38,7 +38,7 @@ namespace SORA_Project
 
             bool loginSuccess = Customer.CheckPassword(email, password);
 
-            if (loginSuccess == true )
+            if (loginSuccess == true)
             {
                 customerLogin = Customer.ReadData(email, password);
 
@@ -50,10 +50,26 @@ namespace SORA_Project
 
                 this.Close();
             }
-            else 
+            else
             {
                 MessageBox.Show("Your inputted email or password is incorrect!");
-            }    
+            }
+        }
+
+        private void buttonSignUp_Click(object sender, EventArgs e)
+        {
+            Form form = Application.OpenForms["FormCreateCustomers"];
+            if (form == null)
+            {
+                FormCreateCustomers formCreateCustomers = new FormCreateCustomers();
+                formCreateCustomers.Owner = this;
+                formCreateCustomers.Show();
+            }
+            else
+            {
+                form.Show();
+                form.BringToFront();
+            }
         }
     }
 }

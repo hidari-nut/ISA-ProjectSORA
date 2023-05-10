@@ -41,9 +41,7 @@
             textBoxConfirmPass = new TextBox();
             panel7 = new Panel();
             textBoxPassword = new TextBox();
-            panel1 = new Panel();
             panel2 = new Panel();
-            textBox1 = new TextBox();
             textBoxFName = new TextBox();
             panel8 = new Panel();
             textBoxPIN = new TextBox();
@@ -54,7 +52,6 @@
             panel4.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
-            panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel8.SuspendLayout();
             SuspendLayout();
@@ -63,6 +60,7 @@
             // 
             groupBoxCustomer.BackColor = Color.Transparent;
             groupBoxCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            groupBoxCustomer.Controls.Add(panel2);
             groupBoxCustomer.Controls.Add(dateTimePickerDOB);
             groupBoxCustomer.Controls.Add(labelDateOfBirth);
             groupBoxCustomer.Controls.Add(panel5);
@@ -70,7 +68,6 @@
             groupBoxCustomer.Controls.Add(panel4);
             groupBoxCustomer.Controls.Add(panel6);
             groupBoxCustomer.Controls.Add(panel7);
-            groupBoxCustomer.Controls.Add(panel1);
             groupBoxCustomer.Controls.Add(panel8);
             groupBoxCustomer.Location = new Point(14, 15);
             groupBoxCustomer.Name = "groupBoxCustomer";
@@ -191,41 +188,23 @@
             textBoxPassword.Size = new Size(176, 20);
             textBoxPassword.TabIndex = 0;
             // 
-            // panel1
-            // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(panel2);
-            panel1.Controls.Add(textBoxFName);
-            panel1.Location = new Point(6, 27);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(184, 34);
-            panel1.TabIndex = 1;
-            // 
             // panel2
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(textBox1);
-            panel2.Location = new Point(-1, -1);
+            panel2.Controls.Add(textBoxFName);
+            panel2.Location = new Point(6, 26);
             panel2.Name = "panel2";
             panel2.Size = new Size(184, 34);
             panel2.TabIndex = 2;
             // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.White;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Location = new Point(3, 5);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "First Name";
-            textBox1.Size = new Size(176, 20);
-            textBox1.TabIndex = 0;
-            // 
             // textBoxFName
             // 
             textBoxFName.BackColor = Color.White;
-            textBoxFName.Location = new Point(0, 5);
+            textBoxFName.BorderStyle = BorderStyle.None;
+            textBoxFName.Location = new Point(3, 5);
             textBoxFName.Name = "textBoxFName";
-            textBoxFName.Size = new Size(179, 27);
+            textBoxFName.PlaceholderText = "First Name";
+            textBoxFName.Size = new Size(176, 20);
             textBoxFName.TabIndex = 0;
             // 
             // panel8
@@ -260,6 +239,7 @@
             buttonRegister.TabIndex = 9;
             buttonRegister.Text = "REGISTER";
             buttonRegister.UseVisualStyleBackColor = true;
+            buttonRegister.Click += buttonRegister_Click;
             // 
             // FormCreateCustomers
             // 
@@ -286,8 +266,6 @@
             panel6.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel8.ResumeLayout(false);
@@ -310,9 +288,7 @@
         private TextBox textBoxConfirmPass;
         private Panel panel7;
         private TextBox textBoxPassword;
-        private Panel panel1;
         private Panel panel2;
-        private TextBox textBox1;
         private TextBox textBoxFName;
         private Button buttonRegister;
         private Panel panel8;

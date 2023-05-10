@@ -28,123 +28,129 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonRegister = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            numericUpDownValue = new NumericUpDown();
+            buttonEnter = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            comboBoxMethod = new ComboBox();
+            label3 = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownValue).BeginInit();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(74, 87);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 61);
-            this.panel1.TabIndex = 13;
+            panel1.BackColor = Color.White;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(numericUpDownValue);
+            panel1.Location = new Point(74, 87);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(338, 61);
+            panel1.TabIndex = 13;
             // 
-            // textBox1
+            // numericUpDownValue
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(3, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "Amount (Rp)";
-            this.textBox1.Size = new System.Drawing.Size(329, 40);
-            this.textBox1.TabIndex = 0;
+            numericUpDownValue.DecimalPlaces = 2;
+            numericUpDownValue.Font = new Font("Nirmala UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            numericUpDownValue.Location = new Point(7, 10);
+            numericUpDownValue.Margin = new Padding(3, 4, 3, 4);
+            numericUpDownValue.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numericUpDownValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownValue.Name = "numericUpDownValue";
+            numericUpDownValue.Size = new Size(322, 39);
+            numericUpDownValue.TabIndex = 19;
+            numericUpDownValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // buttonRegister
+            // buttonEnter
             // 
-            this.buttonRegister.BackColor = System.Drawing.Color.Transparent;
-            this.buttonRegister.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.buttonRegister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(168, 252);
-            this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(128, 51);
-            this.buttonRegister.TabIndex = 15;
-            this.buttonRegister.Text = "ENTER";
-            this.buttonRegister.UseVisualStyleBackColor = false;
+            buttonEnter.BackColor = Color.Transparent;
+            buttonEnter.BackgroundImage = Properties.Resources.ButtonC;
+            buttonEnter.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonEnter.FlatStyle = FlatStyle.Flat;
+            buttonEnter.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonEnter.ForeColor = Color.White;
+            buttonEnter.Location = new Point(168, 252);
+            buttonEnter.Name = "buttonEnter";
+            buttonEnter.Size = new Size(128, 51);
+            buttonEnter.TabIndex = 15;
+            buttonEnter.Text = "ENTER";
+            buttonEnter.UseVisualStyleBackColor = false;
+            buttonEnter.Click += buttonEnter_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(134, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 37);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "TOP UP PAGE";
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Nirmala UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(134, 32);
+            label1.Name = "label1";
+            label1.Size = new Size(187, 37);
+            label1.TabIndex = 14;
+            label1.Text = "TOP UP PAGE";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Nirmala UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(16, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 37);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Rp";
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Nirmala UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(16, 98);
+            label2.Name = "label2";
+            label2.Size = new Size(52, 37);
+            label2.TabIndex = 16;
+            label2.Text = "Rp";
             // 
-            // comboBox1
+            // comboBoxMethod
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(200, 181);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(212, 28);
-            this.comboBox1.TabIndex = 17;
+            comboBoxMethod.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxMethod.FormattingEnabled = true;
+            comboBoxMethod.Location = new Point(200, 181);
+            comboBoxMethod.Name = "comboBoxMethod";
+            comboBoxMethod.Size = new Size(212, 28);
+            comboBoxMethod.TabIndex = 17;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(16, 181);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(178, 28);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Payment method:";
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(16, 181);
+            label3.Name = "label3";
+            label3.Size = new Size(178, 28);
+            label3.TabIndex = 18;
+            label3.Text = "Payment method:";
             // 
             // FormTopUpCustomer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG_4;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(460, 336);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonRegister);
-            this.Controls.Add(this.label1);
-            this.Name = "FormTopUpCustomer";
-            this.Text = "FormTopUpCustomer";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.BG_4;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(460, 336);
+            Controls.Add(label3);
+            Controls.Add(comboBoxMethod);
+            Controls.Add(label2);
+            Controls.Add(panel1);
+            Controls.Add(buttonEnter);
+            Controls.Add(label1);
+            Name = "FormTopUpCustomer";
+            Text = "FormTopUpCustomer";
+            Load += FormTopUpCustomer_Load;
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numericUpDownValue).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Panel panel1;
         private TextBox textBox1;
-        private Button buttonRegister;
+        private Button buttonEnter;
         private Label label1;
         private Label label2;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxMethod;
         private Label label3;
+        private NumericUpDown numericUpDownValue;
     }
 }

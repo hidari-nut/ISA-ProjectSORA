@@ -208,7 +208,7 @@ namespace SORA_Class
         /// <returns>All user Transactions history</returns>
         public static List<Transaction> ReadTransactions(string customerId, string email, string password)
         {
-            const string sql = "//SELECT* FROM tTransaction_Account " +
+            const string sql = "SELECT * FROM tTransaction_Account " +
                 "WHERE senderID = @idcustomer OR recipientID = @idcustomer ORDER BY transaction_date DESC;";
 
             var utf16 = new UnicodeEncoding();

@@ -20,6 +20,11 @@ namespace SORA_Project
 
         public Customer customerLogin;
 
+        private void FormTransfer_Load(object sender, EventArgs e)
+        {
+            customerLogin = Customer.ReadData(customerLogin.Email, customerLogin.Password);
+        }
+
         private void buttonSend_Click(object sender, EventArgs e)
         {
             try

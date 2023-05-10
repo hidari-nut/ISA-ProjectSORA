@@ -123,6 +123,7 @@
             buttonSignUp.TabIndex = 6;
             buttonSignUp.Text = "Sign Up";
             buttonSignUp.UseVisualStyleBackColor = false;
+            buttonSignUp.Click += buttonSignUp_Click;
             // 
             // FormLogin
             // 

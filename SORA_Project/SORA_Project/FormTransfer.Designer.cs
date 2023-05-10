@@ -132,12 +132,16 @@
             // 
             // numericUpDownValue
             // 
+            numericUpDownValue.DecimalPlaces = 2;
             numericUpDownValue.Font = new Font("Nirmala UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             numericUpDownValue.Location = new Point(59, 275);
             numericUpDownValue.Margin = new Padding(3, 4, 3, 4);
+            numericUpDownValue.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numericUpDownValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownValue.Name = "numericUpDownValue";
             numericUpDownValue.Size = new Size(322, 39);
             numericUpDownValue.TabIndex = 10;
+            numericUpDownValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label5
             // 
@@ -200,6 +204,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormTransfer";
             Text = "FormTransfer";
+            Load += FormTransfer_Load;
             ((System.ComponentModel.ISupportInitialize)numericUpDownValue).EndInit();
             ResumeLayout(false);
             PerformLayout();

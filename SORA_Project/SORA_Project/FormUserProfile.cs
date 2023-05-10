@@ -24,6 +24,8 @@ namespace SORA_Project
 
         private void FormUserProfile_Load(object sender, EventArgs e)
         {
+            customerLogin = Customer.ReadData(customerLogin.Email, customerLogin.Password);
+
             textBoxID.Text = customerLogin.Id;
             textBoxName.Text = customerLogin.FirstName + " " + customerLogin.LastName;
             textBoxEmail.Text = customerLogin.Email;

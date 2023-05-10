@@ -675,7 +675,7 @@ namespace SORA_Class
                 customerDOBBytes = (byte[])(result["dob"]); //Bytes
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Pin_salt = result.GetValue(7).ToString();
-                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password = password;
                 customerLogin.Password_salt = result.GetValue(9).ToString();
                 customerBalanceBytes = (byte[])(result["balance"]); //Bytes
                 customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
@@ -750,7 +750,7 @@ namespace SORA_Class
                 customerDOBBytes = (byte[])(result["dob"]); //Bytes
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Pin_salt = result.GetValue(7).ToString();
-                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password = password;
                 customerLogin.Password_salt = result.GetValue(9).ToString();
                 customerBalanceBytes = (byte[])(result["balance"]); //Bytes
                 customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
