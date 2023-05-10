@@ -28,70 +28,86 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
-            buttonTransfer = new Button();
-            dataGridViewInfo = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewInfo).BeginInit();
-            SuspendLayout();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonTransfer = new System.Windows.Forms.Button();
+            this.dataGridViewInfo = new System.Windows.Forms.DataGridView();
+            this.buttonReport = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).BeginInit();
+            this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            pictureBox1.BackgroundImage = Properties.Resources.Title_Read_4;
-            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(12, 18);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(431, 62);
-            pictureBox1.TabIndex = 14;
-            pictureBox1.TabStop = false;
+            this.pictureBox1.BackgroundImage = global::SORA_Project.Properties.Resources.Title_Read_4;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(431, 62);
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
             // 
             // buttonTransfer
             // 
-            buttonTransfer.BackgroundImage = Properties.Resources.ButtonG;
-            buttonTransfer.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonTransfer.FlatStyle = FlatStyle.Flat;
-            buttonTransfer.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonTransfer.ForeColor = Color.White;
-            buttonTransfer.Location = new Point(754, 574);
-            buttonTransfer.Name = "buttonTransfer";
-            buttonTransfer.Size = new Size(108, 42);
-            buttonTransfer.TabIndex = 13;
-            buttonTransfer.Text = "Close";
-            buttonTransfer.UseVisualStyleBackColor = true;
-            buttonTransfer.Click += buttonTransfer_Click;
+            this.buttonTransfer.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
+            this.buttonTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonTransfer.ForeColor = System.Drawing.Color.White;
+            this.buttonTransfer.Location = new System.Drawing.Point(754, 574);
+            this.buttonTransfer.Name = "buttonTransfer";
+            this.buttonTransfer.Size = new System.Drawing.Size(108, 42);
+            this.buttonTransfer.TabIndex = 13;
+            this.buttonTransfer.Text = "Close";
+            this.buttonTransfer.UseVisualStyleBackColor = true;
             // 
             // dataGridViewInfo
             // 
-            dataGridViewInfo.BackgroundColor = Color.White;
-            dataGridViewInfo.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewInfo.Location = new Point(12, 102);
-            dataGridViewInfo.Name = "dataGridViewInfo";
-            dataGridViewInfo.RowHeadersWidth = 51;
-            dataGridViewInfo.RowTemplate.Height = 29;
-            dataGridViewInfo.Size = new Size(850, 461);
-            dataGridViewInfo.TabIndex = 12;
+            this.dataGridViewInfo.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridViewInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewInfo.Location = new System.Drawing.Point(12, 102);
+            this.dataGridViewInfo.Name = "dataGridViewInfo";
+            this.dataGridViewInfo.RowHeadersWidth = 51;
+            this.dataGridViewInfo.RowTemplate.Height = 29;
+            this.dataGridViewInfo.Size = new System.Drawing.Size(850, 461);
+            this.dataGridViewInfo.TabIndex = 12;
+            // 
+            // buttonReport
+            // 
+            this.buttonReport.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
+            this.buttonReport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonReport.ForeColor = System.Drawing.Color.White;
+            this.buttonReport.Location = new System.Drawing.Point(12, 574);
+            this.buttonReport.Name = "buttonReport";
+            this.buttonReport.Size = new System.Drawing.Size(108, 42);
+            this.buttonReport.TabIndex = 15;
+            this.buttonReport.Text = "Report";
+            this.buttonReport.UseVisualStyleBackColor = true;
             // 
             // FormTransferHistory
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            ClientSize = new Size(874, 628);
-            Controls.Add(pictureBox1);
-            Controls.Add(buttonTransfer);
-            Controls.Add(dataGridViewInfo);
-            Name = "FormTransferHistory";
-            Text = "FormTransferHistory";
-            Load += FormTransferHistory_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewInfo).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(874, 628);
+            this.Controls.Add(this.buttonReport);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonTransfer);
+            this.Controls.Add(this.dataGridViewInfo);
+            this.Name = "FormTransferHistory";
+            this.Text = "FormTransferHistory";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
         private PictureBox pictureBox1;
         private Button buttonTransfer;
         private DataGridView dataGridViewInfo;
+        private Button buttonReport;
     }
 }
