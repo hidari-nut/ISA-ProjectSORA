@@ -68,6 +68,7 @@ namespace SORA_Class
 
             byte[] transactionNominalBytes = utf16.GetBytes(transaction.Nominal.ToString());
 
+
             //Encrypt the nominal with RSA.
             byte[] eTransactionNominal = RSA.RSAEncrypt(transactionNominalBytes, recipientPublicKey);
 

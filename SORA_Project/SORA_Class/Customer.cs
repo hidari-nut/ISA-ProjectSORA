@@ -122,6 +122,7 @@ namespace SORA_Class
             //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
             var utf16 = new UnicodeEncoding();
 
+
             Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(plainPassword), utf16.GetBytes(customer.Password_salt),
                 100000, HashAlgorithmName.SHA512);
 
@@ -153,7 +154,7 @@ namespace SORA_Class
                 byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
 
                 // Encrypt the data key with the user's password derivation as key.
-                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf16.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+                byte[] eDataKey = AES.EncryptStringToBytes_Aes(Convert.ToBase64String(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
                 //// Decrypt the bytes to a string.
                 //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
@@ -329,7 +330,7 @@ namespace SORA_Class
                 //Decrypt key
                 string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.Key = Convert.FromBase64String(dataKey);
                 aesData.IV = customer.DataIV;
 
                 //Encrypt Balance
@@ -398,7 +399,7 @@ namespace SORA_Class
                 //Decrypt key
                 string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.Key = Convert.FromBase64String(dataKey);
                 aesData.IV = customer.DataIV;
 
                 //Encrypt Balance
@@ -700,7 +701,7 @@ namespace SORA_Class
                     //Decrypt key
                     string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
                     
-                    aesData.Key = utf16.GetBytes(dataKey);
+                    aesData.Key = Convert.FromBase64String(dataKey);
                     aesData.IV = customerLogin.DataIV;
                     
                     //Decrypt data
@@ -775,7 +776,7 @@ namespace SORA_Class
                     //Decrypt key
                     string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                    aesData.Key = utf16.GetBytes(dataKey);
+                    aesData.Key = Convert.FromBase64String(dataKey);
                     aesData.IV = customerLogin.DataIV;
 
                     //Decrypt data
