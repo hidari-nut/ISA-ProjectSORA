@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using System.Transactions;
+
 
 namespace SORA_Class
 {
@@ -482,6 +484,34 @@ namespace SORA_Class
             idString = transactionTime.ToString("ddMMyyyyHHmmss") + indicator + code.ToString().PadLeft(3, '0');
 
             return idString;
+        }
+
+        public static void PrintTransactionReport(string customerId, string email, string password, string fileName, Font fontype)
+        {
+            List<Transaction> transactionLists = new List<Transaction>();
+            transactionLists = Transaction.ReadTransactions(customerId, email, password);
+
+            StreamWriter tempFile = new StreamWriter(fileName);
+            foreach (Transaction transaction in transactionLists)
+            {
+                tempFile.WriteLine("");
+                tempFile.WriteLine("SORA");
+                tempFile.WriteLine("Transaction Report");
+                tempFile.WriteLine("=".PadRight(50, '='));
+
+                tempFile.WriteLine("Order #" + transaction.Id);
+                tempFile.Write("Date           :" + transaction.TransactionDate);
+                tempFile.WriteLine("");
+                tempFile.WriteLine("Sender     :" + transaction.SenderID);
+                tempFile.WriteLine("Amount     :" + transaction.Nominal);
+                tempFile.WriteLine("Receiver   :" + transaction.RecipientID);
+                tempFile.WriteLine(""); 
+                tempFile.WriteLine("=".PadRight(50, '='));
+            }
+            tempFile.Close();
+
+            Report document = new Report(fontype, fileName, 20, 10, 10, 10);
+            document.SendToPrinter();
         }
     }
 }
