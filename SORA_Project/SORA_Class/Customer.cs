@@ -1003,6 +1003,7 @@ namespace SORA_Class
         {
             string sql = "SELECT MAX(CAST(idCustomer AS UNSIGNED)) FROM tCustomers;";
 
+
             int code = 1;
             string idString = "";
 
