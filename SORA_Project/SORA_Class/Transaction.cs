@@ -500,7 +500,7 @@ namespace SORA_Class
                 tempFile.WriteLine("=".PadRight(50, '='));
 
                 tempFile.WriteLine("Order #" + transaction.Id);
-                tempFile.Write("Date           :" + transaction.TransactionDate);
+                tempFile.WriteLine("Date       :" + transaction.TransactionDate);
                 tempFile.WriteLine("");
                 tempFile.WriteLine("Sender     :" + transaction.SenderID);
                 tempFile.WriteLine("Amount     :" + transaction.Nominal);
