@@ -355,13 +355,21 @@ namespace SORA_Class
                 }
             }
         }
-        public int GenerateCode()
+        public string GenerateCode(DateTime transactionTime)
         {
-            string sql = "SELECT CONCAT(transaction_date, MAX(RIGHT(transactionID, 3))) FROM tTransaction_Account-Account";
+            string sql = "SELECT MAX(RIGHT(transactionID, 3)) " +
+                "FROM tTransaction_Account WHERE LEFT(transactionID, 14) = @transactionID;";
 
             int code = 0;
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            var transactionIDParam = new MySqlParameter("@transactionID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transactionTime.ToString("ddMMyyyyHHmmss")
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, transactionIDParam);
 
             if (result.Read() == true)
             {

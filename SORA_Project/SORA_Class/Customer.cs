@@ -999,11 +999,12 @@ namespace SORA_Class
                 return null;
             }
         }
-        public int GenerateCode()
+        public string GenerateID()
         {
-            string sql = "SELECT MAX(RIGHT(id, 3)) FROM tUsers";
+            string sql = "SELECT MAX(CAST(idCustomer AS UNSIGNED)) FROM tCustomers;";
 
-            int code = 0;
+            int code = 1;
+            string idString = "";
 
             MySqlDataReader result = Connection.RunQueryCommand(sql);
 
@@ -1012,14 +1013,11 @@ namespace SORA_Class
                 if (result.GetValue(0).ToString() != "")
                 {
                     code = int.Parse(result.GetValue(0).ToString()) + 1;
-
-                }
-                else
-                {
-                    code = 1;
                 }
             }
-            return code;
+            idString = code.ToString().PadLeft(9, '0');
+
+            return idString;
         }
     }
 }
