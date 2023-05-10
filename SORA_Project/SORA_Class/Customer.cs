@@ -1001,7 +1001,7 @@ namespace SORA_Class
         }
         public int GenerateCode()
         {
-            string sql = "SELECT MAX(RIGHT(id, 3)) FROM tUsers";
+            string sql = "SELECT MAX(RIGHT(id, 3)) FROM tCustomers";
 
             int code = 0;
 
