@@ -23,6 +23,8 @@ namespace SORA_Project
         private void FormTransfer_Load(object sender, EventArgs e)
         {
             customerLogin = Customer.ReadData(customerLogin.Email, customerLogin.Password);
+
+            textBoxOutsider.Enabled = true;
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
@@ -38,20 +40,28 @@ namespace SORA_Project
                 DateTime transactionTime = DateTime.Now;
                 string transactionID = Transaction.GenerateID(transactionTime);
 
-                string recipientID = Customer.SearchByID(email);
+                string recipientID = Customer.SearchByEmail(email);
 
-                Transaction transaction = new Transaction();
-                if (email != "")
+                if(recipientID != "" || recipientID != null)
                 {
-                    transaction = new Transaction(transactionID, customerLogin.Id, recipientID, transactionTime,
-                        amount, false);
+                    Transaction transaction = new Transaction();
+                    if (email != "")
+                    {
+                        transaction = new Transaction(transactionID, customerLogin.Id, recipientID, transactionTime,
+                            amount, false);
 
-                    FormConfirm formConfirm = new FormConfirm();
-                    formConfirm.Owner = this;
-                    formConfirm.customerLogin = customerLogin;
-                    formConfirm.ongoingTransaction = transaction;
-                    formConfirm.Show();
+                        FormConfirm formConfirm = new FormConfirm();
+                        formConfirm.Owner = this;
+                        formConfirm.customerLogin = customerLogin;
+                        formConfirm.ongoingTransaction = transaction;
+                        formConfirm.Show();
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("User not found! Please check your inputted recipient email address.");
+                }
+                
             }
             catch (Exception ex)
             {

@@ -25,6 +25,8 @@ namespace SORA_Project
         {
             string pin = textBoxPIN.Text;
 
+            string recipientID = ongoingTransaction.RecipientID;
+
             bool pinCorrect = Customer.CheckPin(customerLogin.Email, pin);
             if (pinCorrect)
             {
