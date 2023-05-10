@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            buttonTransfer = new Button();
+            buttonClose = new Button();
             dataGridViewInfo = new DataGridView();
+            buttonReport = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewInfo).BeginInit();
             SuspendLayout();
@@ -45,20 +46,20 @@
             pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
             // 
-            // buttonTransfer
+            // buttonClose
             // 
-            buttonTransfer.BackgroundImage = Properties.Resources.ButtonG;
-            buttonTransfer.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonTransfer.FlatStyle = FlatStyle.Flat;
-            buttonTransfer.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonTransfer.ForeColor = Color.White;
-            buttonTransfer.Location = new Point(754, 574);
-            buttonTransfer.Name = "buttonTransfer";
-            buttonTransfer.Size = new Size(108, 42);
-            buttonTransfer.TabIndex = 13;
-            buttonTransfer.Text = "Close";
-            buttonTransfer.UseVisualStyleBackColor = true;
-            buttonTransfer.Click += buttonTransfer_Click;
+            buttonClose.BackgroundImage = Properties.Resources.ButtonG;
+            buttonClose.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonClose.FlatStyle = FlatStyle.Flat;
+            buttonClose.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonClose.ForeColor = Color.White;
+            buttonClose.Location = new Point(754, 574);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new Size(108, 42);
+            buttonClose.TabIndex = 13;
+            buttonClose.Text = "Close";
+            buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Click += buttonClose_Click;
             // 
             // dataGridViewInfo
             // 
@@ -72,14 +73,30 @@
             dataGridViewInfo.Size = new Size(850, 461);
             dataGridViewInfo.TabIndex = 12;
             // 
+            // buttonReport
+            // 
+            buttonReport.BackgroundImage = Properties.Resources.ButtonC;
+            buttonReport.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonReport.FlatStyle = FlatStyle.Flat;
+            buttonReport.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonReport.ForeColor = Color.White;
+            buttonReport.Location = new Point(12, 574);
+            buttonReport.Name = "buttonReport";
+            buttonReport.Size = new Size(108, 42);
+            buttonReport.TabIndex = 15;
+            buttonReport.Text = "Report";
+            buttonReport.UseVisualStyleBackColor = true;
+            buttonReport.Click += buttonReport_Click;
+            // 
             // FormTransferHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(874, 628);
+            Controls.Add(buttonReport);
             Controls.Add(pictureBox1);
-            Controls.Add(buttonTransfer);
+            Controls.Add(buttonClose);
             Controls.Add(dataGridViewInfo);
             Name = "FormTransferHistory";
             Text = "FormTransferHistory";
@@ -91,7 +108,8 @@
 
         #endregion
         private PictureBox pictureBox1;
-        private Button buttonTransfer;
+        private Button buttonClose;
         private DataGridView dataGridViewInfo;
+        private Button buttonReport;
     }
 }

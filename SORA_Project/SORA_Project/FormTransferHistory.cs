@@ -82,6 +82,18 @@ namespace SORA_Project
 
         private void buttonTransfer_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void buttonReport_Click(object sender, EventArgs e)
+        {
+            Transaction.PrintTransactionReport(customerLogin.Id, customerLogin.Email, customerLogin.Password,
+                "transferHistory", new Font("Courier New", 13));
+            MessageBox.Show("Transaction History Report printed");
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }
