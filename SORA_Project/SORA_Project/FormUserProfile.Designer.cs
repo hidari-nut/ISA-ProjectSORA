@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            textBoxAccountDate = new TextBox();
             textBoxDoB = new TextBox();
             textBoxPhone = new TextBox();
             textBoxEmail = new TextBox();
             textBoxName = new TextBox();
             textBoxID = new TextBox();
-            label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
@@ -43,6 +41,8 @@
             label2 = new Label();
             label1 = new Label();
             buttonReturn = new Button();
+            label7 = new Label();
+            textBoxBalance = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -57,20 +57,6 @@
             pictureBox1.Size = new Size(282, 103);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // textBoxAccountDate
-            // 
-            textBoxAccountDate.BackColor = Color.White;
-            textBoxAccountDate.BorderStyle = BorderStyle.None;
-            textBoxAccountDate.Enabled = false;
-            textBoxAccountDate.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxAccountDate.Location = new Point(216, 459);
-            textBoxAccountDate.Margin = new Padding(3, 4, 3, 4);
-            textBoxAccountDate.Name = "textBoxAccountDate";
-            textBoxAccountDate.Size = new Size(303, 25);
-            textBoxAccountDate.TabIndex = 13;
-            textBoxAccountDate.Text = "01/01/2022";
-            textBoxAccountDate.TextAlign = HorizontalAlignment.Right;
             // 
             // textBoxDoB
             // 
@@ -146,16 +132,6 @@
             textBoxID.Text = "C-69420";
             textBoxID.TextAlign = HorizontalAlignment.Right;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Nirmala UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(26, 455);
-            label7.Name = "label7";
-            label7.Size = new Size(116, 30);
-            label7.TabIndex = 7;
-            label7.Text = "Made on :";
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -182,9 +158,9 @@
             label4.Font = new Font("Nirmala UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
             label4.Location = new Point(26, 311);
             label4.Name = "label4";
-            label4.Size = new Size(174, 30);
+            label4.Size = new Size(180, 30);
             label4.TabIndex = 4;
-            label4.Text = "E-mail Address:";
+            label4.Text = "E-mail Address :";
             // 
             // label3
             // 
@@ -223,13 +199,38 @@
             buttonReturn.FlatStyle = FlatStyle.Flat;
             buttonReturn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
             buttonReturn.ForeColor = Color.White;
-            buttonReturn.Location = new Point(424, 615);
+            buttonReturn.Location = new Point(424, 554);
             buttonReturn.Margin = new Padding(3, 4, 3, 4);
             buttonReturn.Name = "buttonReturn";
             buttonReturn.Size = new Size(95, 38);
             buttonReturn.TabIndex = 30;
             buttonReturn.Text = "Return";
             buttonReturn.UseVisualStyleBackColor = true;
+            buttonReturn.Click += buttonReturn_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Nirmala UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(24, 478);
+            label7.Name = "label7";
+            label7.Size = new Size(142, 41);
+            label7.TabIndex = 31;
+            label7.Text = "Balance :";
+            // 
+            // textBoxBalance
+            // 
+            textBoxBalance.BackColor = Color.White;
+            textBoxBalance.BorderStyle = BorderStyle.None;
+            textBoxBalance.Enabled = false;
+            textBoxBalance.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxBalance.Location = new Point(216, 481);
+            textBoxBalance.Margin = new Padding(3, 4, 3, 4);
+            textBoxBalance.Name = "textBoxBalance";
+            textBoxBalance.Size = new Size(303, 36);
+            textBoxBalance.TabIndex = 32;
+            textBoxBalance.Text = "$35,450,999";
+            textBoxBalance.TextAlign = HorizontalAlignment.Right;
             // 
             // FormUserProfile
             // 
@@ -238,15 +239,15 @@
             BackColor = Color.White;
             BackgroundImage = Properties.Resources.BG_5;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(546, 676);
+            ClientSize = new Size(546, 605);
+            Controls.Add(textBoxBalance);
+            Controls.Add(label7);
             Controls.Add(buttonReturn);
-            Controls.Add(textBoxAccountDate);
             Controls.Add(textBoxDoB);
             Controls.Add(textBoxPhone);
             Controls.Add(textBoxEmail);
             Controls.Add(textBoxName);
             Controls.Add(textBoxID);
-            Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -266,13 +267,11 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private TextBox textBoxAccountDate;
         private TextBox textBoxDoB;
         private TextBox textBoxPhone;
         private TextBox textBoxEmail;
         private TextBox textBoxName;
         private TextBox textBoxID;
-        private Label label7;
         private Label label6;
         private Label label5;
         private Label label4;
@@ -280,5 +279,7 @@
         private Label label2;
         private Label label1;
         private Button buttonReturn;
+        private Label label7;
+        private TextBox textBoxBalance;
     }
 }

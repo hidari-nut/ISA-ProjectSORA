@@ -95,6 +95,7 @@
             buttonLogIn.TabIndex = 4;
             buttonLogIn.Text = "Log In";
             buttonLogIn.UseVisualStyleBackColor = false;
+            buttonLogIn.Click += buttonLogIn_Click;
             // 
             // label1
             // 
@@ -122,6 +123,7 @@
             buttonSignUp.TabIndex = 6;
             buttonSignUp.Text = "Sign Up";
             buttonSignUp.UseVisualStyleBackColor = false;
+            buttonSignUp.Click += buttonSignUp_Click;
             // 
             // FormLogin
             // 

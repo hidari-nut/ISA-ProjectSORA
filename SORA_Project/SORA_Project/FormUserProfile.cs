@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,8 +20,19 @@ namespace SORA_Project
             InitializeComponent();
         }
 
+        public Customer customerLogin;
+
         private void FormUserProfile_Load(object sender, EventArgs e)
         {
+            customerLogin = Customer.ReadData(customerLogin.Email, customerLogin.Password);
+
+            textBoxID.Text = customerLogin.Id;
+            textBoxName.Text = customerLogin.FirstName + " " + customerLogin.LastName;
+            textBoxEmail.Text = customerLogin.Email;
+            textBoxPhone.Text = customerLogin.PhoneNumber;
+            textBoxDoB.Text = customerLogin.DateOfBirth.ToString("dd/MM/yyyy");
+            textBoxBalance.Text = customerLogin.Balance.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+
             //if (Customer.CheckPassword("mei@gmail.com", "meiRinjyo"))
             //{
             //    MessageBox.Show("Login success! Password is correct!");
@@ -103,6 +116,11 @@ namespace SORA_Project
             //    MessageBox.Show(ex.Message);
             //}
 
+        }
+
+        private void buttonReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

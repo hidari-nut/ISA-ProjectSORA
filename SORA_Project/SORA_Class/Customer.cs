@@ -122,6 +122,7 @@ namespace SORA_Class
             //UTF-8 Encoding will be used to convert strings to bytes and vice versa.
             var utf16 = new UnicodeEncoding();
 
+
             Rfc2898DeriveBytes passKey = new Rfc2898DeriveBytes(utf16.GetBytes(plainPassword), utf16.GetBytes(customer.Password_salt),
                 100000, HashAlgorithmName.SHA512);
 
@@ -153,7 +154,7 @@ namespace SORA_Class
                 byte[] eBalance = AES.EncryptStringToBytes_Aes(customer.Balance.ToString(), aesData.Key, aesData.IV);
 
                 // Encrypt the data key with the user's password derivation as key.
-                byte[] eDataKey = AES.EncryptStringToBytes_Aes(utf16.GetString(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
+                byte[] eDataKey = AES.EncryptStringToBytes_Aes(Convert.ToBase64String(aesData.Key), aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
                 //// Decrypt the bytes to a string.
                 //string roundtrip = AES.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
@@ -329,7 +330,7 @@ namespace SORA_Class
                 //Decrypt key
                 string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.Key = Convert.FromBase64String(dataKey);
                 aesData.IV = customer.DataIV;
 
                 //Encrypt Balance
@@ -398,7 +399,7 @@ namespace SORA_Class
                 //Decrypt key
                 string dataKey = AES.DecryptStringFromBytes_Aes(customer.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                aesData.Key = utf16.GetBytes(dataKey);
+                aesData.Key = Convert.FromBase64String(dataKey);
                 aesData.IV = customer.DataIV;
 
                 //Encrypt Balance
@@ -675,7 +676,7 @@ namespace SORA_Class
                 customerDOBBytes = (byte[])(result["dob"]); //Bytes
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Pin_salt = result.GetValue(7).ToString();
-                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password = password;
                 customerLogin.Password_salt = result.GetValue(9).ToString();
                 customerBalanceBytes = (byte[])(result["balance"]); //Bytes
                 customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
@@ -700,7 +701,7 @@ namespace SORA_Class
                     //Decrypt key
                     string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
                     
-                    aesData.Key = utf16.GetBytes(dataKey);
+                    aesData.Key = Convert.FromBase64String(dataKey);
                     aesData.IV = customerLogin.DataIV;
                     
                     //Decrypt data
@@ -750,7 +751,7 @@ namespace SORA_Class
                 customerDOBBytes = (byte[])(result["dob"]); //Bytes
                 customerLogin.Pin = result.GetValue(6).ToString();
                 customerLogin.Pin_salt = result.GetValue(7).ToString();
-                customerLogin.Password = result.GetValue(8).ToString();
+                customerLogin.Password = password;
                 customerLogin.Password_salt = result.GetValue(9).ToString();
                 customerBalanceBytes = (byte[])(result["balance"]); //Bytes
                 customerLogin.Banned = int.Parse(result.GetValue(11).ToString());
@@ -775,7 +776,7 @@ namespace SORA_Class
                     //Decrypt key
                     string dataKey = AES.DecryptStringFromBytes_Aes(customerLogin.DataKey, aesKeyEncrypt.Key, aesKeyEncrypt.IV);
 
-                    aesData.Key = utf16.GetBytes(dataKey);
+                    aesData.Key = Convert.FromBase64String(dataKey);
                     aesData.IV = customerLogin.DataIV;
 
                     //Decrypt data
@@ -999,27 +1000,26 @@ namespace SORA_Class
                 return null;
             }
         }
-        public int GenerateCode()
+        public static string GenerateID()
         {
-            string sql = "SELECT MAX(RIGHT(id, 3)) FROM tUsers";
+            string sql = "SELECT MAX(CAST(idCustomer AS UNSIGNED)) FROM tCustomers;";
 
-            int code = 0;
+            int code = 1;
+            string idString = "";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql);
 
             if (result.Read() == true)
             {
                 if (result.GetValue(0).ToString() != "")
                 {
                     code = int.Parse(result.GetValue(0).ToString()) + 1;
-
-                }
-                else
-                {
-                    code = 1;
                 }
             }
-            return code;
+            idString = code.ToString().PadLeft(9, '0');
+
+            return idString;
         }
     }
 }

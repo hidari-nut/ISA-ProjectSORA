@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SORA_Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,53 @@ namespace SORA_Project
         private void FormCreateCustomers_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string firstName = textBoxFName.Text;
+                string lastName = textBoxLName.Text;
+                string email = textBoxEmail.Text;
+                string phoneNumber = textBoxPhoneNum.Text;
+                string password = textBoxPassword.Text;
+                string passwordConfirm = textBoxConfirmPass.Text;
+                string pin = textBoxPIN.Text;
+                DateTime dateOfBirth = dateTimePickerDOB.Value;
+
+                if (password == passwordConfirm)
+                {
+                    string customerID = Customer.GenerateID();
+                    Customer customerLogin = new Customer(customerID, firstName, lastName, email, phoneNumber,
+                        dateOfBirth, 0, 0, pin, password);
+                    bool success = Customer.Add(customerLogin);
+                    if (success)
+                    {
+                        MessageBox.Show("Account successfully created!");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Account creation failed! Please check your data!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Password confirm does not match your inputted password!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            //Customer customer = new Customer("2345", "Mei", "Rinjyo", "mei@gmail.com", "1234", DateTime.Now,
+            //    100000, 0, "234567", "meiRinjyo");
+
+            //Customer.Add(customer);
+            //MessageBox.Show("Customer added!");
         }
     }
 }

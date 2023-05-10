@@ -16,5 +16,10 @@ namespace SORA_Project
         {
             InitializeComponent();
         }
+
+        private void buttonReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

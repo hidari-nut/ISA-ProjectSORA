@@ -28,87 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonRegister = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            textBoxPIN = new TextBox();
+            label1 = new Label();
+            buttonEnter = new Button();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(40, 82);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(223, 46);
-            this.panel1.TabIndex = 7;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(textBoxPIN);
+            panel1.Location = new Point(46, 109);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(255, 61);
+            panel1.TabIndex = 7;
             // 
-            // textBox1
+            // textBoxPIN
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(3, 5);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(215, 32);
-            this.textBox1.TabIndex = 0;
+            textBoxPIN.BackColor = Color.White;
+            textBoxPIN.BorderStyle = BorderStyle.None;
+            textBoxPIN.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxPIN.Location = new Point(3, 7);
+            textBoxPIN.Name = "textBoxPIN";
+            textBoxPIN.PasswordChar = '*';
+            textBoxPIN.Size = new Size(246, 40);
+            textBoxPIN.TabIndex = 0;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(130, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 30);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "PIN";
+            label1.AutoSize = true;
+            label1.Font = new Font("Nirmala UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(149, 51);
+            label1.Name = "label1";
+            label1.Size = new Size(64, 37);
+            label1.TabIndex = 8;
+            label1.Text = "PIN";
             // 
-            // buttonRegister
+            // buttonEnter
             // 
-            this.buttonRegister.BackColor = System.Drawing.Color.Transparent;
-            this.buttonRegister.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.buttonRegister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(99, 143);
-            this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(112, 38);
-            this.buttonRegister.TabIndex = 12;
-            this.buttonRegister.Text = "ENTER";
-            this.buttonRegister.UseVisualStyleBackColor = false;
+            buttonEnter.BackColor = Color.Transparent;
+            buttonEnter.BackgroundImage = Properties.Resources.ButtonC;
+            buttonEnter.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonEnter.FlatStyle = FlatStyle.Flat;
+            buttonEnter.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonEnter.ForeColor = Color.White;
+            buttonEnter.Location = new Point(113, 191);
+            buttonEnter.Name = "buttonEnter";
+            buttonEnter.Size = new Size(128, 51);
+            buttonEnter.TabIndex = 12;
+            buttonEnter.Text = "ENTER";
+            buttonEnter.UseVisualStyleBackColor = false;
+            buttonEnter.Click += buttonEnter_Click;
             // 
             // FormPin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.wave;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(300, 249);
-            this.Controls.Add(this.buttonRegister);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
-            this.DoubleBuffered = true;
-            this.Name = "FormPin";
-            this.Text = "FormPin";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.wave;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(343, 332);
+            Controls.Add(buttonEnter);
+            Controls.Add(label1);
+            Controls.Add(panel1);
+            DoubleBuffered = true;
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "FormPin";
+            Text = "FormPin";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Panel panel1;
-        private TextBox textBox1;
+        private TextBox textBoxPIN;
         private Label label1;
-        private Button buttonRegister;
+        private Button buttonEnter;
     }
 }

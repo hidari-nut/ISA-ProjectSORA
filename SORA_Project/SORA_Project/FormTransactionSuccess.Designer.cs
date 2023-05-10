@@ -28,90 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.mySqlCommand1 = new MySql.Data.MySqlClient.MySqlCommand();
-            this.label2 = new System.Windows.Forms.Label();
-            this.buttonReturn = new System.Windows.Forms.Button();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.SuspendLayout();
+            label1 = new Label();
+            mySqlCommand1 = new MySql.Data.MySqlClient.MySqlCommand();
+            label2 = new Label();
+            buttonReturn = new Button();
+            pictureBoxLogo = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label1.Location = new System.Drawing.Point(77, 77);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(261, 46);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "TRANSACTION";
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Nirmala UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.ForestGreen;
+            label1.Location = new Point(77, 77);
+            label1.Name = "label1";
+            label1.Size = new Size(261, 46);
+            label1.TabIndex = 17;
+            label1.Text = "TRANSACTION";
             // 
             // mySqlCommand1
             // 
-            this.mySqlCommand1.CacheAge = 0;
-            this.mySqlCommand1.Connection = null;
-            this.mySqlCommand1.EnableCaching = false;
-            this.mySqlCommand1.Transaction = null;
+            mySqlCommand1.CacheAge = 0;
+            mySqlCommand1.Connection = null;
+            mySqlCommand1.EnableCaching = false;
+            mySqlCommand1.Transaction = null;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Nirmala UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label2.Location = new System.Drawing.Point(127, 131);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 46);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "SUCCESS";
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Nirmala UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.ForestGreen;
+            label2.Location = new Point(127, 131);
+            label2.Name = "label2";
+            label2.Size = new Size(161, 46);
+            label2.TabIndex = 18;
+            label2.Text = "SUCCESS";
             // 
             // buttonReturn
             // 
-            this.buttonReturn.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.buttonReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonReturn.ForeColor = System.Drawing.Color.White;
-            this.buttonReturn.Location = new System.Drawing.Point(154, 197);
-            this.buttonReturn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonReturn.Name = "buttonReturn";
-            this.buttonReturn.Size = new System.Drawing.Size(95, 38);
-            this.buttonReturn.TabIndex = 31;
-            this.buttonReturn.Text = "Return";
-            this.buttonReturn.UseVisualStyleBackColor = true;
+            buttonReturn.BackgroundImage = Properties.Resources.ButtonC;
+            buttonReturn.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonReturn.FlatStyle = FlatStyle.Flat;
+            buttonReturn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonReturn.ForeColor = Color.White;
+            buttonReturn.Location = new Point(154, 197);
+            buttonReturn.Margin = new Padding(3, 4, 3, 4);
+            buttonReturn.Name = "buttonReturn";
+            buttonReturn.Size = new Size(95, 38);
+            buttonReturn.TabIndex = 31;
+            buttonReturn.Text = "Return";
+            buttonReturn.UseVisualStyleBackColor = true;
+            buttonReturn.Click += buttonReturn_Click;
             // 
             // pictureBoxLogo
             // 
-            this.pictureBoxLogo.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxLogo.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_SORA1;
-            this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(191, 13);
-            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(33, 44);
-            this.pictureBoxLogo.TabIndex = 32;
-            this.pictureBoxLogo.TabStop = false;
+            pictureBoxLogo.BackColor = Color.Transparent;
+            pictureBoxLogo.BackgroundImage = Properties.Resources.Logo_SORA1;
+            pictureBoxLogo.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxLogo.Location = new Point(191, 13);
+            pictureBoxLogo.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxLogo.Name = "pictureBoxLogo";
+            pictureBoxLogo.Size = new Size(33, 44);
+            pictureBoxLogo.TabIndex = 32;
+            pictureBoxLogo.TabStop = false;
             // 
             // FormTransactionSuccess
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG_2;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(411, 261);
-            this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.buttonReturn);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "FormTransactionSuccess";
-            this.Text = "FormTransactionSuccess";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.BG_2;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(411, 261);
+            Controls.Add(pictureBoxLogo);
+            Controls.Add(buttonReturn);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Name = "FormTransactionSuccess";
+            Text = "FormTransactionSuccess";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -31,7 +31,7 @@
             pictureBoxLogo = new PictureBox();
             buttonAccount = new Button();
             buttonTransfer = new Button();
-            buttonMerchant = new Button();
+            buttonTopup = new Button();
             buttonHistory = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
             SuspendLayout();
@@ -59,6 +59,7 @@
             buttonAccount.Size = new Size(174, 108);
             buttonAccount.TabIndex = 4;
             buttonAccount.UseVisualStyleBackColor = true;
+            buttonAccount.Click += buttonAccount_Click;
             // 
             // buttonTransfer
             // 
@@ -72,19 +73,21 @@
             buttonTransfer.Size = new Size(174, 108);
             buttonTransfer.TabIndex = 5;
             buttonTransfer.UseVisualStyleBackColor = true;
+            buttonTransfer.Click += buttonTransfer_Click;
             // 
-            // buttonMerchant
+            // buttonTopup
             // 
-            buttonMerchant.BackgroundImage = Properties.Resources.Buttons_OA;
-            buttonMerchant.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonMerchant.FlatStyle = FlatStyle.Flat;
-            buttonMerchant.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonMerchant.ForeColor = Color.White;
-            buttonMerchant.Location = new Point(469, 324);
-            buttonMerchant.Name = "buttonMerchant";
-            buttonMerchant.Size = new Size(174, 108);
-            buttonMerchant.TabIndex = 6;
-            buttonMerchant.UseVisualStyleBackColor = true;
+            buttonTopup.BackgroundImage = Properties.Resources.Buttons_Top_Up;
+            buttonTopup.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonTopup.FlatStyle = FlatStyle.Flat;
+            buttonTopup.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonTopup.ForeColor = Color.White;
+            buttonTopup.Location = new Point(469, 324);
+            buttonTopup.Name = "buttonTopup";
+            buttonTopup.Size = new Size(174, 108);
+            buttonTopup.TabIndex = 6;
+            buttonTopup.UseVisualStyleBackColor = true;
+            buttonTopup.Click += buttonTopup_Click;
             // 
             // buttonHistory
             // 
@@ -98,6 +101,7 @@
             buttonHistory.Size = new Size(174, 108);
             buttonHistory.TabIndex = 7;
             buttonHistory.UseVisualStyleBackColor = true;
+            buttonHistory.Click += buttonHistory_Click;
             // 
             // FormMenu
             // 
@@ -106,7 +110,7 @@
             BackColor = Color.White;
             ClientSize = new Size(914, 600);
             Controls.Add(buttonHistory);
-            Controls.Add(buttonMerchant);
+            Controls.Add(buttonTopup);
             Controls.Add(buttonTransfer);
             Controls.Add(buttonAccount);
             Controls.Add(pictureBoxLogo);
@@ -122,7 +126,7 @@
         private PictureBox pictureBoxLogo;
         private Button buttonAccount;
         private Button buttonTransfer;
-        private Button buttonMerchant;
+        private Button buttonTopup;
         private Button buttonHistory;
     }
 }

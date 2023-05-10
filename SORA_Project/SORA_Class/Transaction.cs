@@ -14,14 +14,14 @@ namespace SORA_Class
 {
     public class Transaction
     {
-        int id;
+        string id;
         string senderID;
         string recipientID;
         DateTime transactionDate;
         decimal nominal;
         bool completed;
 
-        public int Id { get => id; set => id = value; }
+        public string Id { get => id; set => id = value; }
         public string SenderID { get => senderID; set => senderID = value; }
         public string RecipientID { get => recipientID; set => recipientID = value; }
         public DateTime TransactionDate { get => transactionDate; set => transactionDate = value; }
@@ -29,7 +29,7 @@ namespace SORA_Class
         public bool Completed { get => completed; set => completed = value; }
        
 
-        public Transaction(int id, string senderID, string recipientID, DateTime transactionDate,
+        public Transaction(string id, string senderID, string recipientID, DateTime transactionDate,
             decimal nominal, bool completed)
         {
             Id = id;
@@ -42,7 +42,7 @@ namespace SORA_Class
 
         public Transaction()
         {
-            Id = 0;
+            Id = "";
             SenderID = "";
             RecipientID = "";
             TransactionDate = DateTime.Now;
@@ -68,12 +68,13 @@ namespace SORA_Class
 
             byte[] transactionNominalBytes = utf16.GetBytes(transaction.Nominal.ToString());
 
+
             //Encrypt the nominal with RSA.
             byte[] eTransactionNominal = RSA.RSAEncrypt(transactionNominalBytes, recipientPublicKey);
 
             const string sql = "INSERT INTO tTransaction_Account(transactionID, senderID, recipientID, transaction_nominal," +
-                "transaction_date, completed) " +
-                "VALUES(@transactionID, @senderID, @recipientID, @transaction_nominal, @transaction_date, @completed);";
+                "transaction_date, completed, indicator) " +
+                "VALUES(@transactionID, @senderID, @recipientID, @transaction_nominal, @transaction_date, @completed, 0);";
 
             int transactionCompletedInt = 0;
             if (transaction.Completed)
@@ -193,6 +194,95 @@ namespace SORA_Class
             //}
         }
 
+        public static bool AddSenderRead(Transaction transaction, string senderPlainPassword)
+        {
+            var utf16 = new UnicodeEncoding();
+
+            string recipientPublicKey = Customer.GetRSAPublicKey(transaction.SenderID);
+            int bytesRead = 0;
+
+            //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            //RSA.ImportRSAPublicKey(recipientPublicKey, out bytesRead);
+
+            byte[] transactionNominalBytes = utf16.GetBytes(transaction.Nominal.ToString());
+
+
+            //Encrypt the nominal with RSA.
+            byte[] eTransactionNominal = RSA.RSAEncrypt(transactionNominalBytes, recipientPublicKey);
+
+            const string sql = "INSERT INTO tTransaction_Account(transactionID, senderID, recipientID, transaction_nominal," +
+                "transaction_date, completed, indicator) " +
+                "VALUES(@transactionID, @senderID, @recipientID, @transaction_nominal, @transaction_date, @completed, 1);";
+
+            int transactionCompletedInt = 0;
+            if (transaction.Completed)
+            {
+                transactionCompletedInt = 1;
+            }
+
+            #region SQL Parameters
+            var transactionIdParam = new MySqlParameter("@transactionID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transaction.Id
+            };
+            var senderIDParam = new MySqlParameter("@senderID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transaction.SenderID
+            };
+
+            var recipientIDParam = new MySqlParameter("@recipientID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transaction.RecipientID
+            };
+
+            var transactionNominalParam = new MySqlParameter("@transaction_nominal", MySqlDbType.VarBinary)
+            {
+                Direction = ParameterDirection.Input,
+                Size = eTransactionNominal.Length,
+                Value = eTransactionNominal
+            };
+
+            var transactionDateParam = new MySqlParameter("@transaction_date", MySqlDbType.DateTime)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transaction.TransactionDate.ToString("yyyy-MM-dd hh:mm:ss")
+            };
+
+            var completedParam = new MySqlParameter("@completed", MySqlDbType.Int64)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transactionCompletedInt
+            };
+            #endregion
+
+
+            Connection connection = new Connection();
+
+            string senderEmail = Customer.SearchByID(transaction.SenderID);
+            Customer senderUser = Customer.ReadData(senderEmail, senderPlainPassword);
+
+            if (senderUser.Balance >= transaction.Nominal)
+            {
+                if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, transactionIdParam, senderIDParam, recipientIDParam,
+                transactionNominalParam, transactionDateParam, completedParam) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //Sender's balance is not enough.
+                return false;
+            }
+        }
+
         //Read user transactions query:
         //SELECT*
         //FROM tTransaction_Account
@@ -208,8 +298,9 @@ namespace SORA_Class
         /// <returns>All user Transactions history</returns>
         public static List<Transaction> ReadTransactions(string customerId, string email, string password)
         {
-            const string sql = "//SELECT* FROM tTransaction_Account " +
-                "WHERE senderID = @idcustomer OR recipientID = @idcustomer ORDER BY transaction_date DESC;";
+            const string sql = "SELECT * FROM tTransaction_Account " +
+                "WHERE senderID = @idcustomer AND indicator = 1 OR recipientID = @idcustomer AND indicator = 0 " +
+                "ORDER BY transaction_date DESC;";
 
             var utf16 = new UnicodeEncoding();
 
@@ -228,7 +319,7 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.Id = result.GetValue(0).ToString();
                 transaction.SenderID = result.GetValue(1).ToString();
                 transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
@@ -266,7 +357,7 @@ namespace SORA_Class
         public static bool ProcessTransactions(string customerId, string email, string password)
         {
             const string sql = "SELECT * FROM tTransaction_Account WHERE recipientID = @recipientID " +
-                "AND completed = 0"; 
+                "AND completed = 0 AND indicator = 0"; 
             //Reads all transactions where the user is the recipient
             //and the transaction is not yet processed or completed
 
@@ -287,7 +378,7 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.Id = result.GetValue(0).ToString();
                 transaction.SenderID = result.GetValue(1).ToString();
                 transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
@@ -326,7 +417,8 @@ namespace SORA_Class
                 {
                     connection = new Connection();
 
-                    string sqlUpdateTransaction = "UPDATE tTransaction_Account SET completed = 1 WHERE completed = 0";
+                    string sqlUpdateTransaction = "UPDATE tTransaction_Account SET completed = 1 WHERE completed = 0 AND " +
+                        "indicator = 0";
 
                     if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sqlUpdateTransaction) > 0)
                     {
@@ -355,13 +447,29 @@ namespace SORA_Class
                 }
             }
         }
-        public int GenerateCode()
+
+        /// <summary>
+        /// Generates Transaction ID
+        /// </summary>
+        /// <param name="transactionTime">Transaction time</param>
+        /// <param name="indicator">00 or 01 depends on the indicator</param>
+        /// <returns>a Transaction ID</returns>
+        public static string GenerateID(DateTime transactionTime, string indicator)
         {
-            string sql = "SELECT CONCAT(transaction_date, MAX(RIGHT(transactionID, 3))) FROM tTransaction_Account-Account";
+            string sql = "SELECT MAX(RIGHT(transactionID, 3)) " +
+                "FROM tTransaction_Account WHERE LEFT(transactionID, 14) = @transactionID;";
 
-            int code = 0;
+            int code = 1;
+            string idString = "";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            var transactionIDParam = new MySqlParameter("@transactionID", MySqlDbType.VarChar, 45)
+            {
+                Direction = ParameterDirection.Input,
+                Value = transactionTime.ToString("ddMMyyyyHHmmss")
+            };
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, transactionIDParam);
 
             if (result.Read() == true)
             {
@@ -370,12 +478,10 @@ namespace SORA_Class
                     code = int.Parse(result.GetValue(0).ToString()) + 1;
 
                 }
-                else
-                {
-                    code = 1;
-                }
             }
-            return code;
+            idString = transactionTime.ToString("ddMMyyyyHHmmss") + indicator + code.ToString().PadLeft(3, '0');
+
+            return idString;
         }
     }
 }

@@ -28,181 +28,186 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.radioButtonFriendlist = new System.Windows.Forms.RadioButton();
-            this.radioButtonOutsider = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxFriendlist = new System.Windows.Forms.ComboBox();
-            this.textBoxOutsider = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownValue = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonReturn = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValue)).BeginInit();
-            this.SuspendLayout();
+            label1 = new Label();
+            radioButtonFriendlist = new RadioButton();
+            radioButtonOutsider = new RadioButton();
+            label2 = new Label();
+            comboBoxFriendlist = new ComboBox();
+            textBoxOutsider = new TextBox();
+            label3 = new Label();
+            numericUpDownValue = new NumericUpDown();
+            label5 = new Label();
+            buttonSend = new Button();
+            label4 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownValue).BeginInit();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Image = global::SORA_Project.Properties.Resources.ButtonA;
-            this.label1.Location = new System.Drawing.Point(129, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 46);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Transfer";
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Nirmala UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Image = Properties.Resources.ButtonA;
+            label1.Location = new Point(129, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(150, 46);
+            label1.TabIndex = 2;
+            label1.Text = "Transfer";
             // 
             // radioButtonFriendlist
             // 
-            this.radioButtonFriendlist.AutoSize = true;
-            this.radioButtonFriendlist.BackColor = System.Drawing.Color.Transparent;
-            this.radioButtonFriendlist.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.radioButtonFriendlist.ForeColor = System.Drawing.Color.White;
-            this.radioButtonFriendlist.Location = new System.Drawing.Point(124, 102);
-            this.radioButtonFriendlist.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonFriendlist.Name = "radioButtonFriendlist";
-            this.radioButtonFriendlist.Size = new System.Drawing.Size(136, 28);
-            this.radioButtonFriendlist.TabIndex = 3;
-            this.radioButtonFriendlist.TabStop = true;
-            this.radioButtonFriendlist.Text = "Friendlists";
-            this.radioButtonFriendlist.UseVisualStyleBackColor = false;
+            radioButtonFriendlist.AutoSize = true;
+            radioButtonFriendlist.BackColor = Color.Transparent;
+            radioButtonFriendlist.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            radioButtonFriendlist.ForeColor = Color.White;
+            radioButtonFriendlist.Location = new Point(46, 102);
+            radioButtonFriendlist.Margin = new Padding(3, 4, 3, 4);
+            radioButtonFriendlist.Name = "radioButtonFriendlist";
+            radioButtonFriendlist.Size = new Size(136, 28);
+            radioButtonFriendlist.TabIndex = 3;
+            radioButtonFriendlist.TabStop = true;
+            radioButtonFriendlist.Text = "Friendlists";
+            radioButtonFriendlist.UseVisualStyleBackColor = false;
             // 
             // radioButtonOutsider
             // 
-            this.radioButtonOutsider.AutoSize = true;
-            this.radioButtonOutsider.BackColor = System.Drawing.Color.Transparent;
-            this.radioButtonOutsider.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.radioButtonOutsider.ForeColor = System.Drawing.Color.White;
-            this.radioButtonOutsider.Location = new System.Drawing.Point(263, 102);
-            this.radioButtonOutsider.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonOutsider.Name = "radioButtonOutsider";
-            this.radioButtonOutsider.Size = new System.Drawing.Size(127, 28);
-            this.radioButtonOutsider.TabIndex = 4;
-            this.radioButtonOutsider.TabStop = true;
-            this.radioButtonOutsider.Text = "Outsiders";
-            this.radioButtonOutsider.UseVisualStyleBackColor = false;
+            radioButtonOutsider.AutoSize = true;
+            radioButtonOutsider.BackColor = Color.Transparent;
+            radioButtonOutsider.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            radioButtonOutsider.ForeColor = Color.White;
+            radioButtonOutsider.Location = new Point(222, 102);
+            radioButtonOutsider.Margin = new Padding(3, 4, 3, 4);
+            radioButtonOutsider.Name = "radioButtonOutsider";
+            radioButtonOutsider.Size = new Size(127, 28);
+            radioButtonOutsider.TabIndex = 4;
+            radioButtonOutsider.TabStop = true;
+            radioButtonOutsider.Text = "Outsiders";
+            radioButtonOutsider.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(11, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(279, 28);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Choose transfer destination:";
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(11, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(279, 28);
+            label2.TabIndex = 5;
+            label2.Text = "Choose transfer destination:";
             // 
             // comboBoxFriendlist
             // 
-            this.comboBoxFriendlist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFriendlist.Enabled = false;
-            this.comboBoxFriendlist.FormattingEnabled = true;
-            this.comboBoxFriendlist.Location = new System.Drawing.Point(12, 188);
-            this.comboBoxFriendlist.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.comboBoxFriendlist.Name = "comboBoxFriendlist";
-            this.comboBoxFriendlist.Size = new System.Drawing.Size(138, 28);
-            this.comboBoxFriendlist.TabIndex = 6;
+            comboBoxFriendlist.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxFriendlist.Enabled = false;
+            comboBoxFriendlist.FormattingEnabled = true;
+            comboBoxFriendlist.Location = new Point(12, 188);
+            comboBoxFriendlist.Margin = new Padding(3, 4, 3, 4);
+            comboBoxFriendlist.Name = "comboBoxFriendlist";
+            comboBoxFriendlist.Size = new Size(138, 28);
+            comboBoxFriendlist.TabIndex = 6;
             // 
             // textBoxOutsider
             // 
-            this.textBoxOutsider.Enabled = false;
-            this.textBoxOutsider.Location = new System.Drawing.Point(158, 188);
-            this.textBoxOutsider.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxOutsider.Name = "textBoxOutsider";
-            this.textBoxOutsider.PlaceholderText = "Destignated E-Mail";
-            this.textBoxOutsider.Size = new System.Drawing.Size(225, 27);
-            this.textBoxOutsider.TabIndex = 7;
+            textBoxOutsider.Enabled = false;
+            textBoxOutsider.Location = new Point(158, 188);
+            textBoxOutsider.Margin = new Padding(3, 4, 3, 4);
+            textBoxOutsider.Name = "textBoxOutsider";
+            textBoxOutsider.PlaceholderText = "Destignated E-Mail";
+            textBoxOutsider.Size = new Size(225, 27);
+            textBoxOutsider.TabIndex = 7;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(11, 144);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(247, 28);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Choose transfer account:";
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(11, 144);
+            label3.Name = "label3";
+            label3.Size = new Size(247, 28);
+            label3.TabIndex = 8;
+            label3.Text = "Choose transfer account:";
             // 
             // numericUpDownValue
             // 
-            this.numericUpDownValue.Font = new System.Drawing.Font("Nirmala UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numericUpDownValue.Location = new System.Drawing.Point(59, 275);
-            this.numericUpDownValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numericUpDownValue.Name = "numericUpDownValue";
-            this.numericUpDownValue.Size = new System.Drawing.Size(322, 39);
-            this.numericUpDownValue.TabIndex = 10;
+            numericUpDownValue.DecimalPlaces = 2;
+            numericUpDownValue.Font = new Font("Nirmala UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            numericUpDownValue.Location = new Point(59, 275);
+            numericUpDownValue.Margin = new Padding(3, 4, 3, 4);
+            numericUpDownValue.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numericUpDownValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownValue.Name = "numericUpDownValue";
+            numericUpDownValue.Size = new Size(322, 39);
+            numericUpDownValue.TabIndex = 10;
+            numericUpDownValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(20, 279);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 28);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Rp";
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(20, 279);
+            label5.Name = "label5";
+            label5.Size = new Size(37, 28);
+            label5.TabIndex = 11;
+            label5.Text = "Rp";
             // 
-            // buttonReturn
+            // buttonSend
             // 
-            this.buttonReturn.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.buttonReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonReturn.ForeColor = System.Drawing.Color.White;
-            this.buttonReturn.Location = new System.Drawing.Point(299, 354);
-            this.buttonReturn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonReturn.Name = "buttonReturn";
-            this.buttonReturn.Size = new System.Drawing.Size(82, 53);
-            this.buttonReturn.TabIndex = 15;
-            this.buttonReturn.Text = "Send";
-            this.buttonReturn.UseVisualStyleBackColor = true;
+            buttonSend.BackgroundImage = Properties.Resources.ButtonC;
+            buttonSend.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonSend.FlatStyle = FlatStyle.Flat;
+            buttonSend.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonSend.ForeColor = Color.White;
+            buttonSend.Location = new Point(299, 354);
+            buttonSend.Margin = new Padding(3, 4, 3, 4);
+            buttonSend.Name = "buttonSend";
+            buttonSend.Size = new Size(82, 53);
+            buttonSend.TabIndex = 15;
+            buttonSend.Text = "Send";
+            buttonSend.UseVisualStyleBackColor = true;
+            buttonSend.Click += buttonSend_Click;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(14, 240);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 28);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Amount:";
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(14, 240);
+            label4.Name = "label4";
+            label4.Size = new Size(93, 28);
+            label4.TabIndex = 9;
+            label4.Text = "Amount:";
             // 
             // FormTransfer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG_5;
-            this.ClientSize = new System.Drawing.Size(394, 418);
-            this.Controls.Add(this.buttonReturn);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownValue);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxOutsider);
-            this.Controls.Add(this.comboBoxFriendlist);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.radioButtonOutsider);
-            this.Controls.Add(this.radioButtonFriendlist);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FormTransfer";
-            this.Text = "FormTransfer";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValue)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.BG_5;
+            ClientSize = new Size(394, 418);
+            Controls.Add(buttonSend);
+            Controls.Add(label5);
+            Controls.Add(numericUpDownValue);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(textBoxOutsider);
+            Controls.Add(comboBoxFriendlist);
+            Controls.Add(label2);
+            Controls.Add(radioButtonOutsider);
+            Controls.Add(radioButtonFriendlist);
+            Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "FormTransfer";
+            Text = "FormTransfer";
+            Load += FormTransfer_Load;
+            ((System.ComponentModel.ISupportInitialize)numericUpDownValue).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -216,7 +221,7 @@
         private Label label3;
         private NumericUpDown numericUpDownValue;
         private Label label5;
-        private Button buttonReturn;
+        private Button buttonSend;
         private Label label4;
     }
 }

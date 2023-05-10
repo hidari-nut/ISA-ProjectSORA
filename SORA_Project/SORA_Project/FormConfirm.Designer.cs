@@ -28,184 +28,172 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonReturn = new System.Windows.Forms.Button();
-            this.textBoxNominal = new System.Windows.Forms.TextBox();
-            this.textBoxRecepient = new System.Windows.Forms.TextBox();
-            this.textBoxSender = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonConfirm = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            buttonReturn = new Button();
+            textBoxNominal = new TextBox();
+            textBoxRecepient = new TextBox();
+            textBoxSender = new TextBox();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
+            buttonConfirm = new Button();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // buttonReturn
             // 
-            this.buttonReturn.BackColor = System.Drawing.Color.Transparent;
-            this.buttonReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonReturn.ForeColor = System.Drawing.Color.Black;
-            this.buttonReturn.Location = new System.Drawing.Point(27, 397);
-            this.buttonReturn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonReturn.Name = "buttonReturn";
-            this.buttonReturn.Size = new System.Drawing.Size(95, 38);
-            this.buttonReturn.TabIndex = 29;
-            this.buttonReturn.Text = "Return";
-            this.buttonReturn.UseVisualStyleBackColor = false;
+            buttonReturn.BackColor = Color.Transparent;
+            buttonReturn.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonReturn.FlatStyle = FlatStyle.Flat;
+            buttonReturn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonReturn.ForeColor = Color.Black;
+            buttonReturn.Location = new Point(27, 397);
+            buttonReturn.Margin = new Padding(3, 4, 3, 4);
+            buttonReturn.Name = "buttonReturn";
+            buttonReturn.Size = new Size(95, 38);
+            buttonReturn.TabIndex = 29;
+            buttonReturn.Text = "Return";
+            buttonReturn.UseVisualStyleBackColor = false;
+            buttonReturn.Click += buttonReturn_Click;
             // 
             // textBoxNominal
             // 
-            this.textBoxNominal.BackColor = System.Drawing.Color.White;
-            this.textBoxNominal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxNominal.Enabled = false;
-            this.textBoxNominal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxNominal.Location = new System.Drawing.Point(217, 322);
-            this.textBoxNominal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxNominal.MaxLength = 45;
-            this.textBoxNominal.Name = "textBoxNominal";
-            this.textBoxNominal.Size = new System.Drawing.Size(303, 25);
-            this.textBoxNominal.TabIndex = 25;
-            this.textBoxNominal.Text = "000000";
-            this.textBoxNominal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBoxNominal.BackColor = Color.White;
+            textBoxNominal.BorderStyle = BorderStyle.None;
+            textBoxNominal.Enabled = false;
+            textBoxNominal.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxNominal.Location = new Point(217, 322);
+            textBoxNominal.Margin = new Padding(3, 4, 3, 4);
+            textBoxNominal.MaxLength = 45;
+            textBoxNominal.Name = "textBoxNominal";
+            textBoxNominal.Size = new Size(303, 25);
+            textBoxNominal.TabIndex = 25;
+            textBoxNominal.Text = "000000";
+            textBoxNominal.TextAlign = HorizontalAlignment.Right;
             // 
             // textBoxRecepient
             // 
-            this.textBoxRecepient.BackColor = System.Drawing.Color.White;
-            this.textBoxRecepient.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxRecepient.Enabled = false;
-            this.textBoxRecepient.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxRecepient.Location = new System.Drawing.Point(217, 274);
-            this.textBoxRecepient.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxRecepient.MaxLength = 45;
-            this.textBoxRecepient.Name = "textBoxRecepient";
-            this.textBoxRecepient.Size = new System.Drawing.Size(303, 25);
-            this.textBoxRecepient.TabIndex = 24;
-            this.textBoxRecepient.Text = "who";
-            this.textBoxRecepient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBoxRecepient.BackColor = Color.White;
+            textBoxRecepient.BorderStyle = BorderStyle.None;
+            textBoxRecepient.Enabled = false;
+            textBoxRecepient.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxRecepient.Location = new Point(217, 274);
+            textBoxRecepient.Margin = new Padding(3, 4, 3, 4);
+            textBoxRecepient.MaxLength = 45;
+            textBoxRecepient.Name = "textBoxRecepient";
+            textBoxRecepient.Size = new Size(303, 25);
+            textBoxRecepient.TabIndex = 24;
+            textBoxRecepient.Text = "who";
+            textBoxRecepient.TextAlign = HorizontalAlignment.Right;
             // 
             // textBoxSender
             // 
-            this.textBoxSender.BackColor = System.Drawing.Color.White;
-            this.textBoxSender.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSender.Enabled = false;
-            this.textBoxSender.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxSender.Location = new System.Drawing.Point(217, 226);
-            this.textBoxSender.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxSender.MaxLength = 45;
-            this.textBoxSender.Name = "textBoxSender";
-            this.textBoxSender.Size = new System.Drawing.Size(303, 25);
-            this.textBoxSender.TabIndex = 23;
-            this.textBoxSender.Text = "why";
-            this.textBoxSender.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBoxSender.BackColor = Color.White;
+            textBoxSender.BorderStyle = BorderStyle.None;
+            textBoxSender.Enabled = false;
+            textBoxSender.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxSender.Location = new Point(217, 226);
+            textBoxSender.Margin = new Padding(3, 4, 3, 4);
+            textBoxSender.MaxLength = 45;
+            textBoxSender.Name = "textBoxSender";
+            textBoxSender.Size = new Size(303, 25);
+            textBoxSender.TabIndex = 23;
+            textBoxSender.Text = "why";
+            textBoxSender.TextAlign = HorizontalAlignment.Right;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Nirmala UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(27, 318);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 30);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Nominal :";
+            label4.AutoSize = true;
+            label4.Font = new Font("Nirmala UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(27, 318);
+            label4.Name = "label4";
+            label4.Size = new Size(112, 30);
+            label4.TabIndex = 19;
+            label4.Text = "Nominal :";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Nirmala UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(27, 270);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 30);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "RECEIVER :";
+            label3.AutoSize = true;
+            label3.Font = new Font("Nirmala UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(27, 270);
+            label3.Name = "label3";
+            label3.Size = new Size(125, 30);
+            label3.TabIndex = 18;
+            label3.Text = "RECEIVER :";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Nirmala UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(27, 222);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 30);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "SENDER :";
+            label2.AutoSize = true;
+            label2.Font = new Font("Nirmala UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(27, 222);
+            label2.Name = "label2";
+            label2.Size = new Size(108, 30);
+            label2.TabIndex = 17;
+            label2.Text = "SENDER :";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(90, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(382, 46);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "TRANSACTION DETAIL";
+            label1.AutoSize = true;
+            label1.Font = new Font("Nirmala UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(90, 145);
+            label1.Name = "label1";
+            label1.Size = new Size(382, 46);
+            label1.TabIndex = 16;
+            label1.Text = "TRANSACTION DETAIL";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::SORA_Project.Properties.Resources.Logo_2;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(142, 23);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(282, 103);
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(176, 319);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 28);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "Rp";
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.BackgroundImage = Properties.Resources.Logo_2;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Location = new Point(142, 23);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(282, 103);
+            pictureBox1.TabIndex = 15;
+            pictureBox1.TabStop = false;
             // 
             // buttonConfirm
             // 
-            this.buttonConfirm.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonC;
-            this.buttonConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonConfirm.ForeColor = System.Drawing.Color.White;
-            this.buttonConfirm.Location = new System.Drawing.Point(415, 395);
-            this.buttonConfirm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonConfirm.Name = "buttonConfirm";
-            this.buttonConfirm.Size = new System.Drawing.Size(105, 38);
-            this.buttonConfirm.TabIndex = 31;
-            this.buttonConfirm.Text = "CONFIRM";
-            this.buttonConfirm.UseVisualStyleBackColor = true;
+            buttonConfirm.BackgroundImage = Properties.Resources.ButtonC;
+            buttonConfirm.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonConfirm.FlatStyle = FlatStyle.Flat;
+            buttonConfirm.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonConfirm.ForeColor = Color.White;
+            buttonConfirm.Location = new Point(415, 395);
+            buttonConfirm.Margin = new Padding(3, 4, 3, 4);
+            buttonConfirm.Name = "buttonConfirm";
+            buttonConfirm.Size = new Size(105, 38);
+            buttonConfirm.TabIndex = 31;
+            buttonConfirm.Text = "CONFIRM";
+            buttonConfirm.UseVisualStyleBackColor = true;
+            buttonConfirm.Click += buttonConfirm_Click;
             // 
             // FormConfirm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG_5;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(546, 448);
-            this.Controls.Add(this.buttonConfirm);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.buttonReturn);
-            this.Controls.Add(this.textBoxNominal);
-            this.Controls.Add(this.textBoxRecepient);
-            this.Controls.Add(this.textBoxSender);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
-            this.Name = "FormConfirm";
-            this.Text = "FormConfirm";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.BG_5;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(546, 448);
+            Controls.Add(buttonConfirm);
+            Controls.Add(buttonReturn);
+            Controls.Add(textBoxNominal);
+            Controls.Add(textBoxRecepient);
+            Controls.Add(textBoxSender);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(pictureBox1);
+            Name = "FormConfirm";
+            Text = "FormConfirm";
+            Load += FormConfirm_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -219,7 +207,6 @@
         private Label label2;
         private Label label1;
         private PictureBox pictureBox1;
-        private Label label5;
         private Button buttonConfirm;
     }
 }
