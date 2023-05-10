@@ -14,14 +14,14 @@ namespace SORA_Class
 {
     public class Transaction
     {
-        int id;
+        string id;
         string senderID;
         string recipientID;
         DateTime transactionDate;
         decimal nominal;
         bool completed;
 
-        public int Id { get => id; set => id = value; }
+        public string Id { get => id; set => id = value; }
         public string SenderID { get => senderID; set => senderID = value; }
         public string RecipientID { get => recipientID; set => recipientID = value; }
         public DateTime TransactionDate { get => transactionDate; set => transactionDate = value; }
@@ -29,7 +29,7 @@ namespace SORA_Class
         public bool Completed { get => completed; set => completed = value; }
        
 
-        public Transaction(int id, string senderID, string recipientID, DateTime transactionDate,
+        public Transaction(string id, string senderID, string recipientID, DateTime transactionDate,
             decimal nominal, bool completed)
         {
             Id = id;
@@ -42,7 +42,7 @@ namespace SORA_Class
 
         public Transaction()
         {
-            Id = 0;
+            Id = "";
             SenderID = "";
             RecipientID = "";
             TransactionDate = DateTime.Now;
@@ -228,7 +228,7 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.Id = result.GetValue(0).ToString();
                 transaction.SenderID = result.GetValue(1).ToString();
                 transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
@@ -287,7 +287,7 @@ namespace SORA_Class
             while (result.Read() == true)
             {
                 Transaction transaction = new Transaction();
-                transaction.Id = int.Parse(result.GetValue(0).ToString());
+                transaction.Id = result.GetValue(0).ToString();
                 transaction.SenderID = result.GetValue(1).ToString();
                 transaction.RecipientID = result.GetValue(2).ToString();
                 //transaction.Sender.Email = Customer.SearchByID(transaction.Sender.Id);
@@ -355,12 +355,13 @@ namespace SORA_Class
                 }
             }
         }
-        public string GenerateCode(DateTime transactionTime)
+        public static string GenerateID(DateTime transactionTime)
         {
             string sql = "SELECT MAX(RIGHT(transactionID, 3)) " +
                 "FROM tTransaction_Account WHERE LEFT(transactionID, 14) = @transactionID;";
 
-            int code = 0;
+            int code = 1;
+            string idString = "";
 
             var transactionIDParam = new MySqlParameter("@transactionID", MySqlDbType.VarChar, 45)
             {
@@ -378,12 +379,10 @@ namespace SORA_Class
                     code = int.Parse(result.GetValue(0).ToString()) + 1;
 
                 }
-                else
-                {
-                    code = 1;
-                }
             }
-            return code;
+            idString = transactionTime.ToString("ddMMyyyyHHmmss") + code.ToString().PadLeft(3, '0');
+
+            return idString;
         }
     }
 }

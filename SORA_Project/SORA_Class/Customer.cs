@@ -999,15 +999,15 @@ namespace SORA_Class
                 return null;
             }
         }
-        public string GenerateID()
+        public static string GenerateID()
         {
             string sql = "SELECT MAX(CAST(idCustomer AS UNSIGNED)) FROM tCustomers;";
-
 
             int code = 1;
             string idString = "";
 
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql);
 
             if (result.Read() == true)
             {

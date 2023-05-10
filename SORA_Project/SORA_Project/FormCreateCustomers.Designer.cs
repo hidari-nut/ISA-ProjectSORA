@@ -28,279 +28,278 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBoxCustomer = new System.Windows.Forms.GroupBox();
-            this.labelDateOfBirth = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.textBoxPhoneNum = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.textBoxLName = new System.Windows.Forms.TextBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.textBoxConfirmPass = new System.Windows.Forms.TextBox();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBoxFName = new System.Windows.Forms.TextBox();
-            this.buttonRegister = new System.Windows.Forms.Button();
-            this.textBoxPIN = new System.Windows.Forms.TextBox();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.groupBoxCustomer.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.SuspendLayout();
+            groupBoxCustomer = new GroupBox();
+            dateTimePickerDOB = new DateTimePicker();
+            labelDateOfBirth = new Label();
+            panel5 = new Panel();
+            textBoxPhoneNum = new TextBox();
+            panel3 = new Panel();
+            textBoxEmail = new TextBox();
+            panel4 = new Panel();
+            textBoxLName = new TextBox();
+            panel6 = new Panel();
+            textBoxConfirmPass = new TextBox();
+            panel7 = new Panel();
+            textBoxPassword = new TextBox();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            textBox1 = new TextBox();
+            textBoxFName = new TextBox();
+            panel8 = new Panel();
+            textBoxPIN = new TextBox();
+            buttonRegister = new Button();
+            groupBoxCustomer.SuspendLayout();
+            panel5.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel8.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBoxCustomer
             // 
-            this.groupBoxCustomer.BackColor = System.Drawing.Color.Transparent;
-            this.groupBoxCustomer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBoxCustomer.Controls.Add(this.labelDateOfBirth);
-            this.groupBoxCustomer.Controls.Add(this.dateTimePicker1);
-            this.groupBoxCustomer.Controls.Add(this.panel5);
-            this.groupBoxCustomer.Controls.Add(this.panel3);
-            this.groupBoxCustomer.Controls.Add(this.panel4);
-            this.groupBoxCustomer.Controls.Add(this.panel6);
-            this.groupBoxCustomer.Controls.Add(this.panel7);
-            this.groupBoxCustomer.Controls.Add(this.panel1);
-            this.groupBoxCustomer.Controls.Add(this.panel8);
-            this.groupBoxCustomer.Location = new System.Drawing.Point(14, 15);
-            this.groupBoxCustomer.Name = "groupBoxCustomer";
-            this.groupBoxCustomer.Size = new System.Drawing.Size(473, 287);
-            this.groupBoxCustomer.TabIndex = 8;
-            this.groupBoxCustomer.TabStop = false;
-            this.groupBoxCustomer.Text = "Customer Sign Up";
+            groupBoxCustomer.BackColor = Color.Transparent;
+            groupBoxCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            groupBoxCustomer.Controls.Add(dateTimePickerDOB);
+            groupBoxCustomer.Controls.Add(labelDateOfBirth);
+            groupBoxCustomer.Controls.Add(panel5);
+            groupBoxCustomer.Controls.Add(panel3);
+            groupBoxCustomer.Controls.Add(panel4);
+            groupBoxCustomer.Controls.Add(panel6);
+            groupBoxCustomer.Controls.Add(panel7);
+            groupBoxCustomer.Controls.Add(panel1);
+            groupBoxCustomer.Controls.Add(panel8);
+            groupBoxCustomer.Location = new Point(14, 15);
+            groupBoxCustomer.Name = "groupBoxCustomer";
+            groupBoxCustomer.Size = new Size(473, 287);
+            groupBoxCustomer.TabIndex = 8;
+            groupBoxCustomer.TabStop = false;
+            groupBoxCustomer.Text = "Customer Sign Up";
+            // 
+            // dateTimePickerDOB
+            // 
+            dateTimePickerDOB.Location = new Point(106, 242);
+            dateTimePickerDOB.Name = "dateTimePickerDOB";
+            dateTimePickerDOB.Size = new Size(250, 27);
+            dateTimePickerDOB.TabIndex = 7;
+            dateTimePickerDOB.Value = new DateTime(2023, 4, 26, 0, 0, 0, 0);
             // 
             // labelDateOfBirth
             // 
-            this.labelDateOfBirth.AutoSize = true;
-            this.labelDateOfBirth.Location = new System.Drawing.Point(10, 204);
-            this.labelDateOfBirth.Name = "labelDateOfBirth";
-            this.labelDateOfBirth.Size = new System.Drawing.Size(94, 20);
-            this.labelDateOfBirth.TabIndex = 8;
-            this.labelDateOfBirth.Text = "Date of Birth";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(110, 201);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(250, 27);
-            this.dateTimePicker1.TabIndex = 7;
-            this.dateTimePicker1.Value = new System.DateTime(2023, 4, 26, 0, 0, 0, 0);
+            labelDateOfBirth.AutoSize = true;
+            labelDateOfBirth.Location = new Point(6, 247);
+            labelDateOfBirth.Name = "labelDateOfBirth";
+            labelDateOfBirth.Size = new Size(94, 20);
+            labelDateOfBirth.TabIndex = 8;
+            labelDateOfBirth.Text = "Date of Birth";
             // 
             // panel5
             // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.textBoxPhoneNum);
-            this.panel5.Location = new System.Drawing.Point(7, 115);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(215, 34);
-            this.panel5.TabIndex = 6;
+            panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(textBoxPhoneNum);
+            panel5.Location = new Point(7, 115);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(215, 34);
+            panel5.TabIndex = 6;
             // 
             // textBoxPhoneNum
             // 
-            this.textBoxPhoneNum.BackColor = System.Drawing.Color.White;
-            this.textBoxPhoneNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPhoneNum.Location = new System.Drawing.Point(3, 7);
-            this.textBoxPhoneNum.Name = "textBoxPhoneNum";
-            this.textBoxPhoneNum.PlaceholderText = "Phone Number";
-            this.textBoxPhoneNum.Size = new System.Drawing.Size(207, 20);
-            this.textBoxPhoneNum.TabIndex = 0;
+            textBoxPhoneNum.BackColor = Color.White;
+            textBoxPhoneNum.BorderStyle = BorderStyle.None;
+            textBoxPhoneNum.Location = new Point(3, 7);
+            textBoxPhoneNum.Name = "textBoxPhoneNum";
+            textBoxPhoneNum.PlaceholderText = "Phone Number";
+            textBoxPhoneNum.Size = new Size(207, 20);
+            textBoxPhoneNum.TabIndex = 0;
             // 
             // panel3
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.textBoxEmail);
-            this.panel3.Location = new System.Drawing.Point(7, 69);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(215, 34);
-            this.panel3.TabIndex = 5;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(textBoxEmail);
+            panel3.Location = new Point(7, 69);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(215, 34);
+            panel3.TabIndex = 5;
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.BackColor = System.Drawing.Color.White;
-            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxEmail.Location = new System.Drawing.Point(3, 7);
-            this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.PlaceholderText = "email@address";
-            this.textBoxEmail.Size = new System.Drawing.Size(207, 20);
-            this.textBoxEmail.TabIndex = 0;
+            textBoxEmail.BackColor = Color.White;
+            textBoxEmail.BorderStyle = BorderStyle.None;
+            textBoxEmail.Location = new Point(3, 7);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.PlaceholderText = "email@address";
+            textBoxEmail.Size = new Size(207, 20);
+            textBoxEmail.TabIndex = 0;
             // 
             // panel4
             // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.textBoxLName);
-            this.panel4.Location = new System.Drawing.Point(197, 25);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(184, 34);
-            this.panel4.TabIndex = 2;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(textBoxLName);
+            panel4.Location = new Point(197, 27);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(184, 34);
+            panel4.TabIndex = 2;
             // 
             // textBoxLName
             // 
-            this.textBoxLName.BackColor = System.Drawing.Color.White;
-            this.textBoxLName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxLName.Location = new System.Drawing.Point(3, 5);
-            this.textBoxLName.Name = "textBoxLName";
-            this.textBoxLName.PlaceholderText = "Last Name";
-            this.textBoxLName.Size = new System.Drawing.Size(176, 20);
-            this.textBoxLName.TabIndex = 0;
+            textBoxLName.BackColor = Color.White;
+            textBoxLName.BorderStyle = BorderStyle.None;
+            textBoxLName.Location = new Point(3, 5);
+            textBoxLName.Name = "textBoxLName";
+            textBoxLName.PlaceholderText = "Last Name";
+            textBoxLName.Size = new Size(176, 20);
+            textBoxLName.TabIndex = 0;
             // 
             // panel6
             // 
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.textBoxConfirmPass);
-            this.panel6.Location = new System.Drawing.Point(197, 161);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(184, 34);
-            this.panel6.TabIndex = 2;
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(textBoxConfirmPass);
+            panel6.Location = new Point(197, 161);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(184, 34);
+            panel6.TabIndex = 2;
             // 
             // textBoxConfirmPass
             // 
-            this.textBoxConfirmPass.BackColor = System.Drawing.Color.White;
-            this.textBoxConfirmPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxConfirmPass.Location = new System.Drawing.Point(3, 7);
-            this.textBoxConfirmPass.Name = "textBoxConfirmPass";
-            this.textBoxConfirmPass.PlaceholderText = "Confirm Password";
-            this.textBoxConfirmPass.Size = new System.Drawing.Size(176, 20);
-            this.textBoxConfirmPass.TabIndex = 0;
+            textBoxConfirmPass.BackColor = Color.White;
+            textBoxConfirmPass.BorderStyle = BorderStyle.None;
+            textBoxConfirmPass.Location = new Point(3, 7);
+            textBoxConfirmPass.Name = "textBoxConfirmPass";
+            textBoxConfirmPass.PlaceholderText = "Confirm Password";
+            textBoxConfirmPass.Size = new Size(176, 20);
+            textBoxConfirmPass.TabIndex = 0;
             // 
             // panel7
             // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.textBoxPassword);
-            this.panel7.Location = new System.Drawing.Point(6, 161);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(184, 34);
-            this.panel7.TabIndex = 4;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(textBoxPassword);
+            panel7.Location = new Point(6, 161);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(184, 34);
+            panel7.TabIndex = 4;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.BackColor = System.Drawing.Color.White;
-            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPassword.Location = new System.Drawing.Point(3, 7);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.PlaceholderText = "Password";
-            this.textBoxPassword.Size = new System.Drawing.Size(176, 20);
-            this.textBoxPassword.TabIndex = 0;
+            textBoxPassword.BackColor = Color.White;
+            textBoxPassword.BorderStyle = BorderStyle.None;
+            textBoxPassword.Location = new Point(3, 7);
+            textBoxPassword.Name = "textBoxPassword";
+            textBoxPassword.PlaceholderText = "Password";
+            textBoxPassword.Size = new Size(176, 20);
+            textBoxPassword.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.textBoxFName);
-            this.panel1.Location = new System.Drawing.Point(6, 27);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 34);
-            this.panel1.TabIndex = 1;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(textBoxFName);
+            panel1.Location = new Point(6, 27);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(184, 34);
+            panel1.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Location = new System.Drawing.Point(-1, -1);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(184, 34);
-            this.panel2.TabIndex = 2;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(textBox1);
+            panel2.Location = new Point(-1, -1);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(184, 34);
+            panel2.TabIndex = 2;
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(3, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "First Name";
-            this.textBox1.Size = new System.Drawing.Size(176, 20);
-            this.textBox1.TabIndex = 0;
+            textBox1.BackColor = Color.White;
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Location = new Point(3, 5);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "First Name";
+            textBox1.Size = new Size(176, 20);
+            textBox1.TabIndex = 0;
             // 
             // textBoxFName
             // 
-            this.textBoxFName.BackColor = System.Drawing.Color.White;
-            this.textBoxFName.Location = new System.Drawing.Point(0, 5);
-            this.textBoxFName.Name = "textBoxFName";
-            this.textBoxFName.Size = new System.Drawing.Size(179, 27);
-            this.textBoxFName.TabIndex = 0;
-            // 
-            // buttonRegister
-            // 
-            this.buttonRegister.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
-            this.buttonRegister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(359, 308);
-            this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(128, 51);
-            this.buttonRegister.TabIndex = 9;
-            this.buttonRegister.Text = "REGISTER";
-            this.buttonRegister.UseVisualStyleBackColor = true;
-            // 
-            // textBoxPIN
-            // 
-            this.textBoxPIN.BackColor = System.Drawing.Color.White;
-            this.textBoxPIN.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPIN.Location = new System.Drawing.Point(3, 4);
-            this.textBoxPIN.Name = "textBoxPIN";
-            this.textBoxPIN.PlaceholderText = "Set PIN";
-            this.textBoxPIN.Size = new System.Drawing.Size(90, 20);
-            this.textBoxPIN.TabIndex = 0;
+            textBoxFName.BackColor = Color.White;
+            textBoxFName.Location = new Point(0, 5);
+            textBoxFName.Name = "textBoxFName";
+            textBoxFName.Size = new Size(179, 27);
+            textBoxFName.TabIndex = 0;
             // 
             // panel8
             // 
-            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel8.Controls.Add(this.textBoxPIN);
-            this.panel8.Location = new System.Drawing.Point(6, 243);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(98, 34);
-            this.panel8.TabIndex = 5;
+            panel8.BorderStyle = BorderStyle.FixedSingle;
+            panel8.Controls.Add(textBoxPIN);
+            panel8.Location = new Point(7, 201);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(98, 34);
+            panel8.TabIndex = 5;
+            // 
+            // textBoxPIN
+            // 
+            textBoxPIN.BackColor = Color.White;
+            textBoxPIN.BorderStyle = BorderStyle.None;
+            textBoxPIN.Location = new Point(3, 4);
+            textBoxPIN.Name = "textBoxPIN";
+            textBoxPIN.PlaceholderText = "Set PIN";
+            textBoxPIN.Size = new Size(90, 20);
+            textBoxPIN.TabIndex = 0;
+            // 
+            // buttonRegister
+            // 
+            buttonRegister.BackgroundImage = Properties.Resources.ButtonG;
+            buttonRegister.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonRegister.FlatStyle = FlatStyle.Flat;
+            buttonRegister.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonRegister.ForeColor = Color.White;
+            buttonRegister.Location = new Point(359, 308);
+            buttonRegister.Name = "buttonRegister";
+            buttonRegister.Size = new Size(128, 51);
+            buttonRegister.TabIndex = 9;
+            buttonRegister.Text = "REGISTER";
+            buttonRegister.UseVisualStyleBackColor = true;
             // 
             // FormCreateCustomers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::SORA_Project.Properties.Resources.BG;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(563, 371);
-            this.Controls.Add(this.groupBoxCustomer);
-            this.Controls.Add(this.buttonRegister);
-            this.Name = "FormCreateCustomers";
-            this.Text = "FormCreateCustomers";
-            this.Load += new System.EventHandler(this.FormCreateCustomers_Load);
-            this.groupBoxCustomer.ResumeLayout(false);
-            this.groupBoxCustomer.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.BG;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(563, 371);
+            Controls.Add(groupBoxCustomer);
+            Controls.Add(buttonRegister);
+            Name = "FormCreateCustomers";
+            Text = "FormCreateCustomers";
+            Load += FormCreateCustomers_Load;
+            groupBoxCustomer.ResumeLayout(false);
+            groupBoxCustomer.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
 
         private GroupBox groupBoxCustomer;
         private Label labelDateOfBirth;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePickerDOB;
         private Panel panel5;
         private TextBox textBoxPhoneNum;
         private Panel panel3;

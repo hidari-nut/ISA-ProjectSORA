@@ -28,5 +28,24 @@ namespace SORA_Project
         {
 
         }
+
+        private void buttonLogIn_Click(object sender, EventArgs e)
+        {
+            Customer customerLogin = new Customer();
+
+            string email = textBoxUsername.Text;
+            string password = textBoxPassword.Text;
+
+            bool loginSuccess = Customer.CheckPassword(email, password);
+
+            if (loginSuccess == true )
+            {
+                customerLogin = Customer.ReadData(email, password);
+            }
+            else 
+            {
+                MessageBox.Show("Your inputted email or password is incorrect!");
+            }    
+        }
     }
 }

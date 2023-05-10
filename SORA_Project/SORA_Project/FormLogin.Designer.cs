@@ -95,6 +95,7 @@
             buttonLogIn.TabIndex = 4;
             buttonLogIn.Text = "Log In";
             buttonLogIn.UseVisualStyleBackColor = false;
+            buttonLogIn.Click += buttonLogIn_Click;
             // 
             // label1
             // 

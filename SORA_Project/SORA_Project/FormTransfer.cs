@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SORA_Class;
 
 namespace SORA_Project
 {
@@ -15,6 +16,47 @@ namespace SORA_Project
         public FormTransfer()
         {
             InitializeComponent();
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string senderID = "2345";
+                string senderPass = "meiRinjyo";
+
+                string email = textBoxOutsider.Text;
+                Decimal amount = numericUpDownValue.Value;
+                DateTime transactionTime = DateTime.Now;
+                string transactionID = Transaction.GenerateID(transactionTime);
+
+                string recipientID = Customer.SearchByID(email);
+
+                Transaction transaction = new Transaction();
+                if (email != "")
+                {
+                    transaction = new Transaction(transactionID, senderID, recipientID, transactionTime,
+                        amount, false);
+
+                    //CONFIRM
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //try
+            //{
+            //    Transaction transaction = new Transaction(1, "2345", "2346", DateTime.Now, 10000, false);
+            //    bool successful = Transaction.Add(transaction, "meiRinjyo");
+            //    MessageBox.Show("Transaction Successful?: " + successful);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
     }
 }
