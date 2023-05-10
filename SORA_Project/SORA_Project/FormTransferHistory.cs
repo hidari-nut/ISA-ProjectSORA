@@ -16,5 +16,10 @@ namespace SORA_Project
         {
             InitializeComponent();
         }
+
+        private void FormTransferHistory_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

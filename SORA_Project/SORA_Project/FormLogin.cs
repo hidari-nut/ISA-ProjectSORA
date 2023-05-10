@@ -41,6 +41,14 @@ namespace SORA_Project
             if (loginSuccess == true )
             {
                 customerLogin = Customer.ReadData(email, password);
+
+                MessageBox.Show("Login Successful!");
+
+                FormMenu formMenu = new FormMenu();
+                formMenu.customerLogin = customerLogin;
+                formMenu.ShowDialog();
+
+                this.Close();
             }
             else 
             {

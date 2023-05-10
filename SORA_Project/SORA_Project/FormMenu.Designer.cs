@@ -59,6 +59,7 @@
             buttonAccount.Size = new Size(174, 108);
             buttonAccount.TabIndex = 4;
             buttonAccount.UseVisualStyleBackColor = true;
+            buttonAccount.Click += buttonAccount_Click;
             // 
             // buttonTransfer
             // 
@@ -72,6 +73,7 @@
             buttonTransfer.Size = new Size(174, 108);
             buttonTransfer.TabIndex = 5;
             buttonTransfer.UseVisualStyleBackColor = true;
+            buttonTransfer.Click += buttonTransfer_Click;
             // 
             // buttonMerchant
             // 

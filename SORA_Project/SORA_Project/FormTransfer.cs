@@ -18,6 +18,8 @@ namespace SORA_Project
             InitializeComponent();
         }
 
+        public Customer customerLogin;
+
         private void buttonSend_Click(object sender, EventArgs e)
         {
             try
@@ -36,10 +38,14 @@ namespace SORA_Project
                 Transaction transaction = new Transaction();
                 if (email != "")
                 {
-                    transaction = new Transaction(transactionID, senderID, recipientID, transactionTime,
+                    transaction = new Transaction(transactionID, customerLogin.Id, recipientID, transactionTime,
                         amount, false);
 
-                    //CONFIRM
+                    FormConfirm formConfirm = new FormConfirm();
+                    formConfirm.Owner = this;
+                    formConfirm.customerLogin = customerLogin;
+                    formConfirm.ongoingTransaction = transaction;
+                    formConfirm.Show();
                 }
             }
             catch (Exception ex)
