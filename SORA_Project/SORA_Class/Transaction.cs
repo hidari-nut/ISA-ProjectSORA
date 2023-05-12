@@ -481,7 +481,7 @@ namespace SORA_Class
                     code = int.Parse(result.GetValue(0).ToString()) + 1;
 
                 }
-            }
+            }    
             idString = transactionTime.ToString("ddMMyyyyHHmmss") + indicator + code.ToString().PadLeft(3, '0');
 
             return idString;
