@@ -63,6 +63,7 @@
             buttonAccount.Size = new Size(174, 108);
             buttonAccount.TabIndex = 9;
             buttonAccount.UseVisualStyleBackColor = false;
+            buttonAccount.Click += buttonAccount_Click;
             // 
             // pictureBoxLogo
             // 

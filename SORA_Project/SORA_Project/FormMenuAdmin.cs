@@ -22,19 +22,36 @@ namespace SORA_Project
 
         private void FormMenuAdmin_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("Welcome " + adminLogin.FirstName + " " + adminLogin.LastName + "!");
             textBoxName.Text = "Welcome admin Who! : who@adminSORA.id";
             textBoxName.Text = "Welcome admin " + adminLogin.FirstName + " " + adminLogin.LastName + " : " + adminLogin.Email;
         }
 
         private void buttonBan_Click(object sender, EventArgs e)
         {
-            Form form = Application.OpenForms["FormUserProfile"];
+            Form form = Application.OpenForms["FormBanAccount"];
             if (form == null)
             {
                 FormBanAccount formBanAccount = new FormBanAccount();
                 formBanAccount.Owner = this;
                 formBanAccount.adminLogin = adminLogin;
                 formBanAccount.Show();
+            }
+            else
+            {
+                form.Show();
+                form.BringToFront();
+            }
+        }
+
+        private void buttonAccount_Click(object sender, EventArgs e)
+        {
+            Form form = Application.OpenForms["FormCreateAdmin"];
+            if (form == null)
+            {
+                FormCreateAdmin formCreateAdmin = new FormCreateAdmin();
+                formCreateAdmin.Owner = this;
+                formCreateAdmin.Show();
             }
             else
             {
