@@ -830,6 +830,44 @@ namespace SORA_Class
             }
         }
 
+        public static List<Customer> ReadDataByAdmin(bool status)
+        {
+            string sql = "SELECT idCustomer, email, ban from tCustomers WHERE ban = @ban;";
+
+            int banInt = 0;
+
+            if (status == true)
+            {
+                banInt = 1;
+            }
+
+            #region SQL Parameter
+            var banParam = new MySqlParameter("@ban", MySqlDbType.Int64)
+            {
+                Direction = System.Data.ParameterDirection.Input,
+                Value = banInt
+            };
+            #endregion
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, banParam);
+
+            List<Customer> listCustomer = new List<Customer>();
+
+            while (result.Read() == true)
+            {
+                Customer customer = new Customer();
+
+                customer.Id = result.GetValue(0).ToString();
+                customer.Email = result.GetValue(1).ToString();
+                customer.Banned = int.Parse(result.GetValue(2).ToString());
+
+                listCustomer.Add(customer);
+            }
+
+            return listCustomer;
+        }
+
         /// <summary>
         /// Updates the customer's ban status.
         /// </summary>

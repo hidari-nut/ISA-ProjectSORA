@@ -108,6 +108,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            BackgroundImage = Properties.Resources.BG_4;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(914, 600);
             Controls.Add(buttonHistory);
             Controls.Add(buttonTopup);
@@ -117,7 +119,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormMenu";
             Text = "FormMenu";
-            Load += FormMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             ResumeLayout(false);
         }

@@ -26,33 +26,64 @@ namespace SORA_Project
 
         private void FormLogin_Load_1(object sender, EventArgs e)
         {
+            //Admin adminNew = new Admin("0001", "Alvin", "Setiawan", "alvin@adminSORA.id",
+            //    "123456", DateTime.Now, "alvinSetiawan");
+            //bool success = Admin.AddAdmin(adminNew);
 
+            //if(success)
+            //{
+            //    MessageBox.Show("Welcome admin " + adminNew.FirstName + " " +
+            //        adminNew.LastName + " : " + adminNew.Email);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Admin insert failed!");
+            //}
         }
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
             Customer customerLogin = new Customer();
+            Admin adminLogin = new Admin();
 
             string email = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
-            bool loginSuccess = Customer.CheckPassword(email, password);
-
-            if (loginSuccess == true)
+            adminLogin = Admin.CheckLogin(email, password);
+            if (adminLogin == null)
             {
-                customerLogin = Customer.ReadData(email, password);
+                bool loginSuccess = Customer.CheckPassword(email, password);
 
-                MessageBox.Show("Login Successful!");
+                if (loginSuccess == true)
+                {
+                    customerLogin = Customer.ReadData(email, password);
 
-                FormMenu formMenu = new FormMenu();
-                formMenu.customerLogin = customerLogin;
-                formMenu.ShowDialog();
+                    if (customerLogin.Banned == 0)
+                    {
+                        MessageBox.Show("Login Successful!");
 
-                this.Close();
+                        FormMenu formMenu = new FormMenu();
+                        formMenu.customerLogin = customerLogin;
+                        formMenu.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your account has been blocked! Please contact SORA Customer Services for Assistance!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Your inputted email or password is incorrect!");
+                }
             }
             else
             {
-                MessageBox.Show("Your inputted email or password is incorrect!");
+                MessageBox.Show("Login Admin Successful!");
+
+                FormMenuAdmin formMenuAdmin = new FormMenuAdmin();
+                formMenuAdmin.adminLogin = adminLogin;
+                formMenuAdmin.ShowDialog();
             }
         }
 
