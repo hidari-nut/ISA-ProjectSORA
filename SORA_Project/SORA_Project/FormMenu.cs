@@ -18,7 +18,8 @@ namespace SORA_Project
             InitializeComponent();
         }
 
-        public Customer customerLogin;
+        public Customer customerLogin = null;
+        public Admin adminLogin = null;
 
         private void FormMenu_Load(object sender, EventArgs e)
         {

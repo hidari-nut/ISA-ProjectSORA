@@ -9,7 +9,7 @@ using System.Web.Helpers;
 
 namespace SORA_Class
 {
-    internal class Admin
+    public class Admin
     {
         private string id;
         private string firstName;

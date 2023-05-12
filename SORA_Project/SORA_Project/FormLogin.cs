@@ -32,27 +32,40 @@ namespace SORA_Project
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
             Customer customerLogin = new Customer();
+            Admin adminLogin = new Admin();
 
             string email = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
-            bool loginSuccess = Customer.CheckPassword(email, password);
-
-            if (loginSuccess == true)
+            adminLogin = Admin.CheckLogin(email, password);
+            if (adminLogin == null)
             {
-                customerLogin = Customer.ReadData(email, password);
+                bool loginSuccess = Customer.CheckPassword(email, password);
 
-                MessageBox.Show("Login Successful!");
+                if (loginSuccess == true)
+                {
+                    customerLogin = Customer.ReadData(email, password);
+
+                    MessageBox.Show("Login Successful!");
+
+                    FormMenu formMenu = new FormMenu();
+                    formMenu.customerLogin = customerLogin;
+                    formMenu.ShowDialog();
+
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Your inputted email or password is incorrect!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Login Admin Successful!");
 
                 FormMenu formMenu = new FormMenu();
                 formMenu.customerLogin = customerLogin;
                 formMenu.ShowDialog();
-
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Your inputted email or password is incorrect!");
             }
         }
 
