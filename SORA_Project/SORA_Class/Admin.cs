@@ -229,11 +229,11 @@ namespace SORA_Class
             }
             else
             {
-                string sql = "SELECT * FROM tAdmins WHERE  tAdmins.email = @email AND tAdmins.password = @password;";
+                string sql = "SELECT * FROM tAdmins WHERE  tAdmins.email = @email;";
 
                 Connection connection = new Connection();
                 MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, 
-                    emailParam, passwordParam);
+                    emailParam);
 
                 Admin login = new Admin();
 
