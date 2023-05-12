@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySqlX.XDevAPI.Common;
+using System.Web.Helpers;
 
 namespace SORA_Class
 {
@@ -54,6 +55,15 @@ namespace SORA_Class
 
         public static bool AddAdmin(Admin admin)
         {
+            string plainPassword = admin.Password;
+
+            //Salt and Hash Password
+            (string, string) hashedAndSaltPassword = Customer.SaltAndHashPassword(admin.Password);
+            admin.Password = hashedAndSaltPassword.Item1;
+            admin.Password_salt = hashedAndSaltPassword.Item2;
+
+            admin.Id = Admin.GenerateID();
+
             #region SQL Parameter
             var idParam = new MySqlParameter("@admin_id", MySqlDbType.Int64)
             {
@@ -230,6 +240,7 @@ namespace SORA_Class
                     login.FirstName = result.GetValue(1).ToString();
                     login.LastName = result.GetValue(2).ToString();
                     login.Email = result.GetValue(3).ToString();
+                    login.PhoneNumber = result.GetValue(6).ToString();
                     login.DateOfBirth = DateTime.Parse(result.GetValue(7).ToString());
                 }
 
@@ -238,32 +249,71 @@ namespace SORA_Class
             
         }
 
+        //public static bool CheckPassword(string email, string password)
+        //{
+        //    #region SQL Parameter
+        //    var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+        //    {
+        //        Direction = System.Data.ParameterDirection.Input,
+        //        Value = email
+        //    };
+        //    var passwordParam = new MySqlParameter("@password", MySqlDbType.Int64)
+        //    {
+        //        Direction = System.Data.ParameterDirection.Input,
+        //        Value = password
+        //    };
+        //    #endregion
+
+        //    string sql = "SELECT email FROM tAdmins WHERE tAdmins.email = @email AND tAdmins.password = @password;";
+
+        //    MySqlDataReader result = Connection.RunQueryCommand(sql);
+        //    string userEmail = "";
+
+        //    if (result.Read() == true)
+        //    {
+        //        userEmail = result.GetString("email");
+        //    }
+
+        //    if (userEmail != null && userEmail != "")
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
         public static bool CheckPassword(string email, string password)
         {
-            #region SQL Parameter
-            var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+            string sql = "SELECT password, password_salt FROM tAdmins WHERE tAdmins.email = @email;";
+
+            #region SQL Parameters
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = email
             };
-            var passwordParam = new MySqlParameter("@password", MySqlDbType.Int64)
-            {
-                Direction = System.Data.ParameterDirection.Input,
-                Value = password
-            };
             #endregion
 
-            string sql = "SELECT email FROM tAdmins WHERE tAdmins.email = @email AND tAdmins.password = @password;";
-
-            MySqlDataReader result = Connection.RunQueryCommand(sql);
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, emailParam);
             string userEmail = "";
+            string userPassword = "";
+            string userPasswordSalt = "";
 
-            if (result.Read() == true)
+            while (result.Read() == true)
             {
-                userEmail = result.GetString("email");
+                userPassword = result.GetString("password");
+                userPasswordSalt = result.GetString("password_salt");
             }
 
-            if (userEmail != null && userEmail != "")
+            string saltedPlain = userPasswordSalt + password;
+
+            string onceHashed = Crypto.HashPassword(saltedPlain);
+
+            //Second hash done in verify method.
+            if (Crypto.VerifyHashedPassword(userPassword, saltedPlain) == true)
             {
                 return true;
             }
@@ -321,5 +371,26 @@ namespace SORA_Class
         
         }
 
+        public static string GenerateID()
+        {
+            string sql = "SELECT MAX(CAST(admin_id AS UNSIGNED)) FROM tAdmins;";
+
+            int code = 1;
+            string idString = "";
+
+            Connection connection = new Connection();
+            MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql);
+
+            if (result.Read() == true)
+            {
+                if (result.GetValue(0).ToString() != "")
+                {
+                    code = int.Parse(result.GetValue(0).ToString()) + 1;
+                }
+            }
+            idString = code.ToString().PadLeft(9, '0');
+
+            return idString;
+        }
     }
 }
