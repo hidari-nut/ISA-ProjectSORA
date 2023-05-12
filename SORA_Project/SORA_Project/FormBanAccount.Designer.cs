@@ -28,97 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.comboBoxAttribute = new System.Windows.Forms.ComboBox();
-            this.labelFilter = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonTransfer = new System.Windows.Forms.Button();
-            this.dataGridViewInfo = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).BeginInit();
-            this.SuspendLayout();
+            textBoxName = new TextBox();
+            comboBoxAttribute = new ComboBox();
+            labelFilter = new Label();
+            pictureBox1 = new PictureBox();
+            buttonBan = new Button();
+            dataGridViewInfo = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewInfo).BeginInit();
+            SuspendLayout();
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(284, 116);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(578, 27);
-            this.textBoxName.TabIndex = 17;
+            textBoxName.Location = new Point(284, 116);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new Size(578, 27);
+            textBoxName.TabIndex = 17;
             // 
             // comboBoxAttribute
             // 
-            this.comboBoxAttribute.FormattingEnabled = true;
-            this.comboBoxAttribute.Location = new System.Drawing.Point(151, 116);
-            this.comboBoxAttribute.Name = "comboBoxAttribute";
-            this.comboBoxAttribute.Size = new System.Drawing.Size(127, 28);
-            this.comboBoxAttribute.TabIndex = 16;
+            comboBoxAttribute.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxAttribute.FormattingEnabled = true;
+            comboBoxAttribute.Location = new Point(151, 116);
+            comboBoxAttribute.Name = "comboBoxAttribute";
+            comboBoxAttribute.Size = new Size(127, 28);
+            comboBoxAttribute.TabIndex = 16;
+            comboBoxAttribute.SelectedIndexChanged += comboBoxAttribute_SelectedIndexChanged;
             // 
             // labelFilter
             // 
-            this.labelFilter.AutoSize = true;
-            this.labelFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelFilter.Location = new System.Drawing.Point(12, 110);
-            this.labelFilter.Name = "labelFilter";
-            this.labelFilter.Size = new System.Drawing.Size(151, 36);
-            this.labelFilter.TabIndex = 15;
-            this.labelFilter.Text = "FILTER : ";
+            labelFilter.AutoSize = true;
+            labelFilter.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            labelFilter.Location = new Point(12, 110);
+            labelFilter.Name = "labelFilter";
+            labelFilter.Size = new Size(151, 36);
+            labelFilter.TabIndex = 15;
+            labelFilter.Text = "FILTER : ";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::SORA_Project.Properties.Resources.Title_Read_5;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(431, 62);
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.BackgroundImage = Properties.Resources.Title_Read_5;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Location = new Point(12, 18);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(431, 62);
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
             // 
-            // buttonTransfer
+            // buttonBan
             // 
-            this.buttonTransfer.BackgroundImage = global::SORA_Project.Properties.Resources.ButtonG;
-            this.buttonTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonTransfer.ForeColor = System.Drawing.Color.White;
-            this.buttonTransfer.Location = new System.Drawing.Point(754, 569);
-            this.buttonTransfer.Name = "buttonTransfer";
-            this.buttonTransfer.Size = new System.Drawing.Size(108, 42);
-            this.buttonTransfer.TabIndex = 13;
-            this.buttonTransfer.Text = "Close";
-            this.buttonTransfer.UseVisualStyleBackColor = true;
+            buttonBan.BackgroundImage = Properties.Resources.ButtonG;
+            buttonBan.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonBan.FlatStyle = FlatStyle.Flat;
+            buttonBan.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonBan.ForeColor = Color.White;
+            buttonBan.Location = new Point(754, 569);
+            buttonBan.Name = "buttonBan";
+            buttonBan.Size = new Size(108, 42);
+            buttonBan.TabIndex = 13;
+            buttonBan.Text = "Close";
+            buttonBan.UseVisualStyleBackColor = true;
+            buttonBan.Click += buttonBan_Click;
             // 
             // dataGridViewInfo
             // 
-            this.dataGridViewInfo.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridViewInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInfo.Location = new System.Drawing.Point(12, 172);
-            this.dataGridViewInfo.Name = "dataGridViewInfo";
-            this.dataGridViewInfo.RowHeadersWidth = 51;
-            this.dataGridViewInfo.RowTemplate.Height = 29;
-            this.dataGridViewInfo.Size = new System.Drawing.Size(850, 391);
-            this.dataGridViewInfo.TabIndex = 12;
+            dataGridViewInfo.BackgroundColor = Color.White;
+            dataGridViewInfo.BorderStyle = BorderStyle.Fixed3D;
+            dataGridViewInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewInfo.Location = new Point(12, 172);
+            dataGridViewInfo.Name = "dataGridViewInfo";
+            dataGridViewInfo.RowHeadersWidth = 51;
+            dataGridViewInfo.RowTemplate.Height = 29;
+            dataGridViewInfo.Size = new Size(850, 391);
+            dataGridViewInfo.TabIndex = 12;
+            dataGridViewInfo.CellContentClick += dataGridViewInfo_CellContentClick;
             // 
             // FormBanAccount
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(874, 628);
-            this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.comboBoxAttribute);
-            this.Controls.Add(this.labelFilter);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.buttonTransfer);
-            this.Controls.Add(this.dataGridViewInfo);
-            this.Name = "FormBanAccount";
-            this.Text = "FormBanAccount";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(874, 628);
+            Controls.Add(textBoxName);
+            Controls.Add(comboBoxAttribute);
+            Controls.Add(labelFilter);
+            Controls.Add(pictureBox1);
+            Controls.Add(buttonBan);
+            Controls.Add(dataGridViewInfo);
+            Name = "FormBanAccount";
+            Text = "FormBanAccount";
+            Load += FormBanAccount_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewInfo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -127,7 +131,7 @@
         private ComboBox comboBoxAttribute;
         private Label labelFilter;
         private PictureBox pictureBox1;
-        private Button buttonTransfer;
+        private Button buttonBan;
         private DataGridView dataGridViewInfo;
     }
 }

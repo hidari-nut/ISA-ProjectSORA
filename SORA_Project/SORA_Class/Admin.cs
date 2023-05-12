@@ -91,7 +91,7 @@ namespace SORA_Class
                 Direction = System.Data.ParameterDirection.Input,
                 Value = admin.Password
             };
-            var passwordSaltParam = new MySqlParameter("@password", MySqlDbType.VarChar, 32)
+            var passwordSaltParam = new MySqlParameter("@password_salt", MySqlDbType.VarChar, 32)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = admin.Password_salt
@@ -113,7 +113,8 @@ namespace SORA_Class
 
             Connection connection = new Connection();
 
-            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam, emailParam, passwordParam, passwordSaltParam, phoneNumberParam, dobParam) > 0)
+            if (MySqlHelper.ExecuteNonQuery(connection.DbConnection, sql, idParam, firstNameParam, lastNameParam, 
+                emailParam, passwordParam, passwordSaltParam, phoneNumberParam, dobParam) > 0)
             {
                 return true;
             }
@@ -209,12 +210,12 @@ namespace SORA_Class
         {
 
             #region SQL Parameter
-            var emailParam = new MySqlParameter("@email", MySqlDbType.Int64)
+            var emailParam = new MySqlParameter("@email", MySqlDbType.VarChar, 45)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = email
             };
-            var passwordParam = new MySqlParameter("@password", MySqlDbType.Int64)
+            var passwordParam = new MySqlParameter("@password", MySqlDbType.VarChar, 128)
             {
                 Direction = System.Data.ParameterDirection.Input,
                 Value = password
@@ -230,7 +231,9 @@ namespace SORA_Class
             {
                 string sql = "SELECT * FROM tAdmins WHERE  tAdmins.email = @email AND tAdmins.password = @password;";
 
-                MySqlDataReader result = Connection.RunQueryCommand(sql);
+                Connection connection = new Connection();
+                MySqlDataReader result = MySqlHelper.ExecuteReader(connection.DbConnection, sql, 
+                    emailParam, passwordParam);
 
                 Admin login = new Admin();
 
