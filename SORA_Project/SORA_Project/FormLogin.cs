@@ -26,6 +26,8 @@ namespace SORA_Project
 
         private void FormLogin_Load_1(object sender, EventArgs e)
         {
+            //TO ADD NEW ADMIN
+
             //Admin adminNew = new Admin("0001", "Alvin", "Setiawan", "alvin@adminSORA.id",
             //    "123456", DateTime.Now, "alvinSetiawan");
             //bool success = Admin.AddAdmin(adminNew);
